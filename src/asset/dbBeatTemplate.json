@@ -1,0 +1,216 @@
+[{
+    "id": "b-2023-07-12-1200",
+    "info": {
+      "title": "nba youngbouy type beat - nacho",
+      "bpm": 140,
+      "tags": ["nba youngboy", "nacho", "2024"]
+    },
+    "packages": {
+      "free": {
+        "package": "free",
+        "price": 0,
+        "untagged": false,
+        "mp3": {
+          "mp3": true,
+          "bitrate": 192
+        },
+        "wav": false,
+        "project-files": false
+      },
+      "basic": {
+        "package": "basic",
+        "price": 30,
+        "untagged": true,
+        "mp3": {
+          "mp3": true,
+          "bitrate": 320
+        },
+        "wav": false,
+        "project-files": false
+      },
+      "premium": {
+        "package": "premium",
+        "price": 80,
+        "untagged": true,
+        "mp3": {
+          "mp3": true,
+          "bitrate": 320
+        },
+        "wav": true,
+        "project-files": false
+      },
+      "exclusive": {
+        "package": "exclusive",
+        "price": 300,
+        "untagged": true,
+        "mp3": {
+          "mp3": true,
+          "bitrate": 320
+        },
+        "wav": true,
+        "project-files": true
+      }
+    }
+},
+{
+  "id": "b-2023-07-12-1203",
+  "info": {
+    "title": "meek mill type beat",
+    "bpm": 140,
+    "tags": ["nba youngboy", "nacho", "2024"]
+  },
+  "packages": {
+    "free": {
+      "package": "free",
+      "price": 0,
+      "untagged": false,
+      "mp3": {
+        "mp3": true,
+        "bitrate": 192
+      },
+      "wav": false,
+      "project-files": false
+    },
+    "basic": {
+      "package": "basic",
+      "price": 24,
+      "untagged": true,
+      "mp3": {
+        "mp3": true,
+        "bitrate": 320
+      },
+      "wav": false,
+      "project-files": false
+    },
+    "premium": {
+      "package": "premium",
+      "price": 65,
+      "untagged": true,
+      "mp3": {
+        "mp3": true,
+        "bitrate": 320
+      },
+      "wav": true,
+      "project-files": false
+    },
+    "exclusive": {
+      "package": "exclusive",
+      "price": 245,
+      "untagged": true,
+      "mp3": {
+        "mp3": true,
+        "bitrate": 320
+      },
+      "wav": true,
+      "project-files": true
+    }
+  }
+},
+{
+  "id": "b-2023-07-12-1204",
+  "info": {
+    "title": "nba youngbouy type beat - nacho",
+    "bpm": 140,
+    "tags": ["nba youngboy", "nacho", "2024"]
+  },
+  "packages": {
+    "free": {
+      "package": "free",
+      "price": 0,
+      "untagged": false,
+      "mp3": {
+        "mp3": true,
+        "bitrate": 192
+      },
+      "wav": false,
+      "project-files": false
+    },
+    "basic": {
+      "package": "basic",
+      "price": 30,
+      "untagged": true,
+      "mp3": {
+        "mp3": true,
+        "bitrate": 320
+      },
+      "wav": false,
+      "project-files": false
+    },
+    "premium": {
+      "package": "premium",
+      "price": 80,
+      "untagged": true,
+      "mp3": {
+        "mp3": true,
+        "bitrate": 320
+      },
+      "wav": true,
+      "project-files": false
+    },
+    "exclusive": {
+      "package": "exclusive",
+      "price": 300,
+      "untagged": true,
+      "mp3": {
+        "mp3": true,
+        "bitrate": 320
+      },
+      "wav": true,
+      "project-files": true
+    }
+  }
+},
+{
+"id": "b-2023-07-12-1205",
+"info": {
+  "title": "meek mill type beat",
+  "bpm": 140,
+  "tags": ["nba youngboy", "nacho", "2024"]
+},
+"packages": {
+  "free": {
+    "package": "free",
+    "price": 0,
+    "untagged": false,
+    "mp3": {
+      "mp3": true,
+      "bitrate": 192
+    },
+    "wav": false,
+    "project-files": false
+  },
+  "basic": {
+    "package": "basic",
+    "price": 24,
+    "untagged": true,
+    "mp3": {
+      "mp3": true,
+      "bitrate": 320
+    },
+    "wav": false,
+    "project-files": false
+  },
+  "premium": {
+    "package": "premium",
+    "price": 65,
+    "untagged": true,
+    "mp3": {
+      "mp3": true,
+      "bitrate": 320
+    },
+    "wav": true,
+    "project-files": false
+  },
+  "exclusive": {
+    "package": "exclusive",
+    "price": 245,
+    "untagged": true,
+    "mp3": {
+      "mp3": true,
+      "bitrate": 320
+    },
+    "wav": true,
+    "project-files": true
+  }
+}
+}]

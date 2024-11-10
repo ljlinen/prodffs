@@ -1,0 +1,12 @@
+.main-div-beatpage {
+   header {
+
+   }
+
+   .beat {
+      margin-inline: 30px !important;
+   }
+   .beat .bg {
+      display: none;
+   }
+}

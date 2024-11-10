@@ -1,0 +1,38 @@
+.vd-div-main {
+    padding: 20vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+
+    .boxes {
+        display: flex;
+        gap: 5px;
+        border-radius: 6px;
+        padding: 20px;
+    }
+
+    .box {
+        height: 50px;
+        width: 50px;
+        border: 1px solid rgba(0, 0, 0, .3);
+        border-radius: 6px;
+    }
+
+    .boxes :nth-child(1) {
+        background-color: blue;
+    }
+    .boxes :nth-child(2) {
+        background-color: #000;
+    }
+    .boxes :nth-child(3) {
+        background-color: rgb(41, 41, 85);
+    }
+    .boxes :nth-child(4) {
+        background-color: rgb(154, 154, 202);
+    }
+
+    img {
+        width: 100%;
+    }
+}
