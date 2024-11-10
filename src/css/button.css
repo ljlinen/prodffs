@@ -1,0 +1,28 @@
+.button {
+    opacity: 1;
+    display: flex;
+    max-width: fit-content;
+    height: 40px;
+    transform: translateY(0);
+    /* border: 1px solid rgba(var(--clr-font-p), .5); */
+    border-radius: 4px;
+    gap: 6px;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+    padding: 2px;
+    transition: opacity .3s, transform .4s ease-out;
+    box-shadow: rgb(0 0 0 / 20%) 4px 2px 5px 0px;
+    background: linear-gradient(to right, rgba(var(--clr-primary)) 0%, rgba(var(--clr-60)) 40%);
+}
+
+.button-mask {
+    padding-inline: 8px;
+    background-color: rgba(var(--clr-60));
+    display: flex;
+    height: 100%;
+    width: 100%;
+    border-radius: 4px;
+    align-items: center;
+}
