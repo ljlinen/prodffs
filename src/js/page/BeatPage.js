@@ -17,6 +17,7 @@ export default function BeatPage() {
   const [isLoading, setIsLoading] = useState();
   const [sorter, setSorter] = useState();
 
+
   useEffect(() => {
 
     // Load Inventory

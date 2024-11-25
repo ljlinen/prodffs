@@ -111,7 +111,7 @@ export default function CheckoutPage({ id, beatObj }) {
           <p>Checkout</p>
           <div className='info'>
             <h4>Due: ${selectedPackage?.price}</h4>          
-          </div>        
+          </div>      
         </div>
       </div>
     </div>

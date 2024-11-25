@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import buy from "../../asset/img/icon/download.svg";
-import play from "../../asset/img/icon/circle-play.svg";
-import useBeatsContext from "../hooks/useContext/useBeatsContext";
-import useBuyingContext from "../hooks/useContext/useBuyingContext";
+import buy from "../../../asset/img/icon/download.svg";
+import play from "../../../asset/img/icon/circle-play.svg";
+import useBeatsContext from "../../hooks/useContext/useBeatsContext";
+import useBuyingContext from "../../hooks/useContext/useBuyingContext";
 
-export default function Beat({ beatObj, id, i }) {
+export default function BeatAdmin({ beatObj, id, i }) {
 
   const { beatsDispatch, isPlaying, playingSongIndex } = useBeatsContext();
   const { info } = beatObj;
@@ -59,9 +59,9 @@ export default function Beat({ beatObj, id, i }) {
       </div>
       <div className="title-bpm">
         <h4>{info?.title}</h4>
-        <p>bpm: {info?.bpm} </p>
+        <p>bpm: {info?.bpm}</p>
       </div>
-      <img className={(/* !isSafe && */ i !== playingSongIndex) ? "hide-anim play" :  "hide play" }
+      <img className={(!isSafe && i !== playingSongIndex) ? "hide-anim play" :  "hide play" }
         src={play}
         alt="background-image"
         onClick={handlePlay}

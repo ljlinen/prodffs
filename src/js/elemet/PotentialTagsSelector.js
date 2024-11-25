@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function PotentialTagsSelecctor({condition, potentialTags, tagTitles, handler}) {
+export default function PotentialTagsSelector({condition, potentialTags, tagTitles, handler}) {
     
   return (
     <div className={condition ? "potential-tags hide-up-anim" : "potential-tags hide-up-hide"}>

@@ -10,7 +10,8 @@ import useCreatePackages from "../hooks/useCreatePackages";
 import useUploadBeat from "../hooks/useUploadBeat";
 import PageIndicator from "../component/PageIndicator";
 import Header from "../component/Header";
-import TabUploadBeat from "../component/TabUploadBeat";
+import TabManageInventory from "../component/Admin/TabManageInventory";
+import TabUploadBeat from "../component/Admin/TabUploadBeat";
 
 export default function AdminPage() {
   const location = useLocation();
@@ -80,7 +81,7 @@ export default function AdminPage() {
 
           <div className="tabs">
             <div className={activeTab === 1 ? "t1 show-tab" : "hide-tab"}>Tab 1</div>
-            <div className={activeTab === 2 ? "t2 show-tab" : "hide-tab"}>Tab 2</div>
+            <TabManageInventory activeTab={activeTab} />
             <TabUploadBeat activeTab={activeTab} isUploadingStep={isUploadingStep} setIsUploadingStep={setIsUploadingStep} file={file} setFile={setFile} handleEditingModeChange={handleEditingModeChange} setPackages={setPackages} uploadBeat={uploadBeat} packages={packages} removePackage={removePackage} isEditing={isEditing} />
           </div>
 

@@ -1,38 +1,51 @@
 import React, { createContext, useReducer } from 'react'
 
 export const BeatsContext = createContext();
+
 export const beatsReducer = (state, action) => {
 
   switch (action.type) {
     case "SET_BEATS":
       return {
         beats: {...action.payload},
-        inventory: state.inventory
+        inventory: state.inventory,
+        playingSongIndex: state.playingSongIndex,
+        isPlaying: state.isPlaying
       }
     case "SET_INVENTORY":
       return {
         beats: state.beats,
         inventory: action.payload,
+        playingSongIndex: state.playingSongIndex,
+        isPlaying: state.isPlaying
       }
     case "ADD_BEAT":
-      let newArr
-      if(state.beats && typeof action.payload === 'number') {
-        const moveItem = state.beats.slice(action.payload, action.payload + 1);
-        state.beats.splice(action.payload, 1);
-        newArr = [...moveItem, ...state.beats]
-      } else {
-        newArr = state.beats && [...state.beats, action.payload]
-      }
-      console.log('debug beats', state.beats ? newArr : [action.payload]);
-       
       return { 
-        beats: state.beats ? newArr : [action.payload],
-        inventory: state.inventory
+        beats: state.beats ? [...state.beats, action.payload] : [action.payload],
+        inventory: state.inventory,
+        playingSongIndex: state.playingSongIndex,
+        isPlaying: state.isPlaying
+      }
+    case "SET_PLAYING_SONG":
+      return { 
+        beats: state.beats,
+        inventory: state.inventory,
+        playingSongIndex: action.payload,
+        isPlaying: state.isPlaying
+      }
+    case "SET_IS_PLAYING":
+      return { 
+        beats: state.beats,
+        inventory: state.inventory,
+        playingSongIndex: state.playingSongIndex,
+        isPlaying: action.payload,
       }
     case "CLEAR_BEATS":
     return {
         beats: null,
-        inventory: null
+        inventory: null,
+        playingSongIndex: null,
+        isPlaying: null
     }
     default:
       return state
@@ -41,10 +54,10 @@ export const beatsReducer = (state, action) => {
     
 export default function BeatsContextProvider({children}) {
 
-
   const [state, beatsDispatch] = useReducer(beatsReducer, {
     beats: null,
-    inventory: null
+    inventory: null,
+    playingSongIndex: null,
   })
 
   return (

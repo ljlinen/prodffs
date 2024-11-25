@@ -6,7 +6,7 @@ import HomePage from "./js/page/HomePage";
 import ViewDebugger from "./js/page/ViewDebugger";
 import BuyingContextProvider from "./js/context/BuyingContext";
 import BeatsContextProvider from "./js/context/BeatsContext";
-import AdminPage from "./js/page/AdminPage";
+// import AdminPage from "./js/page/AdminPage";
 import AdminContextProvider from "./js/context/AdminContext";
 import BeatPage from "./js/page/BeatPage";
 
@@ -22,10 +22,10 @@ const router = createBrowserRouter([
     path: "/",
     element: <HomePage />,
   },
-  {
-    path: "/admin",
-    element: <AdminPage />,
-  },
+  // {
+  //   path: "/admin",
+  //   element: <AdminPage />,
+  // },
   {
     path: "beat/:beatid",
     element: <BeatPage />,
