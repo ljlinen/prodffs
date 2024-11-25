@@ -8,26 +8,52 @@ import { baseUrl } from '../..';
 
 export default function AudioPlayer({renderCondition}) {
 
-    const { beats } = useBeatsContext();
+    const { beats, playingSongIndex, isPlaying, beatsDispatch } = useBeatsContext();
     const audioRef = useRef(null);
 
-    const [isPlaying, setIsPlaying] = useState(false)
     const [currentSongSrc, setCurrentSongSrc] = useState()
     const [currentSongIndex, setCurrentSongIndex] = useState(0)
+    const [toPlayQue, setToPlayQue] = useState()
+    const [queLoaded, setQueLoaded] = useState()
 
     useEffect(() => {
 
         if(beats?.length) {
-            setIsPlaying(false)
-            const url = beats[currentSongIndex]?.id ? baseUrl + '/beatfile/' + beats[currentSongIndex]?.id : null
-            setCurrentSongSrc(url);
-            // handleControlClick('play-pause')
+            const que = beats.map((beat, i) => {
+                return baseUrl + '/beatfile/' + beat.id
+            })
+            setToPlayQue(que)
+            setQueLoaded(true)
         }
 
     // eslint-disable-next-line
-    }, [beats, currentSongIndex])
+    }, [beats])
+
+    useEffect(() => {
+
+        if(queLoaded) {
+            console.log(currentSongIndex);
+            
+            setCurrentSongSrc(toPlayQue[currentSongIndex])
+        }
+
+    // eslint-disable-next-line
+    }, [queLoaded, currentSongIndex])
+
+    useEffect(() => {
+
+        if(queLoaded) {
+            console.log('lopading clicked song', playingSongIndex);
+            if(isPlaying) handleControlClick('play-pause')
+            setCurrentSongSrc(toPlayQue[playingSongIndex])
+            if(!isPlaying) handleControlClick('play-pause')
+        }
+
+    // eslint-disable-next-line
+    }, [playingSongIndex])
 
     useEffect(() => {  
+        console.log("song loading");
         if(currentSongSrc && audioRef.current) {
             const audio = audioRef.current;
             audio.load();
@@ -35,7 +61,6 @@ export default function AudioPlayer({renderCondition}) {
                 handleControlClick('next')
             };
             audio.onloadedmetadata = () => {
-                if(!isPlaying) handleControlClick('play-pause')
                 console.log("song loaded");
             };
         }
@@ -50,10 +75,10 @@ export default function AudioPlayer({renderCondition}) {
                 !isPlaying ?
                 audio
                 .play()
-                .then(() => setIsPlaying(true))
+                .then(() => beatsDispatch({type:'SET_IS_PLAYING', payload: true}))
                 .catch((error) => console.error("Playback error:", error)) :
                 audio.pause()
-                setIsPlaying(false);
+                beatsDispatch({type:'SET_IS_PLAYING', payload: false})
                 break;
             case 'next':
                 setCurrentSongIndex((beats?.length < currentSongIndex) ? currentSongIndex + 1 : 0)
@@ -66,14 +91,14 @@ export default function AudioPlayer({renderCondition}) {
         }
     }
 
-  return (
-    <div className={renderCondition ? "pause-next pause-next-hide" : "pause-next"}>
-        <div className="mask">
-            <audio ref={audioRef} src={currentSongSrc} />
-            <img src={iconPrevious} alt="previous" onClick={() => handleControlClick('previous')} />
-            <img src={isPlaying ? iconPause : iconPlay} alt="pause" onClick={() => handleControlClick('play-pause')} />
-            <img src={iconNext} alt="next" onClick={() => handleControlClick('next')} />
+    return (
+        <div className={renderCondition ? "pause-next pause-next-hide" : "pause-next"}>
+            <div className="mask">
+                <audio ref={audioRef} src={currentSongSrc} />
+                <img src={iconPrevious} alt="previous" onClick={() => handleControlClick('previous')} />
+                <img src={isPlaying ? iconPause : iconPlay} alt="pause" onClick={() => handleControlClick('play-pause')} />
+                <img src={iconNext} alt="next" onClick={() => handleControlClick('next')} />
+            </div>
         </div>
-    </div>
-  )
+    )
 }

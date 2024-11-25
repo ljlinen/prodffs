@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import PotentialTagsSelecctor from "../elemet/PotentialTagsSelecctor";
-import useCreateBeatTags from "../hooks/useCreateBeatTags";
-import PackagesView from "./PackagesView";
-import Radio from "../elemet/Radio";
-import Button from "../elemet/Button";
-import useAdminContext from "../hooks/useContext/useAdminContext";
-import Input from "../elemet/Input";
+import PotentialTagsSelecctor from "../../elemet/PotentialTagsSelector";
+import useCreateBeatTags from "../../hooks/useCreateBeatTags";
+import PackagesView from "../PackagesView";
+import Radio from "../../elemet/Radio";
+import Button from "../../elemet/Button";
+import Input from "../../elemet/Input";
+import useAdminContext from "../../hooks/useContext/useAdminContext";
 
 export default function TabUploadBeat({ activeTab, setPackages, packages, removePackage, handleEditingModeChange,
   file, setFile, isUploadingStep, isEditing, setIsUploadingStep, uploadBeat

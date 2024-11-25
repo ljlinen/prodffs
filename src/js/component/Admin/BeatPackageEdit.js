@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Radio from "../elemet/Radio";
-import Input from "../elemet/Input";
-import useAdminContext from "../hooks/useContext/useAdminContext";
+import Radio from "../../elemet/Radio";
+import Input from "../../elemet/Input";
+import useAdminContext from "../../hooks/useContext/useAdminContext";
 
 export default function BeatPackageEdit({
   condition,
@@ -41,6 +41,7 @@ export default function BeatPackageEdit({
         ...prev,
         packages: { ...prev["packages"], [newPackage["package"]]: newPackage },
       }));
+  // eslint-disable-next-line
   }, [newPackage, packagesFilled]);
 
   useEffect(() => {

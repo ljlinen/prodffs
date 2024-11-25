@@ -43,8 +43,12 @@ body {
     z-index: 1;
     position: relative;
     overflow: hidden;
-    transition: width .6s ease-in-out, padding-bottom .6s ease-in .7s,
-    padding-inline .6s ease-in,  height .8s ease-in-out .6s, opacity .6s;
+    transition: 
+    width .8s cubic-bezier(0.52, -0.03, 0.48, 1.05), 
+    padding-bottom .8s cubic-bezier(0.52, -0.03, 0.48, 1.05) .7s,
+    padding-inline .8s cubic-bezier(0.52, -0.03, 0.48, 1.05),  
+    height 1.2s cubic-bezier(0.52, -0.03, 0.48, 1.05) .6s, 
+    opacity .6s cubic-bezier(0.52, -0.03, 0.48, 1.05);
 
     .cart-nav input {
         width: 100%;
@@ -62,8 +66,12 @@ body {
     padding-inline: 6px;
     height: 200px;
     opacity: 1;
-    transition: width .6s ease-in-out, padding-bottom .6s ease-in .3s,
-    padding-inline .6s ease-in, height .8s ease-in-out .3s, opacity .6s ease-in .7s !important;
+    transition: 
+    width .8s cubic-bezier(0.52, -0.03, 0.48, 1.05), 
+    padding-bottom .8s cubic-bezier(0.52, -0.03, 0.48, 1.05) .3s,
+    padding-inline .8s cubic-bezier(0.52, -0.03, 0.48, 1.05), 
+    height 1.6s cubic-bezier(0.52, -0.03, 0.48, 1.05), 
+    opacity .7s cubic-bezier(0.52, -0.03, 0.48, 1.05) .6s !important;
 }
 
 .sidenav > * {
@@ -137,7 +145,9 @@ nav .logo {
 }
 
 p,
-label {
+label,
+.sorter-buttons select,
+.sorter-buttons option {
     font-size: 12.36px;
 }
 h4 {
@@ -177,6 +187,16 @@ h6 {
     transition: opacity .6s ease-in-out;
 }
 
+.hide-width {
+    opacity: 0 !important;
+    width: 0 !important;
+    pointer-events: none;
+    transition: opacity .6s ease-in-out;
+}
+.hide-anim {
+    transition: opacity .6s ease-in-out;
+}
+
 .hide-up {
     opacity: 0 !important;
     transform: translateY(-50%);
@@ -200,7 +220,7 @@ h6 {
 
 .beatlist-sorter {
     overflow-y: hidden;
-    transition: height 1s ease-in-out, opacity .4s ease-in-out, padding-block 1s ease-in-out;
+    transition: height 1.4s cubic-bezier(0.52, -0.03, 0.48, 1.05), opacity 1.4s cubic-bezier(0.52, -0.03, 0.48, 1.05), padding-block 1.4s cubic-bezier(0.52, -0.03, 0.48, 1.05);
     padding-block: 40px;
     height: 183px;
 
@@ -228,13 +248,25 @@ h6 {
         font-size: 12px;
         gap: 10px;
     }
-    .sorter-buttons p {
+    .sorter-buttons p,
+    .sorter-buttons select,
+    .sorter-buttons option {
         color: rgba(var(--clr-primary), .6);
         font-weight: 600;
         text-transform: capitalize;
         padding: 3px;
         border-bottom: 1px solid transparent;
         transition: border-bottom .3s ease-in-out;
+    }
+    .sorter-buttons select {
+        background-color: transparent;
+        border: none;
+        outline: none;
+    }
+    .sorter-buttons option {
+        background-color: rgba(var(--clr-60));
+        border: none;
+        outline: none;
     }
     .sorter-buttons .current-sorter {
         border-bottom: 2px solid rgba(var(--clr-primary), .6);

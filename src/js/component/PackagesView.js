@@ -1,5 +1,5 @@
 import React from 'react'
-import BeatPackageEdit from './BeatPackageEdit';
+import BeatPackageEdit from './Admin/BeatPackageEdit';
 import BeatPackage from './BeatPackage';
 import AddPackageSelect from '../elemet/AddPackageSelect';
 
