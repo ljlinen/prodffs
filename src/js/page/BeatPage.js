@@ -11,6 +11,7 @@ import useBuyingContext from "../hooks/useContext/useBuyingContext";
 export default function BeatPage() {
   const params = useParams();
 
+  // eslint-disable-next-line no-unused-vars
   const { selectedBeat, buyingDispatch } = useBuyingContext();
 
   const [beat, setBeat] = useState();
@@ -52,6 +53,7 @@ export default function BeatPage() {
   }, [])
 
 
+  // eslint-disable-next-line no-unused-vars
   const clearBuying = () => {
 
     // document.body.scrollIntoView({ scrollBehavior: 'smooth' })
