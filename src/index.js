@@ -6,12 +6,12 @@ import HomePage from "./js/page/HomePage";
 import ViewDebugger from "./js/page/ViewDebugger";
 import BuyingContextProvider from "./js/context/BuyingContext";
 import BeatsContextProvider from "./js/context/BeatsContext";
-// import AdminPage from "./js/page/AdminPage";
+import AdminPage from "./js/page/AdminPage";
 import AdminContextProvider from "./js/context/AdminContext";
 import BeatPage from "./js/page/BeatPage";
 
-// export const baseUrl = 'https://melodriftbackend.linendev.workers.dev'
-export const baseUrl = "http://localhost:8787";
+export const baseUrl = 'https://prodlinenbackend.linendev.workers.dev'
+// export const baseUrl = "http://localhost:8787";
 
 // end of global functions section
 
@@ -22,10 +22,10 @@ const router = createBrowserRouter([
     path: "/",
     element: <HomePage />,
   },
-  // {
-  //   path: "/admin",
-  //   element: <AdminPage />,
-  // },
+  {
+    path: "/admin",
+    element: <AdminPage />,
+  },
   {
     path: "beat/:beatid",
     element: <BeatPage />,
