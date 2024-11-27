@@ -28,22 +28,42 @@ export default function CheckoutPage({ id, beatObj }) {
     })
   }
 
-  const handlePop = (access_code) => {
+  const verifyPayment = async(payementData) => {
+    console.log(payementData);
+    
+    const { reference, amount } = payementData 
+    try {
+      console.log(selectedPackage)
+      if(!selectedPackage?.package || !selectedBeat?.id) throw Error('infomation about the beat is missing.')
+
+      const payload = JSON.stringify({
+        reference,
+        verifyAmount: amount
+    })
+
+    const response = await fetch(baseUrl + '/payment/verify', {
+      method: 'POST',
+      body: payload,
+    })
+
+    const data = await response.json();
+
+    if(data?.success) {
+      alert('sucess! you paid: ', data?.data?.amount)
+      console.log('sucess: ', data);
+    } else {
+      alert('failed! :( why tho?: ', data?.data?.message)
+      console.log('error verifying payment', data)
+    }
+    } catch (error) {
+      console.log('error', error)
+    }
+  }
+
+  const handlePop = async(access_code) => {
     const popup = new Paystack()
     const transaction = popup.resumeTransaction(access_code);
-
-    let wait = true 
-    while(wait) {
-      const status = transaction.getStatus
-
-        setTimeout(() => {
-          console.log(status);
-        }, 2000)
-
-      if(status) {
-        wait = false
-      }
-    }
+    transaction.callbacks.onSuccess = verifyPayment;
   }
 
   const handlePaymentInit = async() => {
