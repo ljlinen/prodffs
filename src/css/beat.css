@@ -133,20 +133,20 @@
     /* backdrop-filter: grayscale(1); */
     /* filter: contrast(.4); */
 }
-
-.buying-view {
-    opacity: 0;
-    transition: opacity .3s ease-out;
-}
 .back-div-wrap {
     display: flex;
     align-items: center;
     height: 30px;
 }
 
-.buying-view-hide {
+.buying-view {
     opacity: 1;
-    /* height: 100vh; */
+    transition: opacity .3s ease-out;
+}
+.buying-view-hide {
+    opacity: 0;
+    overflow: hidden;
+    height: 0;
     transition: opacity .5s 1.6s ease-out;
 }
 

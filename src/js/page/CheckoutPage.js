@@ -6,15 +6,20 @@ import { baseUrl } from '../..'
 import useBuyingContext from '../hooks/useContext/useBuyingContext'
 
 export default function CheckoutPage({ id, beatObj }) {
-  
 
   const { selectedBeat, selectedPackage, buyingDispatch } = useBuyingContext();
   const [isBuying, setIsBuying] = useState()
   const [isSafe, setsafeCheckout] = useState()
+  const [checkoutInfo, setCheckoutInfo] = useState({})
+  const [downloadLink, setDownloadLink] = useState();
 
   useEffect(() => {
     setsafeCheckout((selectedBeat && selectedPackage) ? true : false);
-    setIsBuying(selectedBeat?.id ? true : false)
+    setIsBuying(selectedBeat?.id ? true : false);
+    setCheckoutInfo(({
+      beatid: selectedBeat?.id,
+      packageName: selectedPackage?.package
+    }));
   }, [selectedBeat, selectedPackage])
 
   const handleClick = (e) => {
@@ -31,14 +36,14 @@ export default function CheckoutPage({ id, beatObj }) {
   const verifyPayment = async(payementData) => {
     console.log(payementData);
     
-    const { reference, amount } = payementData 
+    const { reference } = payementData 
     try {
       console.log(selectedPackage)
       if(!selectedPackage?.package || !selectedBeat?.id) throw Error('infomation about the beat is missing.')
 
       const payload = JSON.stringify({
         reference,
-        verifyAmount: amount
+        checkoutInfo
     })
 
     const response = await fetch(baseUrl + '/payment/verify', {
@@ -46,14 +51,20 @@ export default function CheckoutPage({ id, beatObj }) {
       body: payload,
     })
 
-    const data = await response.json();
+    const responseObj = await response.json();
 
-    if(data?.success) {
-      alert('sucess! you paid: ', data?.data?.amount)
-      console.log('sucess: ', data);
+    if(responseObj?.success) {
+      // setCheckoutInfo(null)
+      // alert('sucess! you paid: ', data?.data?.amount)
+      setBuying(null)
+      setDownloadLink(responseObj?.data?.downloadLink)
+      console.log(responseObj?.data?.downloadLink);
+      console.log('sucess: ', responseObj);
+      console.log('isbuying: ', isBuying);
+      
     } else {
-      alert('failed! :( why tho?: ', data?.data?.message)
-      console.log('error verifying payment', data)
+      alert('failed! :( why tho?: ', responseObj?.data?.message)
+      console.log('error verifying payment', responseObj)
     }
     } catch (error) {
       console.log('error', error)
@@ -73,10 +84,7 @@ export default function CheckoutPage({ id, beatObj }) {
         if(!selectedPackage?.package || !selectedBeat?.id) throw Error('infomation about the beat is missing.')
 
         const paymentBody = JSON.stringify({
-        checkoutInfo: {
-          beatid: selectedBeat?.id,
-          packageName: selectedPackage?.package
-        },
+        checkoutInfo,
         userInfo: {
           'name': 'Sipho',
           'email': 'Sipho@testing.com'
@@ -102,38 +110,68 @@ export default function CheckoutPage({ id, beatObj }) {
     }
   }
 
-  return (
-    <div className={isBuying ? 'buying-view buying-view-hide' : 'buying-view'}>
-      <div className='beat-options'>
-        <div className='beat-options-scroll'>
-          { 
-            (isBuying && beatObj?.packages) ?
-            Object.entries(beatObj?.packages).map((item, i) => {
-              return (
-                <BeatOption 
-                  className={'beat beat-option beat-option-hide'}
-                  handler={handleClick} 
-                  condition={isBuying} 
-                  packageObj={item}
-                  key={i}
-                  index={i}
-                />              
-              )
-            })
-            :
-            null
-          }        
-        </div>
-      </div>
+  const downloadBeat = async() => {
 
-      <div className={isSafe ? 'checkout-due-info' : 'checkout-due-info checkout-due-info-hide'} onClick={handlePaymentInit}>
-        <div className='checkout-button-mask'>
-          <p>Checkout</p>
-          <div className='info'>
-            <h4>Due: ${selectedPackage?.price}</h4>          
-          </div>      
+    try {
+      const response = await fetch(downloadLink);
+      if(!response.ok) {
+        const resObj = await response.json()
+        alert(resObj?.message)
+      }
+      const blob = await response.blob();
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'filename.mp3'; // Set your file name and extension
+      link.click();
+      URL.revokeObjectURL(link.href); // Clean u
+      
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
+
+  return (
+    <div>
+      <div className={isBuying && !downloadLink ? 'buying-view' : 'buying-view-hide'}>
+        <div className={'beat-options'}>
+          <div className='beat-options-scroll'>
+            {
+              (isBuying && beatObj?.packages) ?
+              Object.entries(beatObj?.packages).map((item, i) => {
+                return (
+                  <BeatOption
+                    className={'beat beat-option beat-option-hide'}
+                    handler={handleClick}
+                    condition={isBuying}
+                    packageObj={item}
+                    key={i}
+                    index={i}
+                  />
+                )
+              })
+              :
+              null
+            }
+          </div>
+        </div>
+        <div className={isSafe && !downloadLink ? 'checkout-due-info' : 'checkout-due-info checkout-due-info-hide'} onClick={handlePaymentInit}>
+          <div className='checkout-button-mask'>
+            <p>Checkout</p>
+            <div className='info'>
+              <h4>Due: ${selectedPackage?.price}</h4>
+            </div>
+          </div>
         </div>
       </div>
+        <div className={isBuying && downloadLink ? 'checkout-due-info' : 'checkout-due-info checkout-due-info-hide'} onClick={downloadBeat}>
+          <div className='checkout-button-mask'>
+            <p>File Ready!</p>
+            <div className='info'>
+              <h4>Download</h4>          
+            </div>      
+          </div>
+        </div>
     </div>
   )
 }
