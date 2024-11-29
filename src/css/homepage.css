@@ -181,19 +181,16 @@ h6 {
 .hide {
     opacity: 0 !important;
     pointer-events: none;
-    transition: opacity .6s ease-in-out;
+    transition: opacity .6s cubic-bezier(0.52, -0.03, 0.48, 1.05);
 }
 .hide-anim {
-    transition: opacity .6s ease-in-out;
+    transition: opacity .6s .3s cubic-bezier(0.52, -0.03, 0.48, 1.05);
 }
 
 .hide-width {
     opacity: 0 !important;
     width: 0 !important;
     pointer-events: none;
-    transition: opacity .6s ease-in-out;
-}
-.hide-anim {
     transition: opacity .6s ease-in-out;
 }
 
@@ -219,38 +216,45 @@ h6 {
 }
 
 .beatlist-sorter {
+    display: flex;
     overflow-y: hidden;
     transition: height 1.4s cubic-bezier(0.52, -0.03, 0.48, 1.05), opacity 1.4s cubic-bezier(0.52, -0.03, 0.48, 1.05), padding-block 1.4s cubic-bezier(0.52, -0.03, 0.48, 1.05);
-    padding-block: 40px;
+    padding-top: 40px;
+    padding-inline: 25px;
     height: 183px;
+    justify-content: space-between;
 
-    h2 {
-        padding-inline: 20px;
-        padding-bottom: 10px;
-        font-size: 40px;
-        
+    .intro {
+        max-width: 220px;
     }
-    .by {
-        margin-left: 22px;
+    .intro p {
+        max-width: 165px;
+    }
+    .sorter {
+        display: flex;
+        flex-direction: column;
+    }
+    .sorter .by {
         text-transform: capitalize;
         font-weight: 600;
         color: rgb(var(--clr-primary, .6));
+        text-align: right;
 
         span {
             padding-right: 3px;
         }
     }
-    .sorter-buttons {
-        padding-inline: 23px;
-        margin-top: 15px;
+    .sorter .sorter-buttons {
+        margin-top: 10px;
         display: flex;
-        align-items: center;
+        flex-direction: column;
+        align-items: end;
         font-size: 12px;
-        gap: 10px;
+        gap: 3px;
     }
-    .sorter-buttons p,
-    .sorter-buttons select,
-    .sorter-buttons option {
+    .sorter .sorter-buttons p,
+    .sorter .sorter-buttons select,
+    .sorter .sorter-buttons option {
         color: rgba(var(--clr-primary), .6);
         font-weight: 600;
         text-transform: capitalize;
@@ -258,17 +262,17 @@ h6 {
         border-bottom: 1px solid transparent;
         transition: border-bottom .3s ease-in-out;
     }
-    .sorter-buttons select {
+    .sorter .sorter-buttons select {
         background-color: transparent;
         border: none;
         outline: none;
     }
-    .sorter-buttons option {
+    .sorter .sorter-buttons option {
         background-color: rgba(var(--clr-60));
         border: none;
         outline: none;
     }
-    .sorter-buttons .current-sorter {
+    .sorter .sorter-buttons .current-sorter {
         border-bottom: 2px solid rgba(var(--clr-primary), .6);
         transition: border-bottom .6s ease-in-out;
     }

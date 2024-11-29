@@ -121,7 +121,7 @@ export default function CheckoutPage({ id, beatObj }) {
       const blob = await response.blob();
       const link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
-      link.download = 'filename.mp3'; // Set your file name and extension
+      link.download = selectedBeat?.info?.title; // Set your file name and extension
       link.click();
       URL.revokeObjectURL(link.href); // Clean u
       

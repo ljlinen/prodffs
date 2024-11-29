@@ -22,7 +22,7 @@
     position: relative;
     overflow: hidden;
     transition: opacity .6s 1.4s cubic-bezier(0.52, -0.03, 0.48, 1.05), margin-top 1.4s cubic-bezier(0.52, -0.03, 0.48, 1.05), margin-inline 1s 1.4s cubic-bezier(0.52, -0.03, 0.48, 1.05);
-    box-shadow: rgb(0 0 0 / 20%) 4px 2px 5px 0px;
+    box-shadow: rgb(0 0 0 / 20%) 2px 2px 6px 1px;
 
     .bg {
         position: absolute;
@@ -64,7 +64,7 @@
     .price {
         display: flex;
         flex-direction: column;
-        background-color: rgba(var(--clr-primary), .7);
+        /* background-color: rgba(var(--clr-primary), .7); */
         justify-content: center;
         height: 100%;
         border-radius: 4px;
@@ -85,15 +85,14 @@
         display: flex;
         flex-direction: column;
         text-transform: capitalize;
-        padding-block: 6px;
         padding-right: 17px;
         height: 100%;
         width: 100%;
-        gap: 4px;
         position: relative;
         z-index: 1;
         text-transform: lowercase;
         overflow: hidden;
+        justify-content: center;
 
         h4 {
             font-size: 12.36px;
@@ -162,7 +161,7 @@
     position: relative;
     overflow: hidden;
     transition: opacity .4s ease-out, transform .1s ease-out;
-    box-shadow: rgb(0 0 0 / 20%) 2px 0px 10px 0px;
+    box-shadow: rgb(0 0 0 / 20%) 2px 2px 6px 1px;
     flex-direction: column;
 }
 .beat-option-hide {
@@ -280,7 +279,7 @@
     position: relative;
     overflow: hidden;
     transition: opacity .3s, transform .4s ease-out ;
-    box-shadow: rgb(0 0 0 / 20%) 4px 2px 5px 0px;
+    box-shadow: rgb(0 0 0 / 20%) 2px 2px 6px 1px;
     margin-top: 20px;
     margin-left: 40px;
 
@@ -301,15 +300,18 @@
 
     .checkout-button-mask {
         display: flex;
+        flex-direction: row-reverse;
         height: 100%;
+        width: 180px;
         padding: 2px;
         border-radius: 4px;
-        background: linear-gradient(to right, rgba(var(--clr-primary)) 0%, rgba(var(--clr-60)) 40%);
+        /* background: linear-gradient(to right, rgba(var(--clr-primary)) 0%, rgba(var(--clr-60)) 40%); */
         align-items: center;
 
         p {
             display: flex;
             align-items: center;
+            justify-content: center;
             width: 100%;
             height: 100%;
             background-color: rgba(var(--clr-60));;
