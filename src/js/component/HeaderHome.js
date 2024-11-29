@@ -14,7 +14,7 @@ export default function HeaderHome({sorter, setSorter, isBuying, isLoading, setG
    const sideNavReff = useRef(null)
 
    const { handleSideNav, isSideNavOpen } = useSideNavigator(sideNavReff);
-   const { selectedBeat, buyingDispatch } = useBuyingContext();
+   const { buyingDispatch } = useBuyingContext();
 
 
    const clearBuying = () => {
@@ -46,24 +46,27 @@ export default function HeaderHome({sorter, setSorter, isBuying, isLoading, setG
                />
             </nav>
             <div className={(isBuying && "beatlist-sorter beatlist-sorter-hide") || "beatlist-sorter"}>
-               <h2>{(isBuying && "BUY BEAT") || "SORTED BY"}</h2>
-               <p className="by">
-                  <span>|</span>
-                  {(selectedBeat?.id && isBuying) || sorter}
-               </p>
-               <div className={(isBuying && " sorter-buttons hide") || "sorter-buttons hide-anim"}>
-                  <p className={sorter === 'newest' && 'current-sorter'} onClick={() => setSorter('newest')}>newest</p>
-                  <p className={sorter === 'plays' && 'current-sorter'} onClick={() => setSorter('plays')}>plays</p>
-                  <div style={{position: 'relative'}}>
-                     <p className={sorter === 'genre' && 'current-sorter'} style={{position: 'absolute'}}>Genre</p>
-                     <select onChange={(e) => setGenre(e.target.value)}  onClick={() => setSorter('genre')} style={{position: 'relative', opacity: 0, width: '100%', height: '100%'}}>
-                        <p>Genre</p>
-                        <option>rap</option>
-                        <option>trap</option>
-                        <option>trap soul</option>
-                     </select>                  
+               <div class="intro">
+                  <h2>{(isBuying && "BUY BEAT") || "BUY BEATS. ELEVATE YOUR SOUND."}</h2>
+                  <p>got a sound idea? we also take beat requests.</p>
+               </div>
+               <div class={isSideNavOpen ? "sorter hide" : "sorter hide-anim"}>
+                  <p className="by">
+                     SORT BY
+                  </p>
+                  <div className={(isBuying && " sorter-buttons hide") || "sorter-buttons hide-anim"}>
+                     <p className={sorter === 'newest' && 'current-sorter'} onClick={() => setSorter('newest')}>newest</p>
+                     <p className={sorter === 'plays' && 'current-sorter'} onClick={() => setSorter('plays')}>plays</p>
+                     <div style={{display: 'flex', justifyContent: 'end', position: 'relative'}}>
+                        <p className={sorter === 'genre' && 'current-sorter'} style={{position: 'absolute'}}>Genre</p>
+                        <select onChange={(e) => setGenre(e.target.value)}  onClick={() => setSorter('genre')} style={{position: 'relative', opacity: 0, width: '100%', height: '100%'}}>
+                           <p>Genre</p>
+                           <option>rap</option>
+                           <option>trap</option>
+                           <option>trap soul</option>
+                        </select>
+                     </div>
                   </div>
-
                </div>
             </div>
             <div>

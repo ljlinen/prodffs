@@ -49,9 +49,9 @@ export default function Beat({ beatObj, id, i }) {
         </div>
       </div>
       <div className="price"
-        style={{ background: `linear-gradient(to right, rgba(var(--clr-primary)) 10%, rgba(var(--clr-60)) ${
-            beatObj?.packages?.basic?.price * 3 || 60
-        }%)`}}
+        // style={{ background: `linear-gradient(to right, rgba(var(--clr-primary)) 10%, rgba(var(--clr-60)) ${
+        //     beatObj?.packages?.basic?.price * 3 || 60
+        // }%)`}}
       >
         <div className="price-mask">
           <h4>${Object.values(beatObj?.packages)[0].price}</h4>
