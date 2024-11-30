@@ -1,15 +1,12 @@
 import React from 'react'
 
-export default function Input({renderCondition, setter, setKey, setInnerKey, label, title, type, style, accepts, inputStyle, handler}) {
-  console.log(renderCondition);
+export default function Input({renderCondition, setter, setKey, setInnerKey, label, title, type, style, accepts, inputStyle, handler, placeholder}) {
   
   const onChange = (newValue) => {
 
     if(handler) {
-      console.log('should be runnng this');
       handler(newValue);
     } else {
-      console.log('should be runnng this');
       setInnerKey ?
       setter((prev) => ({...prev, [setKey]: {...prev[setKey], [setInnerKey]: newValue}})) : 
       setter((prev) => ({...prev, [setKey]: newValue}))
@@ -30,7 +27,7 @@ export default function Input({renderCondition, setter, setKey, setInnerKey, lab
         </div>
         </div> :
         <div className="beat-input" style={inputStyle}>
-            <input className="text-input" type={type} accept={accepts} required  onChange={(e) => onChange(e.target.value)} />
+            <input placeholder={placeholder} className="text-input" type={type} accept={accepts} required  onChange={(e) => onChange(e.target.value)} />
         </div>
     }
     </div>

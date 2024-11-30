@@ -7,7 +7,7 @@ import Button from "../../elemet/Button";
 import Input from "../../elemet/Input";
 import useAdminContext from "../../hooks/useContext/useAdminContext";
 
-export default function TabUploadBeat({ activeTab, setPackages, packages, removePackage, handleEditingModeChange,
+export default function TabUploadBeat({addPackage, uncreatedPackages, activeTab, setPackages, packages, removePackage, handleEditingModeChange,
   file, setFile, isUploadingStep, isEditing, setIsUploadingStep, uploadBeat
  }) {
   
@@ -19,6 +19,11 @@ export default function TabUploadBeat({ activeTab, setPackages, packages, remove
     console.log('Tab change', isUploadingStep);
     
   }, [isUploadingStep])
+
+  useEffect(() => {
+    console.log('packages', packages);
+  }, [packages]);
+
 
    const handleStep = () => {
       console.log(isUploadingStep);
@@ -35,19 +40,33 @@ export default function TabUploadBeat({ activeTab, setPackages, packages, remove
       }
    };
 
+   const handleBpmInput = (value) => {
+    setPackages((prev) => ({...prev, info: {...prev.info, bpm: value}}));
+    console.log(packages);
+  }
+
   return (
     <form className={activeTab === 3 ? "t3 show-tab" : "hide-tab"}>
       <p>Tags will be generated using the beat title</p>
       <p>Make sure your beat has a title</p>
 
       <Input 
-        renderCondition={(isUploadingStep === 1)}
+        renderCondition={(isUploadingStep === 1 && !file)}
         label={"pick a beat"}
         title={"select a beat"}
         type={"file"}
         accepts={"audio/mpeg"}
         style={{ marginTop: 50, paddingInline: 20 }}
         handler={handleFileChange}
+      />
+
+      <Input 
+        renderCondition={(isUploadingStep === 1 && file)}
+        label={"BPM"}
+        title={"what is the beat's beats per minute"}
+        type={"number"}
+        style={{ marginTop: 50, paddingInline: 20 }}
+        handler={handleBpmInput}
       />
 
       <PotentialTagsSelecctor
@@ -73,7 +92,7 @@ export default function TabUploadBeat({ activeTab, setPackages, packages, remove
             onchange={handleEditingModeChange}
           />
         </div>
-        <PackagesView isUploadingStep={isUploadingStep} setPackages={setPackages} packages={packages} removePackage={removePackage} isEditing={isEditing} />
+        <PackagesView isUploadingStep={isUploadingStep} setPackages={setPackages} packages={packages} removePackage={removePackage} addPackage={addPackage} uncreatedPackages={uncreatedPackages} isEditing={isEditing} />
       </div>
 
       <Button

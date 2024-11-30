@@ -18,7 +18,7 @@ export default function AdminPage() {
 
   // const { selectedBeat, buyingDispatch } = useBuyingContext();
   // const { beats, inventory, beatsDispatch } = useBeatsContext();
-  const { packages, setPackages, packageTemplate, handleEditingModeChange, removePackage, isEditing } = useCreatePackages();
+  const { packages, setPackages, packageTemplate, handleEditingModeChange, removePackage, addPackage, uncreatedPackages, isEditing } = useCreatePackages();
   const { setIsUploadingStep, isUploadingStep, result, file, setFile, uploadBeat } = useUploadBeat(packages);
 
   const [fullScreen, setFullScreen] = useState();
@@ -45,6 +45,10 @@ export default function AdminPage() {
     } 
 
   }, [location.pathname]);
+
+  useEffect(() => {
+    console.log('admin packages', packages);
+  }, [packages]);
 
 
   return (
@@ -82,7 +86,7 @@ export default function AdminPage() {
           <div className="tabs">
             <div className={activeTab === 1 ? "t1 show-tab" : "hide-tab"}>Tab 1</div>
             <TabManageInventory activeTab={activeTab} />
-            <TabUploadBeat activeTab={activeTab} isUploadingStep={isUploadingStep} setIsUploadingStep={setIsUploadingStep} file={file} setFile={setFile} handleEditingModeChange={handleEditingModeChange} setPackages={setPackages} uploadBeat={uploadBeat} packages={packages} removePackage={removePackage} isEditing={isEditing} />
+            <TabUploadBeat activeTab={activeTab} isUploadingStep={isUploadingStep} setIsUploadingStep={setIsUploadingStep} file={file} setFile={setFile} handleEditingModeChange={handleEditingModeChange} setPackages={setPackages} uploadBeat={uploadBeat} packages={packages} removePackage={removePackage} addPackage={addPackage} uncreatedPackages={uncreatedPackages} isEditing={isEditing} />
           </div>
 
           <PageIndicator activeTab={activeTab} isUploadingStep={isUploadingStep} />
