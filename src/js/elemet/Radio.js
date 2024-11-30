@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Radio({setter, setKey, setInnerKey, onchange, positiveTitle, negativeTitle}) {
+export default function Radio({placeholder, setter, setKey, setInnerKey, onchange, positiveTitle, negativeTitle}) {
 
       const onChange = (newValue) => {
         newValue = newValue === "true" ? true : false
@@ -17,11 +17,11 @@ export default function Radio({setter, setKey, setInnerKey, onchange, positiveTi
     <div className='radios'>
         <div className='r'>
             <label>{negativeTitle || 'no'}</label>
-            <input type='radio' value={false} name={setInnerKey ? setInnerKey : setKey} required onChange={(e) => onChange(e.target.value)} defaultChecked />
+            <input type='radio' value={false} name={setInnerKey ? setInnerKey : setKey} required onChange={(e) => onChange(e.target.value)} defaultChecked={placeholder ? placeholder === false : true} />
         </div>
         <div className='r'>
             <label>{positiveTitle || 'yes'}</label>
-            <input type='radio' value={true} name={setInnerKey ? setInnerKey : setKey} required onChange={(e) => onChange(e.target.value)} />                                
+            <input type='radio' value={true} name={setInnerKey ? setInnerKey : setKey} required onChange={(e) => onChange(e.target.value)} checked={placeholder ? placeholder === true : null} />                                
         </div>
     </div>
   )

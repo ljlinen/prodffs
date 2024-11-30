@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useAdminContext from "./useContext/useAdminContext";
 
 export default function useCreatePackages() {
   const { uncreatedPackages, adminDispatch } = useAdminContext();
 
   const [isEditing, setIsEditing] = useState(false);
+
   
   const [packages, setPackages] = useState({
     info: {
@@ -40,6 +41,10 @@ export default function useCreatePackages() {
     "project-files": false,
   };
 
+  useEffect(() => {
+    console.log('main packages', packages);
+  }, [packages]);
+
   const removePackage = (pkg) => {
     !uncreatedPackages.includes(pkg) &&
       adminDispatch({type: "SET_UNCREATED_PACKAGES", payload: uncreatedPackages?.length ? 
@@ -55,7 +60,6 @@ export default function useCreatePackages() {
   };
 
   const handleEditingModeChange = (newValue) => {
-    console.log(typeof newValue);
     setIsEditing(newValue);
   };
 

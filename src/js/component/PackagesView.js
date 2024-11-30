@@ -1,16 +1,22 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import BeatPackageEdit from './Admin/BeatPackageEdit';
 import BeatPackage from './BeatPackage';
 import AddPackageSelect from '../elemet/AddPackageSelect';
 
-export default function PackagesView({removePackage, packages, setPackages, isEditing ,isUploadingStep}) {
+export default function PackagesView({addPackage, uncreatedPackages, removePackage, packages, setPackages, isEditing ,isUploadingStep}) {
+    
+    useEffect(() => {
+        console.log('unreflecting packages', packages);
+      }, [packages]);
 
   return (
     <div className='beat-options-scroll'>
 
     { 
-        (isUploadingStep && packages['packages']) ?
+        (isUploadingStep && packages && packages['packages']) ?
         Object.entries(packages['packages']).map((item, i) => {
+            console.log('package to render: ', item, i);
+            
 
             return (
             <>
@@ -41,7 +47,7 @@ export default function PackagesView({removePackage, packages, setPackages, isEd
         : null
     }
 
-    <AddPackageSelect />
+    <AddPackageSelect addPackage={addPackage} uncreatedPackages={uncreatedPackages} />
   </div>
   )
 }

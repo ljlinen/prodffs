@@ -1,9 +1,6 @@
 import React from 'react'
-import useCreatePackages from '../hooks/useCreatePackages'
 
-export default function AddPackageSelect() {
-
-    const { addPackage, uncreatedPackages } = useCreatePackages()
+export default function AddPackageSelect({ addPackage, uncreatedPackages }) {
 
   return (
     <div>

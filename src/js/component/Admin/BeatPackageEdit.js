@@ -95,6 +95,7 @@ export default function BeatPackageEdit({
                                 setter={setPackage}
                                 setKey={key}
                                 setInnerKey={innerKey}
+                                placeholder={value}
                               />
                             ) : (
                               <Input
@@ -105,6 +106,7 @@ export default function BeatPackageEdit({
                                 title={key}
                                 type={"number"}
                                 inputStyle={{ height: 25, width: 50 }}
+                                placeholder={value}
                               />
                             )}
                           </div>
@@ -131,6 +133,7 @@ export default function BeatPackageEdit({
                       title={key}
                       type={"text"}
                       inputStyle={{ height: 25, width: 50 }}
+                      placeholder={value}
                     />
                   )}
                 </div>
