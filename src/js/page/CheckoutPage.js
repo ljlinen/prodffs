@@ -175,7 +175,7 @@ export default function CheckoutPage({ id, beatObj, setResetChechoutInfo }) {
           condition={isSafe && !downloadLink}
           h4={'Proceed To Payment.'}
           p={'You will pick a payment option on the pop-up screen.'}
-          style={{marginTop: 0, marginBottom: 0}}
+          style={{marginTop: 20, marginBottom: 0}}
         />
 
         <ButtonDescriptive 

@@ -124,6 +124,9 @@
             width: 100%;
             text-wrap: nowrap;
             overflow: hidden;
+            text-transform: capitalize;
+            font-weight: 500;
+            opacity: 1;
             text-overflow: ellipsis;
         }
 
