@@ -1,12 +1,17 @@
+/* eslint-disable no-unused-vars */
 import React, { useRef, useState } from "react";
 import { FFmpeg } from "@ffmpeg/ffmpeg";
+import useBeatsContext from "../hooks/useContext/useBeatsContext";
 
 const Visualizer = () => {
 
-  const canvasRef = useRef(null);
+  const { beats, playingSongIndex, isPlaying, beatsDispatch } = useBeatsContext();
+
   const [frames, setFrames] = useState([]);
   const [isRecording, setIsRecording] = useState(false);
+
   const ffmpeg = new FFmpeg({ log: true, corePath: 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/umd/ffmpeg-core.js' });
+  const canvasRef = useRef(null);
 
 
   const drawVisualizer = () => {
@@ -41,9 +46,9 @@ const Visualizer = () => {
   const exportVideo = async () => {
     try {
         if (!ffmpeg.loaded) await ffmpeg.load();
-        frames.forEach((frame, i) => {
-        const data = frame.split(",")[1];
-        ffmpeg.FS("writeFile", `frame${i}.png`, Uint8Array.from(atob(data), c => c.charCodeAt(0)));
+          frames.forEach((frame, i) => {
+          const data = frame.split(",")[1];
+          ffmpeg.FS("writeFile", `frame${i}.png`, Uint8Array.from(atob(data), c => c.charCodeAt(0)));
         });
 
         await ffmpeg.run("-framerate", "30", "-i", "frame%d.png", "-c:v", "libx264", "-pix_fmt", "yuv420p", "output.mp4");
@@ -66,7 +71,7 @@ const Visualizer = () => {
 
   return (
     <div>
-      <canvas ref={canvasRef} width="640" height="360" style={{ border: "1px solid black" }}></canvas>
+      <canvas ref={canvasRef} width="100%" height="35" style={{ border: "1px solid black" }}></canvas>
       <div>
         <button onClick={startVisualizer}>Start Visualizer</button>
         <button onClick={stopVisualizer}>Stop Visualizer</button>

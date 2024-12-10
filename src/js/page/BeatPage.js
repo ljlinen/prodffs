@@ -11,6 +11,7 @@ import InfoText from "../component/InfoText";
 import AudioPlayer from "../component/AudioPlayer";
 import ButtonDescriptive from "../elemet/ButtonDescriptive";
 import useBeatsContext from "../hooks/useContext/useBeatsContext";
+// import Visualizer from "../component/Visualizer";
 
 export default function BeatPage() {
   const params = useParams();
@@ -82,9 +83,10 @@ export default function BeatPage() {
         </nav>
 
         <div className="beatlist-sorter">
-          <h2 style={{textTransform: 'uppercase', maxHeight: 90}}>
+          <h2>
             {isLoading ? 'LOADING' : beat ?  beat?.info?.title : requestStatusText}
           </h2>
+          {/* <Visualizer /> */}
         </div>
       </header>
 
