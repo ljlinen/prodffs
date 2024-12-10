@@ -1,10 +1,11 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Loader from '../elemet/Loader'
 import ClickableIcon from '../elemet/ClickableIcon'
 import SideNavItem from '../elemet/SideNavItem'
-import iconMenu from "../../asset/img/icon/menu.svg";
+// import iconMenu from "../../asset/img/icon/menu.svg";
 import iconForward from "../../asset/img/icon/chevron-right.svg";
 import iconBack from "../../asset/img/icon/chevron-left.svg";
+import headerImage from "../../asset/img/photo/FFSComp.png";
 import useSideNavigator from '../hooks/useSideNavigator';
 import useBuyingContext from '../hooks/useContext/useBuyingContext';
 import IconButton from './IconButton';
@@ -15,6 +16,18 @@ export default function HeaderHome({sorter, setSorter, isBuying, isLoading, setG
 
    const { handleSideNav, isSideNavOpen } = useSideNavigator(sideNavReff);
    const { buyingDispatch } = useBuyingContext();
+   // eslint-disable-next-line no-unused-vars
+   const [showNav, setShowNav] = useState();
+
+  useEffect(() => {
+
+    const handleScroll = () => {
+      window.scrollY > 5 ? setShowNav(true) : setShowNav(false);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
 
    const clearBuying = () => {
@@ -29,23 +42,24 @@ export default function HeaderHome({sorter, setSorter, isBuying, isLoading, setG
    return (
       <div className="header-sidenav">
          <header>
+            <img className='background-img' alt='background' src={headerImage} />
             <nav>
             <IconButton
-              condition={!true}
+              condition={true}
               handler={isBuying ? clearBuying : null}
               src={isBuying ? iconBack : null}
               value={isBuying ? "Back" : "ProdFFS"}
-              style={{display: 'flex'}}
+              style={{display: 'flex', opacity: .6}}
             />
-               <ClickableIcon 
+               {/* <ClickableIcon 
                   condition={isSideNavOpen}
                   classes={'menu'}
                   src={iconMenu}
                   alt={'menu'}
                   handler={() => handleSideNav('Open')}
-               />
+               /> */}
             </nav>
-            <div className={(isBuying && "beatlist-sorter beatlist-sorter-hide") || "beatlist-sorter"}>
+            <div className={`beatlist-sorter ${isBuying && 'beatlist-sorter-hide'}`}>
                <div class="intro">
                   <h2>{(isBuying && "BUY BEAT") || "BUY BEATS. ELEVATE YOUR SOUND."}</h2>
                   <p>got a sound idea? we also take beat requests.</p>
