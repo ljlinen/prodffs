@@ -83,7 +83,7 @@ export default function AudioPlayer({renderCondition}) {
                 audio
                 .play()
                 .then(() => beatsDispatch({type:'SET_IS_PLAYING', payload: true}))
-                .catch((error) => console.error("Playback error:", error)) :
+                .catch((error) => {console.error("Playback error:", error)}) :
                 audio.pause()
                 beatsDispatch({type:'SET_IS_PLAYING', payload: false})
                 break;
@@ -107,7 +107,7 @@ export default function AudioPlayer({renderCondition}) {
     }
 
     return (
-        <div className={renderCondition ? "pause-next pause-next-hide" : "pause-next"}>
+        <div className={renderCondition ? "pause-next" : "pause-next pause-next-hide"}>
             <div className="mask">
                 <audio ref={audioRef} src={currentSongSrc} />
                 <img src={iconPrevious} alt="previous" onClick={() => handleControlClick('previous')} />

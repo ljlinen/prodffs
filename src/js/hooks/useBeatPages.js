@@ -65,15 +65,6 @@ export default function useBeatPages(fetchPage) {
   setIsAtPageEnd(fetchedPages[fetchedPages.length - 1] === fetchPage ? true : false);
  }, [fetchPage, fetchedPages, isAtDataEnd])
 
-//  useEffect(() => {
-//   setIsAtDataEnd(isAtPageEnd && fetchedPages[fetchedPages.length - 1] === fetchPage ? true : false);
-//   setIsAtPageEnd(isAtPageEnd && fetchedPages[fetchedPages.length - 1] === fetchPage ? true : false);
-//   console.log(isAtPageEnd, fetchPage, fetchedPages);
-//   console.log('at page end? ', isAtPageEnd && fetchedPages[fetchedPages.length - 1] === fetchPage);
-//   console.log('cos compared? ', fetchedPages[fetchedPages.length - 1], ' and ', fetchPage, ' with pageend as ', isAtPageEnd);
-  
-//  }, [fetchPage, fetchedPages, isAtPageEnd])
-
 
    return {isLoading, fetchedPages, isAtPageEnd, isAtDataEnd}
 }

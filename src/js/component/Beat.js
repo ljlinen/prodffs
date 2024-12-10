@@ -53,7 +53,7 @@ export default function Beat({ beatObj, id, i }) {
         <h4>{info?.title}</h4>
         <p>bpm: {info?.bpm} </p>
       </div>
-        <div class="isplaying-n-playicon" style={{left: selectedBeat?.id === id ? 34 : 0}}>
+        <div className="isplaying-n-playicon" style={{left: selectedBeat?.id === id ? 34 : 0}}>
           <div className={i === playingSongIndex && isPlaying ? "bg  isplaying-anim" : "bg hide"}>
             <div className="one">
             </div>
@@ -62,7 +62,7 @@ export default function Beat({ beatObj, id, i }) {
             <div className="three">
             </div>
           </div>
-          <img className={(/* !isSafe && */ i !== playingSongIndex) ? "hide-anim play" :  "hide play" }
+          <img className={(i !== playingSongIndex) ? "hide-anim play" :  "hide play" }
             src={play}
             alt="background-image"
             onClick={handlePlay}

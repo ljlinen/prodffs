@@ -10,7 +10,7 @@ import useSideNavigator from '../hooks/useSideNavigator';
 import useBuyingContext from '../hooks/useContext/useBuyingContext';
 import IconButton from './IconButton';
 
-export default function HeaderHome({sorter, setSorter, isBuying, isLoading, setGenre}) {
+export default function HeaderHome({sorter, setSorter, resetChechoutInfo, isBuying, isLoading, setGenre}) {
    
    const sideNavReff = useRef(null)
 
@@ -30,11 +30,9 @@ export default function HeaderHome({sorter, setSorter, isBuying, isLoading, setG
   }, []);
 
 
-   const clearBuying = () => {
-      buyingDispatch({
-        type: "CLEAR_BUYING",
-      });
-  
+   const resetChechoutInfoHeader = () => {
+      if(resetChechoutInfo) resetChechoutInfo()
+      buyingDispatch({type: "CLEAR_BUYING"});
       // document.body.scrollIntoView({ scrollBehavior: 'smooth' })
    };
 
@@ -46,10 +44,10 @@ export default function HeaderHome({sorter, setSorter, isBuying, isLoading, setG
             <nav>
             <IconButton
               condition={true}
-              handler={isBuying ? clearBuying : null}
+              handler={isBuying ? resetChechoutInfoHeader : null}
               src={isBuying ? iconBack : null}
               value={isBuying ? "Back" : "ProdFFS"}
-              style={{display: 'flex', opacity: .6}}
+              style={{display: 'flex'}}
             />
                {/* <ClickableIcon 
                   condition={isSideNavOpen}
@@ -60,11 +58,11 @@ export default function HeaderHome({sorter, setSorter, isBuying, isLoading, setG
                /> */}
             </nav>
             <div className={`beatlist-sorter ${isBuying && 'beatlist-sorter-hide'}`}>
-               <div class="intro">
-                  <h2>{(isBuying && "BUY BEAT") || "BUY BEATS. ELEVATE YOUR SOUND."}</h2>
-                  <p>got a sound idea? we also take beat requests.</p>
+               <div className="intro">
+                  <h2>{isLoading ? "LOADING" : "BUY BEATS. ELEVATE YOUR SOUND."}</h2>
+                  <p>{!isLoading && 'got a sound idea? we also take beat requests.'}</p>
                </div>
-               <div class={isSideNavOpen ? "sorter hide" : "sorter hide-anim"}>
+               <div className={isLoading || isSideNavOpen ? "sorter hide" : "sorter hide-anim"}>
                   <p className="by">
                      SORT BY
                   </p>
