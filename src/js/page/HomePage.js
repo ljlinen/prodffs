@@ -18,9 +18,9 @@ export default function HomePage() {
   const [isBuying, setIsBuying] = useState();
   const [genre, setGenre] = useState();
   const [sorter, setSorter] = useState('newest');
-  const [beatsToRender, setBeatsToRender] = useState();
+  const [beatsToRender, setBeatsToRender] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-
+  const [resetChechoutInfo, setResetChechoutInfo] = useState(null)
 
   const { selectedBeat } = useBuyingContext();
   const { beats } = useBeatsContext();
@@ -114,13 +114,13 @@ export default function HomePage() {
 
   return (
     <div className="homepage">
-      <HeaderHome isBuying={isBuying} isLoading={isLoading} sorter={sorter} setSorter={setSorter} setGenre={setGenre} />
+      <HeaderHome resetChechoutInfo={resetChechoutInfo} isBuying={isBuying} isLoading={isLoading} sorter={sorter} setSorter={setSorter} setGenre={setGenre} />
       <div className="beatlist-main" /*style={{ minHeight: "92vh" }} */>
-      <AudioPlayer renderCondition={isBuying} />
+      <AudioPlayer renderCondition={beatsToRender && !isBuying} />
           <InfoText
-            condition={!isBuying && !isLoading}
-            h4={'Browse Our Instrumentals'}
-            p={`Press play icon to play a beat.`}
+            condition={beatsToRender && !isBuying && !isLoading}
+            h4={'Lets find you a beat you might like.'}
+            p={`use the play icon or audio controls to take a listen.`}
             style={{bottomMargin: 15}}
           />
 
@@ -131,7 +131,7 @@ export default function HomePage() {
             style={{marginBottom: 27}}
           />
 
-        <div className={isBuying ? "beatlist beatlist-hide" : "beatlist"}>
+        <div className={!isBuying ? "beatlist" : "beatlist beatlist-hide"}>
 
           {
             beatsToRender && beatsToRender?.length ? 
@@ -155,7 +155,7 @@ export default function HomePage() {
           }
         </div>
 
-        <div className={isLoading || isBuying ? "pages-indicator hide-height" : "pages-indicator hide-anim-height-trans"}>
+        <div className={beatsToRender && (!isLoading || !isBuying) ? "pages-indicator hide-anim-height-trans" : "pages-indicator hide-height"}>
             <IconButton
               condition={!isBuying && currentPage > 1}
               handler={() => navigatePage('previous')}
@@ -172,13 +172,13 @@ export default function HomePage() {
             />
           </div>
 
-          <div className={!isLoading && !isBuying ? "page-indicator-bottom hide-anim-height-trans" : "page-indicator-bottom hide-height"}>
+          <div className={beatsToRender && (!isLoading && !isBuying) ? "page-indicator-bottom hide-anim-height-trans" : "page-indicator-bottom hide-height"}>
             <span className={(!isAtPageEnd && currentPage === 1) ? "circle-current" : "hide"}></span>
             <span className={(!isAtPageEnd && currentPage > 1) ? "circle-current" : "hide"}></span>
             <span className={(isAtPageEnd) && "circle-current"}></span>
           </div>
           
-          <CheckoutPage beatObj={selectedBeat} />
+          <CheckoutPage beatObj={selectedBeat} setResetChechoutInfo={setResetChechoutInfo} />
       </div>
     </div>
   );

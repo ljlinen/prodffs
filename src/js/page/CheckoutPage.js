@@ -5,8 +5,9 @@ import Paystack from '@paystack/inline-js';
 import { baseUrl } from '../..'
 import useBuyingContext from '../hooks/useContext/useBuyingContext'
 import InfoText from '../component/InfoText';
+import ButtonDescriptive from '../elemet/ButtonDescriptive';
 
-export default function CheckoutPage({ id, beatObj }) {
+export default function CheckoutPage({ id, beatObj, setResetChechoutInfo }) {
 
   const { selectedBeat, selectedPackage, buyingDispatch } = useBuyingContext();
   const [isBuying, setIsBuying] = useState()
@@ -22,6 +23,15 @@ export default function CheckoutPage({ id, beatObj }) {
       packageName: selectedPackage?.package
     }));
   }, [selectedBeat, selectedPackage])
+
+  useEffect(() => {
+    if(setResetChechoutInfo) setResetChechoutInfo(resetChechoutInfoCheckout)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const resetChechoutInfoCheckout = () => {
+    setDownloadLink(null)
+  }
 
   const handleClick = (e) => {
     if(!(selectedBeat?.id !== id)) return
@@ -115,20 +125,19 @@ export default function CheckoutPage({ id, beatObj }) {
 
     try {
       const response = await fetch(downloadLink);
-      if(!response.ok) {
+      if(response.ok) {
+        const blob = await response.blob();
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = selectedBeat?.info?.title; // Set your file name and extension
+        link.click();
+        URL.revokeObjectURL(link.href); // Clean u
+      } else {
         const resObj = await response.json()
         alert(resObj?.message)
       }
-      const blob = await response.blob();
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = selectedBeat?.info?.title; // Set your file name and extension
-      link.click();
-      URL.revokeObjectURL(link.href); // Clean u
-      
     } catch (error) {
       console.log(error);
-      
     }
   }
 
@@ -161,29 +170,30 @@ export default function CheckoutPage({ id, beatObj }) {
             }
           </div>
         </div>
+
         <InfoText
           condition={isSafe && !downloadLink}
           h4={'Proceed To Payment.'}
           p={'You will pick a payment option on the pop-up screen.'}
-          style={{marginTop: 0}}
+          style={{marginTop: 0, marginBottom: 0}}
         />
-        <div className={isSafe && !downloadLink ? 'checkout-due-info' : 'checkout-due-info checkout-due-info-hide'} onClick={handlePaymentInit}>
-          <div className='checkout-button-mask'>
-            <p>Checkout</p>
-            <div className='info'>
-              <h4>Due: ${selectedPackage?.price}</h4>
-            </div>
-          </div>
-        </div>
+
+        <ButtonDescriptive 
+          condition={isSafe && !downloadLink}
+          handler={handlePaymentInit}
+          h4={`Due: ${selectedPackage?.price}`}
+          p={'Checkout'}
+          style={{width: 180, marginTop: 20, color: 'rgba(var(--clr-accent))'}}
+        />
       </div>
-        <div className={isBuying && downloadLink ? 'checkout-due-info' : 'checkout-due-info checkout-due-info-hide'} onClick={downloadBeat}>
-          <div className='checkout-button-mask'>
-            <p>File Ready!</p>
-            <div className='info'>
-              <h4>Download</h4>          
-            </div>      
-          </div>
-        </div>
+
+      <ButtonDescriptive 
+        condition={isBuying && downloadLink}
+        handler={downloadBeat}
+        h4={'Download'}
+        p={'File Ready!'}
+        style={{marginTop: 20}}
+      />
     </div>
   )
 }
