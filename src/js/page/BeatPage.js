@@ -18,7 +18,7 @@ export default function BeatPage() {
 
   const [beat, setBeat] = useState();
   const [isLoading, setIsLoading] = useState();
-  const [sorter, setSorter] = useState();
+  // const [sorter, setSorter] = useState();
 
 
   useEffect(() => {
