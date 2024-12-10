@@ -30,30 +30,33 @@ export default function AudioPlayer({renderCondition}) {
     }, [beats])
 
     useEffect(() => {
+        
+        beatsDispatch({type:'SET_PLAYING_SONG', payload: currentSongIndex})
 
         if(queLoaded) {
             console.log(currentSongIndex);
-            
             setCurrentSongSrc(toPlayQue[currentSongIndex])
         }
+        console.log('song playing', currentSongIndex);
 
     // eslint-disable-next-line
     }, [queLoaded, currentSongIndex])
 
     useEffect(() => {
 
-        if(queLoaded) {
-            console.log('lopading clicked song', playingSongIndex);
-            if(isPlaying) handleControlClick('play-pause')
-            setCurrentSongSrc(toPlayQue[playingSongIndex])
-            if(!isPlaying) handleControlClick('play-pause')
+        const playClickedSong = async() => {
+            if(queLoaded) {
+                handleControlClick('play-pause')
+                setCurrentSongSrc(toPlayQue[playingSongIndex])
+            }
         }
+
+        playClickedSong()
 
     // eslint-disable-next-line
     }, [playingSongIndex])
 
-    useEffect(() => {  
-        console.log("song loading");
+    useEffect(() => {
         if(currentSongSrc && audioRef.current) {
             const audio = audioRef.current;
             audio.load();
@@ -62,13 +65,17 @@ export default function AudioPlayer({renderCondition}) {
             };
             audio.onloadedmetadata = () => {
                 console.log("song loaded");
+                handleControlClick('play-pause')
             };
         }
         
     // eslint-disable-next-line
     }, [currentSongSrc]);
 
-    const handleControlClick = (type) => {
+
+    const handleControlClick = async(type) => {
+        console.log('pause play, isPlaying: ', isPlaying);
+        
         const audio = audioRef.current;
         switch (type) {
             case 'play-pause':
@@ -81,10 +88,18 @@ export default function AudioPlayer({renderCondition}) {
                 beatsDispatch({type:'SET_IS_PLAYING', payload: false})
                 break;
             case 'next':
-                setCurrentSongIndex((beats?.length < currentSongIndex) ? currentSongIndex + 1 : 0)
+                if(isPlaying) {
+                    audio.pause()
+                    beatsDispatch({type:'SET_IS_PLAYING', payload: false})
+                }
+                setCurrentSongIndex((currentSongIndex + 1 > beats?.length - 1) ? 0 : currentSongIndex + 1)
                 break;
             case 'previous':
-                setCurrentSongIndex((currentSongIndex > beats?.length) ? currentSongIndex - 1 : currentSongIndex.length - 1)
+                if(isPlaying) {
+                    audio.pause()
+                    beatsDispatch({type:'SET_IS_PLAYING', payload: false})
+                }
+                setCurrentSongIndex((currentSongIndex - 1 < 0) ? beats?.length - 1 : currentSongIndex - 1)
                 break;
             default:
                 break;

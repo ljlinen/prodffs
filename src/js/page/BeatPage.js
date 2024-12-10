@@ -7,6 +7,8 @@ import { baseUrl } from "../..";
 import { useParams } from "react-router-dom";
 import Loader from "../elemet/Loader";
 import useBuyingContext from "../hooks/useContext/useBuyingContext";
+import InfoText from "../component/InfoText";
+import AudioPlayer from "../component/AudioPlayer";
 
 export default function BeatPage() {
   const params = useParams();
@@ -72,42 +74,22 @@ export default function BeatPage() {
         </nav>
 
         <div className="beatlist-sorter">
-          <h2 style={{textTransform: 'uppercase'}}>
+          <h2 style={{textTransform: 'uppercase', maxHeight: 90}}>
             {isLoading ? 'LOADING' : beat ?  beat?.info?.title || "BEAT NOT FOUND" : null}
-            </h2>
-          <p className="by">
-            <span>|</span>
-            { !sorter ? 'select a package below' : sorter + ' package' }
-          </p>
-          <div className="sorter-buttons hide-anim">
-            {
-              beat?.packages ? 
-              Object.values(beat?.packages).map((packageItem, i) => {
-                // if(i === 8) setSorter(packageItem?.package)    11
-                return (
-                  <p className={sorter === packageItem?.package && 'current-sorter'} 
-                    onClick={() => setSorter(packageItem?.package)}
-                    key={i + packageItem?.package}>
-                    {packageItem?.package}
-                  </p>
-                )
-              }) :
-              null
-            }
-          </div>
+          </h2>
         </div>
       </header>
 
       <div className="beatlist-main" style={{ minHeight: "92vh" }}>
+        <AudioPlayer renderCondition={isLoading} />
         <div className="beatlist">
           <Loader load={isLoading} />
 
-          <div className="info-text">
-            <h4 style={{ textTransform: "capitalize" }}>
-              take a listen to this beat
-            </h4>
-            <p>if you like it you can proceed to download/buy it.</p>
-          </div>
+          <InfoText 
+            condition={!isLoading}
+            h4={'download or purchase to this beat'}
+            p={'take a listen to ensure you were sent to the right beat'}
+          />
 
 
           { 
@@ -118,13 +100,6 @@ export default function BeatPage() {
               /> : 
             null
           }
-          
-
-          <div className="page-indicator-bottom">
-            <span className={(sorter === 'newest') && "circle-current"}></span>
-            <span className={(sorter === 'plays') && "circle-current"}></span>
-            <span className={(sorter === 'genre') && "circle-current"}></span>
-          </div>
 
           <CheckoutPage beatObj={selectedBeat} />
         </div>

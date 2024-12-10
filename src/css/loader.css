@@ -10,7 +10,7 @@
     content: '';  
     width: 90%;
     height: 1.5px;
-    background: ivory;
+    background: rgba(var(--clr-primary));
     opacity: .5;
     position: absolute;
     top: 0;

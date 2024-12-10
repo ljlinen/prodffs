@@ -4,6 +4,7 @@ import BeatOption from '../component/BeatOption'
 import Paystack from '@paystack/inline-js';
 import { baseUrl } from '../..'
 import useBuyingContext from '../hooks/useContext/useBuyingContext'
+import InfoText from '../component/InfoText';
 
 export default function CheckoutPage({ id, beatObj }) {
 
@@ -134,6 +135,11 @@ export default function CheckoutPage({ id, beatObj }) {
   return (
     <div>
       <div className={isBuying && !downloadLink ? 'buying-view' : 'buying-view-hide'}>
+        <InfoText 
+          condition={isBuying && !downloadLink}
+          h4={'Choose a package'}
+          p={`free package won't require payment`}
+          />
         <div className={'beat-options'}>
           <div className='beat-options-scroll'>
             {
@@ -155,6 +161,12 @@ export default function CheckoutPage({ id, beatObj }) {
             }
           </div>
         </div>
+        <InfoText
+          condition={isSafe && !downloadLink}
+          h4={'Proceed To Payment.'}
+          p={'You will pick a payment option on the pop-up screen.'}
+          style={{marginTop: 0}}
+        />
         <div className={isSafe && !downloadLink ? 'checkout-due-info' : 'checkout-due-info checkout-due-info-hide'} onClick={handlePaymentInit}>
           <div className='checkout-button-mask'>
             <p>Checkout</p>
