@@ -20,13 +20,16 @@ export default function HomePage() {
   const [sorter, setSorter] = useState('newest');
   const [beatsToRender, setBeatsToRender] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [resetChechoutInfo, setResetChechoutInfo] = useState(null)
+  const [resetChechoutInfoCheckout, setResetChechoutInfo] = useState(null)
 
   const { selectedBeat } = useBuyingContext();
   const { beats } = useBeatsContext();
   // eslint-disable-next-line no-unused-vars
   const { isLoading, isAtPageEnd, isAtDataEnd, fetchedPages } = useBeatPages(currentPage);
 
+  useEffect(() => {
+    console.log(beats);
+  }, [beats])
 
   useEffect(() => {
     if(beats) {
@@ -114,7 +117,7 @@ export default function HomePage() {
 
   return (
     <div className="homepage">
-      <HeaderHome resetChechoutInfo={resetChechoutInfo} isBuying={isBuying} isLoading={isLoading} sorter={sorter} setSorter={setSorter} setGenre={setGenre} />
+      <HeaderHome resetChechoutInfoCheckout={resetChechoutInfoCheckout} isBuying={isBuying} isLoading={isLoading} sorter={sorter} setSorter={setSorter} setGenre={setGenre} />
       <div className="beatlist-main" /*style={{ minHeight: "92vh" }} */>
       <AudioPlayer renderCondition={beatsToRender && !isBuying} />
           <InfoText
