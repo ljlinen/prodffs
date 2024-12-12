@@ -10,7 +10,7 @@ import useSideNavigator from '../hooks/useSideNavigator';
 import useBuyingContext from '../hooks/useContext/useBuyingContext';
 import IconButton from './IconButton';
 
-export default function HeaderHome({sorter, setSorter, resetChechoutInfo, isBuying, isLoading, setGenre}) {
+export default function HeaderHome({sorter, setSorter, resetChechoutInfoCheckout, isBuying, isLoading, setGenre}) {
    
    const sideNavReff = useRef(null)
 
@@ -31,7 +31,9 @@ export default function HeaderHome({sorter, setSorter, resetChechoutInfo, isBuyi
 
 
    const resetChechoutInfoHeader = () => {
-      if(resetChechoutInfo) resetChechoutInfo()
+      if(resetChechoutInfoCheckout) resetChechoutInfoCheckout()
+      if(!resetChechoutInfoCheckout) console.log('resetcheckout is falsy', resetChechoutInfoCheckout);
+      
       buyingDispatch({type: "CLEAR_BUYING"});
       // document.body.scrollIntoView({ scrollBehavior: 'smooth' })
    };

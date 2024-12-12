@@ -41,8 +41,10 @@ export default function useBeatPages(fetchPage) {
 
          if(beats && beats.length) {
             for(let beat of beats) {
-               beat = JSON.parse(beat)
-               beatsDispatch({type: 'ADD_BEAT', payload: beat});
+              beat = JSON.parse(beat)
+              if(beat) {
+                beatsDispatch({type: 'ADD_BEAT', payload: beat});
+              }
             }
          }
 

@@ -25,11 +25,16 @@ export default function CheckoutPage({ id, beatObj, setResetChechoutInfo }) {
   }, [selectedBeat, selectedPackage])
 
   useEffect(() => {
-    if(setResetChechoutInfo) setResetChechoutInfo(resetChechoutInfoCheckout)
+    if(setResetChechoutInfo) {
+      setResetChechoutInfo(() => resetChechoutInfoCheckout)
+      console.log('resetCheckout was set', resetChechoutInfoCheckout);
+      
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const resetChechoutInfoCheckout = () => {
+    console.log('reset checkout did run');
     setDownloadLink(null)
   }
 
