@@ -11,6 +11,7 @@ import InfoText from "../component/InfoText";
 import AudioPlayer from "../component/AudioPlayer";
 import ButtonDescriptive from "../elemet/ButtonDescriptive";
 import useBeatsContext from "../hooks/useContext/useBeatsContext";
+import Footer from "../component/Footer";
 // import Visualizer from "../component/Visualizer";
 
 export default function BeatPage() {
@@ -59,7 +60,6 @@ export default function BeatPage() {
   // an event litener to the body inide this
   // useeffect
   useEffect(() => {
-    console.log(beats);
     
   }, [beats])
 
@@ -128,6 +128,7 @@ export default function BeatPage() {
           <CheckoutPage beatObj={selectedBeat} />
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
