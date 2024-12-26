@@ -9,15 +9,17 @@ import headerImage from "../../asset/img/photo/FFSComp.png";
 import useSideNavigator from '../hooks/useSideNavigator';
 import useBuyingContext from '../hooks/useContext/useBuyingContext';
 import IconButton from './IconButton';
+// import SideNavTabs from './SideNavTabs';
 
 export default function HeaderHome({sorter, setSorter, resetChechoutInfoCheckout, isBuying, isLoading, setGenre}) {
    
    const sideNavReff = useRef(null)
 
-   const { handleSideNav, isSideNavOpen } = useSideNavigator(sideNavReff);
+   const { handleSideNav, isSideNavOpen, handleSideNavTabs, sideNavTab } = useSideNavigator(sideNavReff);
    const { buyingDispatch } = useBuyingContext();
    // eslint-disable-next-line no-unused-vars
    const [showNav, setShowNav] = useState();
+
 
   useEffect(() => {
 
@@ -59,22 +61,21 @@ export default function HeaderHome({sorter, setSorter, resetChechoutInfoCheckout
                   handler={() => handleSideNav('Open')}
                /> */}
             </nav>
-            <div className={`beatlist-sorter ${isBuying && 'beatlist-sorter-hide'}`}>
-               <div className="intro">
+            <div className={`beatlist-sorter ${isBuying ? 'beatlist-sorter-hide' : null} ${sideNavTab ? 'beatlist-sorter-sidenav' : null }`}>
+               <div className={!sideNavTab ? "intro hide-width-anim" : 'intro hide-width'}>
                   <h2>{isLoading ? "LOADING" : "BUY BEATS. ELEVATE YOUR SOUND."}</h2>
                   <p>{!isLoading && 'got a sound idea? we also take beat requests.'}</p>
                </div>
-               <div className={isLoading || isSideNavOpen ? "sorter hide" : "sorter hide-anim"}>
+               <div className={isLoading || isSideNavOpen ? "sorter hide-width" : "sorter hide-width-anim"}>
                   <p className="by">
                      SORT BY
                   </p>
-                  <div className={(isBuying && " sorter-buttons hide") || "sorter-buttons hide-anim"}>
-                     <p className={sorter === 'newest' && 'current-sorter'} onClick={() => setSorter('newest')}>newest</p>
-                     <p className={sorter === 'plays' && 'current-sorter'} onClick={() => setSorter('plays')}>plays</p>
-                     <div style={{display: 'flex', justifyContent: 'end', position: 'relative'}}>
-                        <p className={sorter === 'genre' && 'current-sorter'} style={{position: 'absolute'}}>Genre</p>
+                  <div className={isBuying ? "sorter-buttons hide" : "sorter-buttons hide-anim"}>
+                     <p className={sorter === 'newest' ? 'current-sorter' : null} onClick={() => setSorter('newest')}>newest</p>
+                     <p className={sorter === 'plays' ? 'current-sorter' : null} onClick={() => setSorter('plays')}>plays</p>
+                     <div>
+                        <p className={sorter === 'genre' ? 'current-sorter' : null} style={{position: 'absolute'}}>Genre</p>
                         <select onChange={(e) => setGenre(e.target.value)}  onClick={() => setSorter('genre')} style={{position: 'relative', opacity: 0, width: '100%', height: '100%'}}>
-                           <p>Genre</p>
                            <option>rap</option>
                            <option>trap</option>
                            <option>trap soul</option>
@@ -82,6 +83,7 @@ export default function HeaderHome({sorter, setSorter, resetChechoutInfoCheckout
                      </div>
                   </div>
                </div>
+               {/* <SideNavTabs sideNavTab={sideNavTab} /> */}
             </div>
             <div>
                <div className="">
@@ -100,8 +102,8 @@ export default function HeaderHome({sorter, setSorter, resetChechoutInfoCheckout
                style={{height: 15}}
             />
             <SideNavItem value={'View Cart'} handler={null} />
-            <SideNavItem value={'Request'} handler={null} />
-            <SideNavItem value={'Contact'} handler={null} />
+            <SideNavItem value={'Request'} handler={() => handleSideNavTabs('request')} />
+            <SideNavItem value={'Contact'} handler={() => handleSideNavTabs('contact')} />
          </nav>
       </div>
    )

@@ -4,14 +4,14 @@
 }
 
 :root {
-    --clr-60: 247 248 250;
-    --clr-60-2: 250 250 250;
+    --clr-60: 255, 255, 255;
+    --clr-60-2: 72, 125, 127;
     --clr-font-h: 20, 20, 20;
     --clr-font-p: 40, 40, 40;
-    --clr-primary: 20, 20, 20;
+    --clr-primary: 0, 65, 71;
     --clr-primary-2: 96, 100, 102;
     --clr-header-background: 47, 76, 77;
-    --clr-accent: 0, 128, 0;
+    --clr-accent: 0, 0, 0;
 }
 
 * {
@@ -28,6 +28,9 @@ body {
 
 .homepage {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .header-sidenav {
@@ -37,7 +40,6 @@ body {
     justify-content: space-between;
     z-index: 5;
     gap: 6px;
-    background-color: rgba(var(--clr-60-2));
 }
 .sidenav {
     display: flex;
@@ -118,11 +120,12 @@ header {
     flex-direction: column;
     position: relative;
     width: 100%;
-    background-color: rgba(var(--clr-60));
-    box-shadow: rgb(0 0 0 / 10%) 0px 0px 20px 20px;
+    box-shadow: rgb(0 0 0 / 15%) 0px 0px 20px 20px;
     border-bottom-right-radius: 20px;
     overflow: hidden;
     z-index: 1;
+    background-color: rgba(var(--clr-primary));
+    color: rgba(var(--clr-60));
 }
 
 header .background-img {
@@ -142,7 +145,7 @@ header nav {
     justify-content: space-between;
     align-items: center;
     height: 60px;
-    padding-inline: 25px;
+    padding-inline: clamp(25px, 8vw, 60px);
     padding-top: 10px;
 
     .menu {
@@ -161,7 +164,6 @@ nav ul {
 nav .logo {
     font-weight: 900;
     font-size: 12px;
-    color: rgb(0,0,0);
     /* margin-left: -20px; */
 }
 
@@ -170,7 +172,6 @@ label,
 .sorter-buttons select,
 .sorter-buttons option {
     font-size: 12.36px;
-    color: rgba(var(--clr-primary), .7);
 }
 h4 {
     font-size: 15px;
@@ -192,13 +193,14 @@ h6 {
 }
 
 .beatlist-main {
-    display: flex;
-    /* justify-content: space-between; */
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr min(100%, 400px) 1fr;
     position: relative;
-    width: 100%;
     background-color: rgba(var(--clr-60));
-    /* padding: 15px 20px; */
+}
+
+.beatlist-main > * {
+    grid-column: 2;
 }
 
 .hide {
@@ -236,8 +238,19 @@ h6 {
     opacity: 0 !important;
     width: 0 !important;
     pointer-events: none;
-    transition: opacity .6s ease-in-out;
+    transition: width .8s .4s cubic-bezier(0.52, -0.03, 0.48, 1.05), 
+    padding-block .8s .4s cubic-bezier(0.52, -0.03, 0.48, 1.05) .7s,
+    margin-block .8s .4s cubic-bezier(0.52, -0.03, 0.48, 1.05),
+    opacity .4s .4s cubic-bezier(0.52, -0.03, 0.48, 1.05);
 }
+
+.hide-width-anim {
+    transition: width .8s cubic-bezier(0.52, -0.03, 0.48, 1.05), 
+    padding-block .8s cubic-bezier(0.52, -0.03, 0.48, 1.05) .7s,
+    margin-block .8s cubic-bezier(0.52, -0.03, 0.48, 1.05),
+    opacity .4s .8s cubic-bezier(0.52, -0.03, 0.48, 1.05);
+}
+
 
 .hide-up {
     opacity: 0 !important;
@@ -264,10 +277,8 @@ h6 {
     display: flex;
     overflow-y: hidden;
     transition: height 1.4s cubic-bezier(0.52, -0.03, 0.48, 1.05), opacity 1.4s cubic-bezier(0.52, -0.03, 0.48, 1.05), padding-block 1.4s cubic-bezier(0.52, -0.03, 0.48, 1.05);
-    padding-block: 40px 25px;
-    padding-inline: 25px;
-    height: 183px;
     justify-content: space-between;
+    max-width: 600px;
 
     h2 {
         display: -webkit-box;
@@ -279,23 +290,20 @@ h6 {
         overflow: hidden;
         max-height: 90px;
     }
-
-    .intro {
-        max-width: 220px;
-    }
-    .intro p {
-        max-width: 165px;
-        color: rgba(var(--clr-primary), .6);
-    }
     .sorter {
         display: flex;
         flex-direction: column;
+        box-shadow: rgb(0 0 0 / 10%) 0px 5px 9px;
+        padding: 10px;
+        border-radius: 10px;
+        height: fit-content;
+        background-color: rgba(var(--clr-60-2))
     }
     .sorter .by {
         text-transform: capitalize;
         font-weight: 600;
-        text-align: right;
-        color: rgba(var(--clr-accent));
+        color: rgba(var(--clr-60));
+        text-wrap: nowrap;
 
         span {
             padding-right: 3px;
@@ -305,19 +313,18 @@ h6 {
         margin-top: 10px;
         display: flex;
         flex-direction: column;
-        align-items: end;
         font-size: 12px;
         gap: 3px;
     }
     .sorter .sorter-buttons p,
     .sorter .sorter-buttons select,
     .sorter .sorter-buttons option {
-        color: rgba(var(--clr-primary), .5);
-        font-weight: 600;
+        color: rgba(var(--clr-primary), 1);
         text-transform: capitalize;
         padding: 3px;
         border-bottom: 1px solid transparent;
         transition: border-bottom .3s ease-in-out;
+        width: fit-content;
     }
     .sorter .sorter-buttons select {
         background-color: transparent;
@@ -330,16 +337,20 @@ h6 {
         outline: none;
     }
     .sorter .sorter-buttons .current-sorter {
-        border-bottom: 2px solid rgba(var(--clr-primary), .5);
+        border-bottom: 1px solid rgba(var(--clr-primary), .5);
         transition: border-bottom .6s ease-in-out;
     }
 }
 
+.beatlist-sorter-sidenav {
+    height: 100vh !important;
+}
+
 .beatlist-sorter-hide {
-    height: 0;
-    opacity: 0;
-    padding-block: 0;
-    pointer-events: none;
+    height: 0 !important;
+    opacity: 0 !important;
+    padding-block: 0 !important;
+    pointer-events: none !important;
 }
 
 .beatlist {
@@ -389,9 +400,11 @@ h6 {
     margin-bottom: 15px;
 
     p {
-        color: rgba(var(--clr-primary), .7);
+        max-width: 200px;
     }
 }
+
+
 
 .beatlist-main .page-indicator-bottom {
     display: flex;
@@ -459,3 +472,63 @@ h6 {
         opacity: 0;
     }
 }
+
+footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding-inline: clamp(25px, 8vw, 60px);
+    padding-block: 25px;
+}
+
+.beat-input-div {
+    display: flex;
+    flex-direction: column;
+
+    .beat-input .text-input {
+        width: 100%;
+        height: 100%;
+        border-radius: 6px;
+        border: none;
+        outline: none;
+        background-color: rgba(var(--clr-60));
+        position: unset;
+        opacity: unset;
+        padding-inline: 6px;
+        color: rgba(var(--clr-primary))
+    }
+    .beat-input {
+        display: flex;
+        position: relative;
+        height: 45px;
+        padding: 2px;
+        background: linear-gradient(to right, rgba(var(--clr-primary)) 33.3%, rgba(var(--clr-60)) 60%);
+        border-radius: 6px;
+        z-index: 15;
+        box-shadow: rgb(0 0 0 / 20%) 4px 2px 6px 0px;
+        transition: transform .8s ease-in-out, opacity .8s;
+    }
+    .beat-input-div label {
+        padding: 4px 2px;
+    }
+    .beat-input input {
+        opacity: 0;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+    .beat-input .clip {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(var(--clr-60));
+    }
+    .beat-input .clip .label {
+        margin-inline: 12px;
+        padding: 4px;
+        border: 2px rgb(69 69 69 / 50%) solid;
+        border-radius: 4px;
+    }
+}
+

@@ -34,10 +34,8 @@ export default function AudioPlayer({renderCondition}) {
         beatsDispatch({type:'SET_PLAYING_SONG', payload: currentSongIndex})
 
         if(queLoaded) {
-            console.log(currentSongIndex);
             setCurrentSongSrc(toPlayQue[currentSongIndex])
         }
-        console.log('song playing', currentSongIndex);
 
     // eslint-disable-next-line
     }, [queLoaded, currentSongIndex])
@@ -64,7 +62,6 @@ export default function AudioPlayer({renderCondition}) {
                 handleControlClick('next')
             };
             audio.onloadedmetadata = () => {
-                console.log("song loaded");
                 handleControlClick('play-pause')
             };
         }
@@ -74,7 +71,6 @@ export default function AudioPlayer({renderCondition}) {
 
 
     const handleControlClick = async(type) => {
-        console.log('pause play, isPlaying: ', isPlaying);
         
         const audio = audioRef.current;
         switch (type) {

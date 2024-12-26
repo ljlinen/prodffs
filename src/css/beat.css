@@ -16,8 +16,8 @@
     height: 50px;
     margin-inline: 25px;
     max-width: 350px;
-    /* border: 1px solid rgba(var(--clr-font-p), .5); */
-    border-radius: 4px;
+    background-color: rgba(var(--clr-60-2));
+    border-radius: 6px;
     gap: 6px;
     align-items: center;
     justify-content: space-between;
@@ -88,10 +88,9 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        height: 48px;
+        height: 46px;
         margin: 2px;
-        border-radius: 4px;
-        padding: 2px;
+        border-radius: 6px;
         gap: 2px;
         box-shadow: rgb(0 0 0 / 20%) 0px 0px 10px 1px;
     }
@@ -100,11 +99,10 @@
         width: 100%;
         height: 100%;
         align-items: center;
-        border-radius: 4px;
-        background-color: rgba(var(--clr-60));
+        border-radius: 6px;
         padding: 6px 4px;
         justify-content: center;
-        color: rgba(var(--clr-accent));
+        color: rgba(var(--clr-60));
     }
     .title-bpm {
         display: flex;
@@ -124,7 +122,7 @@
             width: 100%;
             text-wrap: nowrap;
             overflow: hidden;
-            text-transform: capitalize;
+            text-transform: inherit;
             font-weight: 500;
             opacity: 1;
             text-overflow: ellipsis;
@@ -133,14 +131,13 @@
         p {
             width: 100%;
             font-size: 12px;
-            color: rgba(var(--clr-accent));
+            text-transform: inherit;
         }
     }
 
     .buy {
         position: relative;
         padding-right: 10px;
-        opacity: .5;
     }
     .play {
         height: 24px;
@@ -175,9 +172,24 @@
     height: 30px;
 }
 
+.buying {
+    margin-top: 50px;
+}
+
 .buying-view {
     opacity: 1;
+    background-color: rgba(var(--clr-primary));
+    padding-block: 20px;
+    max-width: 600px;
+    padding-block: 30px;
+    padding-inline: 15px;
+    border-radius: 6px;
+    margin-inline: 25px;
     transition: opacity .3s ease-out;
+
+    p {
+        opacity: .5;
+    }
 }
 .buying-view-hide {
     opacity: 0;
@@ -186,19 +198,35 @@
     transition: opacity .5s 1.6s ease-out;
 }
 
+.payment-summary {
+    .summary {
+        margin-top: 6px;
+    }
+
+    .summary > * {
+        display: flex;
+        gap: 6px;
+    }
+}
+
 .beat-option {
     display: flex;
     width: 180px;
     transform: translateY(0);
-    border-radius: 4px;
+    border-radius: 6px;
     gap: 6px;
     align-items: center;
     justify-content: space-between;
     position: relative;
     overflow: hidden;
     transition: opacity .4s ease-out, transform .1s ease-out;
+    background-color: rgba(var(--clr-60-2));
     box-shadow: rgb(0 0 0 / 20%) 2px 2px 6px 1px;
     flex-direction: column;
+
+    p {
+        opacity: 1;
+    }
 }
 .beat-option-hide {
     opacity: 0;
@@ -231,9 +259,11 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+
     h4 {
         text-transform: capitalize;
         padding: 15px;
+        color: rgba(var(--clr-accent));
     }
 
     p {
@@ -245,6 +275,7 @@
         flex-direction: column;
         padding: 10px 15px 15px 15px;
         gap: 6px;
+        color: rgba(var(--clr-60));
     }
     .title {
         display: flex;
@@ -312,7 +343,7 @@
     width: fit-content;
     transform: translateY(0);
     /* border: 1px solid rgba(var(--clr-font-p), .5); */
-    border-radius: 4px;
+    border-radius: 6px;
     overflow: hidden;
     transition: opacity .3s, transform .4s ease-out ;
     box-shadow: rgb(0 0 0 / 20%) 2px 2px 6px 1px;
@@ -340,7 +371,7 @@
         height: 100%;
         width: 100%;
         gap: 5px;
-        border-radius: 4px;
+        border-radius: 6px;
         /* background: linear-gradient(to right, rgba(var(--clr-primary)) 0%, rgba(var(--clr-60)) 40%); */
         align-items: center;
 
@@ -353,7 +384,7 @@
             /* background-color: rgba(var(--clr-60));;
             color: ivory; */
             padding: 6.5px;
-            border-radius: 4px;
+            border-radius: 6px;
             font-weight: 600;
             color: inherit;
         }
