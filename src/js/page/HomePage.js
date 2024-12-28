@@ -27,7 +27,7 @@ export default function HomePage() {
   const { selectedBeat } = useBuyingContext();
   const { beats } = useBeatsContext();
   // eslint-disable-next-line no-unused-vars
-  const { isLoading, isAtPageEnd, isAtDataEnd, fetchedPages } = useBeatPages(currentPage);
+  const { setIsLoading, isLoading, isAtPageEnd, isAtDataEnd, fetchedPages } = useBeatPages(currentPage);
 
 
   useEffect(() => {
@@ -180,7 +180,7 @@ export default function HomePage() {
           <span className={(isAtPageEnd) ? "circle-current" : null}></span>
         </div> */}
         
-        <CheckoutPage beatObj={selectedBeat} setResetChechoutInfo={setResetChechoutInfo} />
+        <CheckoutPage beatObj={selectedBeat} setResetChechoutInfo={setResetChechoutInfo} setIsLoading={setIsLoading} />
       </div>
       <Footer />
     </div>

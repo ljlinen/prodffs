@@ -90,7 +90,7 @@ export default function HeaderHome({sorter, setSorter, resetChechoutInfoCheckout
 
                </div>
             </div>
-            <Loader load={isLoading} />
+            <Loader isLoading={isLoading} />
          </header>
          <nav className="sidenav" ref={sideNavReff}>
             <ClickableIcon

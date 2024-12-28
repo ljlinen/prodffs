@@ -10,9 +10,9 @@ function Message({ content }) {
   return <p>{content}</p>;
 }
 
-function PaymentProcessor({condition, setPaymentData, checkoutBtnRef}) {
+function PaymentProcessor({condition, setPaymentData, checkoutBtnRef, setIsLoading}) {
 
-  const { createOrder, handleApproved, message } = useProcessPayement(setPaymentData)
+  const { createOrder, handleApproved, message, free } = useProcessPayement(setPaymentData, setIsLoading)
   const PAYPAL_CLIENT_ID="AcDv4ATahQE0hH8M4a4VxmCWnVNXHzLVsS9HZoc-VSxvC15k6ceH5TquvSDjOH2NWtp_Z3dQIPUqZaid"
 
   const initialOptions = {
@@ -32,7 +32,7 @@ function PaymentProcessor({condition, setPaymentData, checkoutBtnRef}) {
   
 
   return (
-    <div className={condition ? "paypal-button-container" : "hide"} ref={checkoutBtnRef}>
+    <div className={condition && !free ? "paypal-button-container" : "hide"} ref={checkoutBtnRef}>
       <InfoText
         condition={condition}
         h4={'Proceed To Payment.'}

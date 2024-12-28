@@ -40,20 +40,22 @@ export default function Beat({ beatObj, id, i }) {
         marginInline: selectedBeat && 25,
       }}
     >
-      <div className="price"
-        // style={{ background: `linear-gradient(to right, rgba(var(--clr-primary)) 10%, rgba(var(--clr-60)) ${
-        //     beatObj?.packages?.basic?.price * 3 || 60
-        // }%)`}}
-      >
+      <div className="price">
         <div className="price-mask">
-          <h4>${Object.values(beatObj?.packages)[0].price}</h4>
+          <h4>
+            {
+              Object.values(beatObj?.packages)[0].price === '0' ?
+              'free' :
+              '$' + Object.values(beatObj?.packages)[0].price
+            }
+          </h4>
         </div>
       </div>
       <div className="title-bpm">
         <h4>{info?.title}</h4>
         <p>bpm: {info?.bpm} </p>
       </div>
-        <div className="isplaying-n-playicon" style={{left: selectedBeat?.id === id ? 34 : 0}}>
+        <div className="isplaying-n-playicon" style={{left: selectedBeat?.id === id ? 30 : 0}}>
           <div className={i === playingSongIndex && isPlaying ? "bg  isplaying-anim" : "bg hide"}>
             <div className="one">
             </div>

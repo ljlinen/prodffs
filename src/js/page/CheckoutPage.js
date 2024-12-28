@@ -7,7 +7,7 @@ import ButtonDescriptive from '../elemet/ButtonDescriptive';
 import PaymentProcessor from '../component/PaymentProcessor';
 import PaymentSummary from '../component/PaymentSummary'
 
-export default function CheckoutPage({ id, beatObj, setResetChechoutInfo }) {
+export default function CheckoutPage({ id, beatObj, setResetChechoutInfo, setIsLoading }) {
 
   const { selectedBeat, selectedPackage, buyingDispatch } = useBuyingContext();
   const [isBuying, setIsBuying] = useState()
@@ -57,7 +57,7 @@ export default function CheckoutPage({ id, beatObj, setResetChechoutInfo }) {
   }
 
   const downloadBeat = async() => {
-
+    
     try {
       const response = await fetch(downloadLink);
       if(response.ok) {
@@ -116,12 +116,14 @@ export default function CheckoutPage({ id, beatObj, setResetChechoutInfo }) {
           price={selectedPackage?.price} 
           setPaymentData={setData}
           checkoutBtnRef={checkoutBtnRef}
+          setIsLoading={setIsLoading}
           />
       </div>
 
       <PaymentSummary
         condition={isBuying && downloadLink}
         data={paymentData}
+        price={selectedPackage?.price}
       />
 
       <ButtonDescriptive 

@@ -68,5 +68,5 @@ export default function useBeatPages(fetchPage) {
  }, [fetchPage, fetchedPages, isAtDataEnd])
 
 
-   return {isLoading, fetchedPages, isAtPageEnd, isAtDataEnd}
+   return {isLoading, fetchedPages, isAtPageEnd, isAtDataEnd, setIsLoading}
 }

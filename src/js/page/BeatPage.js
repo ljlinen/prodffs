@@ -88,12 +88,12 @@ export default function BeatPage() {
           </h2>
           {/* <Visualizer /> */}
         </div>
+        <Loader load={isLoading} />
       </header>
 
       <div className="beatlist-main" style={{ minHeight: "92vh" }}>
         <AudioPlayer renderCondition={beat && !isLoading} />
         <div className="beatlist">
-          <Loader load={isLoading} />
 
           <InfoText 
             condition={beat && !isLoading}
@@ -125,7 +125,7 @@ export default function BeatPage() {
               </>
           }
 
-          <CheckoutPage beatObj={selectedBeat} />
+          <CheckoutPage beatObj={selectedBeat} setIsLoading={setIsLoading} />
         </div>
       </div>
       <Footer />
