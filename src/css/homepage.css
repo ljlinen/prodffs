@@ -11,7 +11,7 @@
     --clr-primary: 0, 65, 71;
     --clr-primary-2: 96, 100, 102;
     --clr-header-background: 47, 76, 77;
-    --clr-accent: 0, 0, 0;
+    --clr-accent: 255, 215, 0;
 }
 
 * {
@@ -197,6 +197,7 @@ h6 {
     grid-template-columns: 1fr min(100%, 400px) 1fr;
     position: relative;
     background-color: rgba(var(--clr-60));
+    width: 100%;
 }
 
 .beatlist-main > * {
@@ -319,12 +320,15 @@ h6 {
     .sorter .sorter-buttons p,
     .sorter .sorter-buttons select,
     .sorter .sorter-buttons option {
-        color: rgba(var(--clr-primary), 1);
+        color: rgba(var(--clr-accent), 1);
         text-transform: capitalize;
         padding: 3px;
         border-bottom: 1px solid transparent;
         transition: border-bottom .3s ease-in-out;
         width: fit-content;
+    }
+    .sorter .sorter-buttons > * {
+        width: 46px !important;
     }
     .sorter .sorter-buttons select {
         background-color: transparent;
@@ -337,7 +341,7 @@ h6 {
         outline: none;
     }
     .sorter .sorter-buttons .current-sorter {
-        border-bottom: 1px solid rgba(var(--clr-primary), .5);
+        border-bottom: 1px solid rgba(var(--clr-accent), .5);
         transition: border-bottom .6s ease-in-out;
     }
 }
@@ -400,7 +404,7 @@ h6 {
     margin-bottom: 15px;
 
     p {
-        max-width: 200px;
+        max-width: clamp(200px, 70vw, 350px);
     }
 }
 
@@ -461,7 +465,7 @@ h6 {
     height: 100%;
     padding: 6.5px;
     border-radius: 5px;
-    background-color: rgba(var(--clr-60));
+    background-color: rgba(var(--clr-primary));
 }
 
 .beatlist-main .pause-next-hide {

@@ -37,7 +37,7 @@
    header {
       .sorter-buttons {
          display: grid !important;
-         grid-template-columns: 60px 60px 60px !important;
+         grid-template-columns: 46px 46px 46px !important;
       }      
       .sorter .by {
          text-align: unset;
@@ -56,7 +56,7 @@
         }
 
         .intro {
-         max-width: 230px;
+         max-width: clamp(140px, 35vw, 250px);
          }
          .intro p {
                max-width: 165px;

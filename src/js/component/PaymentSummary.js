@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function PaymentSummary({ condition, data }) {
+export default function PaymentSummary({ condition, data, price }) {
 
    // eslint-disable-next-line no-unused-vars
    const dataFake = {
@@ -114,24 +114,30 @@ export default function PaymentSummary({ condition, data }) {
    
   
   return (
-    <div className={condition ? 'payment-summary info-text hide-anim-height-trans' : 'payment-summary info-text hide-height'}>
-      <h4>Payment Summary</h4>
+    <div className={condition ? 'payment-summary info-text hide-anim-height-trans' : 'payment-summary info-text hide-height'} style={{marginTop: 0}}>
+      <h4>{(price === '0') ? 'Thank You For Downloading!' : 'Thank You For Your Purchase!'}</h4>
       <div className="summary">
          <div>
-            <h5>Title:</h5>
-            <p>Price</p>
+            <h5>Payment:</h5>
+            <p>{(price === '0') ? 'None' : dataFake.status}</p>
          </div>
          <div>
-            <h5>Title:</h5>
-            <p>Price</p>
+            <h5>Amount:</h5>
+            <p>
+                {
+                    price === '0' ? 
+                    'free' :
+                    dataFake?.purchase_units[0]?.payments?.captures[0]?.amount?.currency_code +': ' + dataFake?.purchase_units[0]?.payments?.captures[0]?.amount.value
+                }
+            </p>
          </div>
          <div>
-            <h5>Title:</h5>
-            <p>Price</p>
+            <h5>From:</h5>
+            <p>{price === '0' ? 'anonymous' : dataFake?.payer?.name.given_name}</p>
          </div>
          <div>
-            <h5>Title:</h5>
-            <p>Price</p>
+            <h5>email:</h5>
+            <p>{price === '0' ? 'none' : dataFake?.payer?.email_address}</p>
          </div>
       </div>
     </div>
