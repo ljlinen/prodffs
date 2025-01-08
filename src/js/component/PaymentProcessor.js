@@ -13,7 +13,7 @@ function Message({ content }) {
 function PaymentProcessor({condition, setPaymentData, checkoutBtnRef, setIsLoading}) {
 
   const { createOrder, handleApproved, message, free } = useProcessPayement(setPaymentData, setIsLoading)
-  const PAYPAL_CLIENT_ID="AcDv4ATahQE0hH8M4a4VxmCWnVNXHzLVsS9HZoc-VSxvC15k6ceH5TquvSDjOH2NWtp_Z3dQIPUqZaid"
+  const PAYPAL_CLIENT_ID="AaC3RX_VLmSfiHqPhgpKtZD_tNWMMwI-nSXJnOOEQzvTsIu4_fkbXyGAQyrzx_YhDBrXUS0Bl-sEXRFZ"
 
   const initialOptions = {
     "client-id": PAYPAL_CLIENT_ID,
