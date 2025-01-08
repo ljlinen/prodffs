@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import React, { useRef, useState } from "react";
-import { FFmpeg } from "@ffmpeg/ffmpeg";
 import useBeatsContext from "../hooks/useContext/useBeatsContext";
 
 const Visualizer = () => {

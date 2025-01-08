@@ -6,7 +6,7 @@ import iconForward from "../../asset/img/icon/chevron-right.svg";
 import iconBackwards from "../../asset/img/icon/chevron-left-black.svg";
 
 import IconButton from "../component/IconButton";
-import CheckoutPage from "../page/CheckoutPage";
+import CheckoutPage from "./CheckoutPage";
 import AudioPlayer from "../component/AudioPlayer";
 import useBeatsContext from "../hooks/useContext/useBeatsContext";
 import useBuyingContext from "../hooks/useContext/useBuyingContext";
