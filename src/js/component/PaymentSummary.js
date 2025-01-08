@@ -9,7 +9,7 @@ export default function PaymentSummary({ condition, data, price }) {
       <div className="summary">
          <div>
             <h5>Payment:</h5>
-            <p>{(price === '0') ? 'None' : data.status}</p>
+            <p>{(price === '0') ? 'None' : data?.status}</p>
          </div>
          <div>
             <h5>Amount:</h5>
