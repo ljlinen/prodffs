@@ -6,16 +6,21 @@ import InfoText from '../component/InfoText';
 import ButtonDescriptive from '../elemet/ButtonDescriptive';
 import PaymentProcessor from '../component/PaymentProcessor';
 import PaymentSummary from '../component/PaymentSummary'
+import useDownloadFile from '../hooks/useDownloadFile';
 
 export default function CheckoutPage({ id, beatObj, setResetChechoutInfo, setIsLoading }) {
 
-  const { selectedBeat, selectedPackage, buyingDispatch } = useBuyingContext();
+
   const [isBuying, setIsBuying] = useState()
   const [isSafe, setsafeCheckout] = useState()
   // eslint-disable-next-line no-unused-vars
   const [checkoutInfo, setCheckoutInfo] = useState({})
-  const [downloadLink, setDownloadLink] = useState();
   const [paymentData, setData] = useState()
+
+
+  const { selectedBeat, selectedPackage, buyingDispatch } = useBuyingContext();
+  // eslint-disable-next-line no-unused-vars
+  const { downloadFile, isDownloading, downloadProgress, downloadError, downloadLink, setDownloadLink } = useDownloadFile(paymentData)
 
   const checkoutBtnRef = useRef(null)
 
@@ -27,10 +32,6 @@ export default function CheckoutPage({ id, beatObj, setResetChechoutInfo, setIsL
       packageName: selectedPackage?.package
     }));
   }, [selectedBeat, selectedPackage])
-
-  useEffect(() => {
-    setDownloadLink(paymentData ? paymentData?.downloadLink : null)
-  }, [paymentData])
 
   useEffect(() => {
     if(setResetChechoutInfo) {
@@ -54,26 +55,6 @@ export default function CheckoutPage({ id, beatObj, setResetChechoutInfo, setIsL
       payload: beatObj
     })
     checkoutBtnRef.current.scrollIntoView({scrollBehavior: 'smooth'});
-  }
-
-  const downloadBeat = async() => {
-    
-    try {
-      const response = await fetch(downloadLink);
-      if(response.ok) {
-        const blob = await response.blob();
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = selectedBeat?.info?.title; // Set your file name and extension
-        link.click();
-        URL.revokeObjectURL(link.href); // Clean u
-      } else {
-        const resObj = await response.json()
-        alert(resObj?.message)
-      }
-    } catch (error) {
-      console.log(error);
-    }
   }
 
 
@@ -128,7 +109,7 @@ export default function CheckoutPage({ id, beatObj, setResetChechoutInfo, setIsL
 
       <ButtonDescriptive 
         condition={isBuying && downloadLink}
-        handler={downloadBeat}
+        handler={downloadFile}
         h4={'Download'}
         p={'File Ready!'}
         style={{marginTop: 20}}

@@ -57,7 +57,6 @@ export default function useProcessPayment(setPaymentData, setIsLoading) {
       const orderData = await response.json();
 
       if (orderData.id) {
-        setIsLoading(false)
         return orderData.id;
       } else {
         const errorDetail = orderData?.details?.[0];
@@ -69,7 +68,8 @@ export default function useProcessPayment(setPaymentData, setIsLoading) {
     } catch (error) {
       console.error(error);
       setMessage(`Could not initiate payment. ${error.message}`);
-      setIsLoading(false)
+    } finally {
+      setIsLoading(false) 
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -96,7 +96,6 @@ export default function useProcessPayment(setPaymentData, setIsLoading) {
       const errorDetail = orderData?.details && orderData?.details?.[0];
 
       if (errorDetail?.issue === "INSTRUMENT_DECLINED") {
-        setIsLoading(false)
         return actions.restart(); // Recoverable issue
       } else if (errorDetail) {
         throw new Error(`${errorDetail.description} (${orderData.debug_id})`);
@@ -106,11 +105,11 @@ export default function useProcessPayment(setPaymentData, setIsLoading) {
         console.log("Capture result", JSON.stringify(orderData, null, 2));
         console.log(orderData?.downloadLink);
         setPaymentData(orderData)
-        setIsLoading(false)
       }
     } catch (error) {
       console.error(error);
       setMessage(`Transaction failed. ${error.message}`);
+    } finally {
       setIsLoading(false)
     }
   };
