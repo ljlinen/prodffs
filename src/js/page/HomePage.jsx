@@ -14,6 +14,7 @@ import HeaderHome from "../component/HeaderHome";
 import useBeatPages from "../hooks/useBeatPages";
 import InfoText from "../component/InfoText";
 import Footer from "../component/Footer";
+import { baseUrl } from "../..";
 
 export default function HomePage() {
 
@@ -23,6 +24,8 @@ export default function HomePage() {
   const [beatsToRender, setBeatsToRender] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [resetChechoutInfoCheckout, setResetChechoutInfo] = useState(null)
+  const [toPlayQue, setToPlayQue] = useState()
+  const [queLoaded, setQueLoaded] = useState()
 
   const { selectedBeat } = useBuyingContext();
   const { beats } = useBeatsContext();
@@ -31,7 +34,7 @@ export default function HomePage() {
 
 
   useEffect(() => {
-    if(beats) {
+    if(beats?.length) {
       const start = (currentPage - 1) * 4
       // conditional assignment to ensure end is never greater than it should be
       // to prevent slice() from using negative items
@@ -57,6 +60,12 @@ export default function HomePage() {
           updated.sort((a, b) => new Date(b.info.released) - new Date(a.info.released));
           break;
         }
+
+      const que = updated.map((beat, i) => {
+          return baseUrl + '/beatfile/' + beat.id
+      })
+      setToPlayQue(que)
+      setQueLoaded(true)
       setBeatsToRender(updated)
     }
   // eslint-disable-next-line
@@ -118,7 +127,7 @@ export default function HomePage() {
     <div className="homepage">
       <HeaderHome resetChechoutInfoCheckout={resetChechoutInfoCheckout} isBuying={isBuying} isLoading={isLoading} sorter={sorter} setSorter={setSorter} setGenre={setGenre} />
       <div className="beatlist-main">
-      <AudioPlayer renderCondition={beatsToRender && !isBuying} />
+      <AudioPlayer renderCondition={beatsToRender && !isBuying} queLoaded={queLoaded} toPlayQue={toPlayQue} />
           <InfoText
             condition={beatsToRender && !isBuying && !isLoading}
             h4={'Lets find you a beat you might like.'}

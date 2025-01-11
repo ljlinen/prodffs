@@ -4,30 +4,18 @@ import iconPause from "../../asset/img/icon/pause.svg";
 import iconPlay from "../../asset/img/icon/play.svg";
 import iconPrevious from "../../asset/img/icon/previous.svg";
 import iconNext from "../../asset/img/icon/next.svg";
-import { baseUrl } from '../..';
+import iconHide from "../../asset/img/icon/chevron-right-fff.svg";
+import iconShow from "../../asset/img/icon/chevron-left.svg";
 
-export default function AudioPlayer({renderCondition}) {
+export default function AudioPlayer({renderCondition, toPlayQue, queLoaded}) {
 
     const { beats, playingSongIndex, isPlaying, beatsDispatch } = useBeatsContext();
     const audioRef = useRef(null);
 
     const [currentSongSrc, setCurrentSongSrc] = useState()
     const [currentSongIndex, setCurrentSongIndex] = useState(0)
-    const [toPlayQue, setToPlayQue] = useState()
-    const [queLoaded, setQueLoaded] = useState()
+    const [isPlayerVisible, setisPlayerVisible] = useState(true)
 
-    useEffect(() => {
-
-        if(beats?.length) {
-            const que = beats.map((beat, i) => {
-                return baseUrl + '/beatfile/' + beat.id
-            })
-            setToPlayQue(que)
-            setQueLoaded(true)
-        }
-
-    // eslint-disable-next-line
-    }, [beats])
 
     useEffect(() => {
         
@@ -103,8 +91,11 @@ export default function AudioPlayer({renderCondition}) {
     }
 
     return (
-        <div className={renderCondition ? "pause-next" : "pause-next pause-next-hide"}>
-            <div className="mask">
+        <div className={`pause-next ${!renderCondition ? "pause-next-hide" : null } ${!isPlayerVisible ? "pause-next-minimal" : null }`}>
+            <div className='player-hide-show' onClick={() => setisPlayerVisible(!isPlayerVisible)}>
+                <img src={isPlayerVisible ? iconHide : iconShow} />
+            </div>
+            <div className="pause-next-controls">
                 <audio ref={audioRef} src={currentSongSrc} />
                 <img src={iconPrevious} alt="previous" onClick={() => handleControlClick('previous')} />
                 <img src={isPlaying ? iconPause : iconPlay} alt="pause" onClick={() => handleControlClick('play-pause')} />
