@@ -18,6 +18,8 @@ export const data = {
 }
 
 function App() {
+  console.log('app did run');
+  
 
   return (
     <div className="app">
