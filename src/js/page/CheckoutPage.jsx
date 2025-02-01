@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import '../../css/beat.css'
 import BeatOption from '../component/BeatOption'
-import Paystack from '@paystack/inline-js';
 import { baseUrl } from '../..'
 import useBuyingContext from '../hooks/useContext/useBuyingContext'
 
@@ -28,23 +27,6 @@ export default function CheckoutPage({ id, beatObj }) {
     })
   }
 
-  const handlePop = (access_code) => {
-    const popup = new Paystack()
-    const transaction = popup.resumeTransaction(access_code);
-
-    let wait = true 
-    while(wait) {
-      const status = transaction.getStatus
-
-        setTimeout(() => {
-          console.log(status);
-        }, 2000)
-
-      if(status) {
-        wait = false
-      }
-    }
-  }
 
   const handlePaymentInit = async() => {
 
