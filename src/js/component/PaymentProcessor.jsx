@@ -1,4 +1,4 @@
-import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+// import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import useProcessPayement from "../hooks/useProcessPayement";
 import useBuyingContext from "../hooks/useContext/useBuyingContext";
 import { useEffect, useRef } from "react";
@@ -40,7 +40,7 @@ function PaymentProcessor({condition, setPaymentData, checkoutBtnRef, setIsLoadi
         style={{marginTop: 0, marginBottom: 25, color: "rgba(var(--clr-60))"}}
       />
 
-      <PayPalScriptProvider options={initialOptions}>
+      {/* <PayPalScriptProvider options={initialOptions}>
         <PayPalButtons
           style={{
             shape: "rect",
@@ -51,7 +51,7 @@ function PaymentProcessor({condition, setPaymentData, checkoutBtnRef, setIsLoadi
           createOrder={createOrder}
           onApprove={handleApproved}
         />
-      </PayPalScriptProvider>
+      </PayPalScriptProvider> */}
       <Message content={message} />
     </div>
   );
