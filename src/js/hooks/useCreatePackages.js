@@ -19,6 +19,7 @@ export default function useCreatePackages() {
         package: "free",
         price: undefined,
         untagged: false,
+        file: undefined,
         mp3: {
           mp3: false,
           bitrate: undefined,
@@ -33,6 +34,7 @@ export default function useCreatePackages() {
     package: "free",
     price: undefined,
     untagged: false,
+    file: undefined,
     mp3: {
       mp3: false,
       bitrate: undefined,

@@ -55,7 +55,7 @@ export default function AdminPage() {
     <div>
       <Header fullScreen={fullScreen} setActiveTab={setActiveTab} setFullScreen={setFullScreen} setIsUploadingStep={setIsUploadingStep} />
 
-      <div className="beatlist-main" style={{ minHeight: "92vh" }}>
+      <div className="admin" style={{ minHeight: "92vh" }}>
         <div className="beatlist">
           <AudioPlayer renderCondition={fullScreen} />
           <div className="pages-indicator">

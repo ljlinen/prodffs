@@ -14,8 +14,14 @@ export default function useUploadBeat(packages) {
     try {
       const form = new FormData();
 
+      
+
       form.set('info', JSON.stringify(packages));
-      form.set('file', file)
+      for(let [key, value] of Object.entries(packages?.packages)) {
+        console.log('file for package: ', key, ' is: ', value?.file);
+        if(!value?.file) throw new Error('file for package: ', key, ' missing')
+        form.set(key, value?.file)
+      }
 
       const response = await fetch(baseUrl + '/beat', {
         method: 'POST',
@@ -23,8 +29,8 @@ export default function useUploadBeat(packages) {
       });
 
       if (response.ok) {
-        setResult(response.statusText);
-        setIsUploadingStep(4);
+        // setResult(response.statusText);
+        // setIsUploadingStep(4);
       } else {
         console.log(response.statusText);
       }
