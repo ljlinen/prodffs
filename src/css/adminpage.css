@@ -1,6 +1,19 @@
+.admin {
+    display: grid;
+    grid-template-columns: 1fr min(100%, 400px) 1fr;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+    background-color: rgb(194 194 194);
+}
+
+.admin > * {
+    grid-column: 2;
+}
+
 .tabs {
     display: flex;
-    width: fit-content;
+    width: 100%;
     overflow-x: hidden;
 }
 
@@ -88,7 +101,7 @@
 }
 
 .show-tab {
-    width: 100vw;
+    width: 100%;
     opacity: 1;
     animation: show-tab .6s ease-in-out;
 }

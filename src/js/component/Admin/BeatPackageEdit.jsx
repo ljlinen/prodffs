@@ -15,13 +15,14 @@ export default function BeatPackageEdit({
 
   const { packagesFilled, uncreatedPackages, adminDispatch } =
     useAdminContext();
-  const [loaded, setLoaded] = useState(false);
+  const [loaded, setLoaded] = useState(false)
 
   const [newPackage, setPackage] = useState(
     packageObj || {
       package: undefined,
       price: undefined,
       untagged: false,
+      file: undefined,
       mp3: {
         mp3: false,
         bitrate: undefined,
@@ -104,7 +105,7 @@ export default function BeatPackageEdit({
                                 setInnerKey={innerKey}
                                 renderCondition={true}
                                 title={key}
-                                type={"number"}
+                                type={value === 'file' ? 'file' : "number"}
                                 inputStyle={{ height: 25, width: 50 }}
                                 placeholder={value}
                               />
@@ -131,7 +132,7 @@ export default function BeatPackageEdit({
                       setKey={key}
                       renderCondition={true}
                       title={key}
-                      type={"text"}
+                      type={key === 'file' ? "file" : "text"}
                       inputStyle={{ height: 25, width: 50 }}
                       placeholder={value}
                     />
