@@ -327,10 +327,15 @@
     opacity: 1;
     width: 100%;
     padding-bottom: 20px;
+    margin-bottom: 20px;
     overflow-x: scroll;
 }
 .beat-options::-webkit-scrollbar {
-    height: 2px;
+    height: 8px;
+}
+.beat-options::-webkit-scrollbar-thumb {
+    background-color: rgba(var(--clr-60-2));
+    border-radius: 20px;
 }
 
 .checkout-due-info-hide {
