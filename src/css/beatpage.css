@@ -1,6 +1,7 @@
 .main-div-beatpage {
    header {
       margin-right: 8px;
+      width: unset !important;
    }
 
    .beat {
