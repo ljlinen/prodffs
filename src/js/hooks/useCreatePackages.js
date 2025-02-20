@@ -57,8 +57,10 @@ export default function useCreatePackages() {
   };
 
   const addPackage = (pkg) => {
+    console.log('admin pg is', pkg);
+    
     adminDispatch({type: "SET_UNCREATED_PACKAGES", payload: uncreatedPackages.filter((itemInArray) => itemInArray !== pkg)});
-    setPackages((prev) => ({...prev, packages: {...prev.packages, [pkg]: { ...packageTemplate, package: [pkg] }}}));
+    setPackages((prev) => ({...prev, packages: {...prev.packages, [pkg]: { ...packageTemplate, package: pkg}}}));
   };
 
   const handleEditingModeChange = (newValue) => {

@@ -27,18 +27,11 @@ export default function useCreateBeatTags(setPackages, setFile, isUploadingStep)
     // eslint-disable-next-line
     }, [tags, isUploadingStep]);
 
-    const handleFileChange = (newFile) => {
-      console.log(newFile.type);
-      
-      if(newFile.type !== 'audio/mpeg') {
-        alert('song type should be an mp3')
-        return
-      }
-      
-      const potentials = newFile.name.split([' '], 20);
-      setPackages((prev) => ({...prev, info: {...prev.info, title: newFile.name}}))
+    const handleFileChange = (value) => {
+
+      const potentials = value?.split([' '], 20);
+      setPackages((prev) => ({...prev, info: {...prev.info, title: value}}))
       setPotentialTags(potentials);
-      setFile(newFile);
     }
     
     const handleTagToggle = (item) => {
