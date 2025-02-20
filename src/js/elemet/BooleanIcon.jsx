@@ -5,6 +5,7 @@ import right from '../../asset/img/icon/checklist-true.svg'
 
 
 export default function BooleanIcon({ boolean, onclick }) {
+  
   return (
     <div className='bolean-string'>
     {

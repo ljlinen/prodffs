@@ -486,7 +486,7 @@ h6 {
 }
 
 .pause-next-minimal {
-    transform: translateX(calc(30vw));
+    transform: translateX(calc(100%));
 }
 
 
