@@ -10,8 +10,8 @@ import BeatsContextProvider from "./js/context/BeatsContext";
 import AdminContextProvider from "./js/context/AdminContext";
 import BeatPage from "./js/page/BeatPage";
 
-// export const baseUrl = 'https://prodlinenbackend.linendev.workers.dev'
-export const baseUrl = "http://localhost:8787";
+export const baseUrl = 'https://prodlinenbackend.linendev.workers.dev'
+// export const baseUrl = "http://localhost:8787";
 
 // end of global functions section hopefullu work
 

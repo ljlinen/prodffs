@@ -45,14 +45,14 @@ export default function BeatOption({ condition, handler, packageObj, index, styl
                         <div className='bolean-string'>
                           <p>{key}:</p>
                           {
-                            typeof value === 'boolean' ? <BooleanIcon bolean={value} />
+                            typeof value === 'boolean' ? <BooleanIcon boolean={value} />
                             :
                             <p>{value}</p>
                           }
                         </div>
                       </div>
                     }) :
-                    (typeof value === 'boolean') ? <BooleanIcon bolean={value} /> : <p>value</p>
+                    (typeof value === 'boolean') ? <BooleanIcon boolean={value} /> : <p>value</p>
                   }
                 </div>
               </div>
