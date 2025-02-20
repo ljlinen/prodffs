@@ -58,6 +58,7 @@ export default function BeatsContextProvider({children}) {
     beats: null,
     inventory: null,
     playingSongIndex: null,
+    isPlaying: null
   })
 
   return (

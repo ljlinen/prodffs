@@ -59,17 +59,29 @@ export default function AudioPlayer({renderCondition, toPlayQue, queLoaded}) {
 
 
     const handleControlClick = async(type) => {
+        console.log('is playing: ', isPlaying, beats?.length);
+        
         
         const audio = audioRef.current;
         switch (type) {
             case 'play-pause':
-                !isPlaying ?
-                audio
-                .play()
-                .then(() => beatsDispatch({type:'SET_IS_PLAYING', payload: true}))
-                .catch((error) => {console.error("Playback error:", error)}) :
-                audio.pause()
-                beatsDispatch({type:'SET_IS_PLAYING', payload: false})
+                if(!isPlaying && beats?.length === 1) {
+                    console.log('wori here');
+                    
+                    audio
+                    .play()
+                    .then(() => beatsDispatch({type:'SET_IS_PLAYING', payload: false}))
+                    .catch((error) => {console.error("Playback error:", error)})                   
+                } else if(!isPlaying) {
+                    audio
+                    .play()
+                    .then(() => beatsDispatch({type:'SET_IS_PLAYING', payload: true}))
+                    .catch((error) => {console.error("Playback error:", error)})    
+                } else {
+                    audio.pause()
+                    beatsDispatch({type:'SET_IS_PLAYING', payload: false})
+                }
+
                 break;
             case 'next':
                 if(isPlaying) {
