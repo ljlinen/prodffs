@@ -26,17 +26,17 @@ export default function TabUploadBeat({addPackage, uncreatedPackages, activeTab,
 
 
    const handleStep = () => {
-      console.log(isUploadingStep);
+      console.log(isUploadingStep, tagTitles);
 
       switch (isUploadingStep) {
       case 1:
-         file ? setIsUploadingStep(2) : alert("add file");
-         break;
+        file ? setIsUploadingStep(2) : setFile(true)
+        break;
       case 2:
-         packagesFilled ? uploadBeat() : alert("fix your packages");
-         break;
+        packagesFilled ? uploadBeat() : alert("fix your packages");
+        break;
       default:
-         break;
+        break;
       }
    };
 
@@ -54,8 +54,8 @@ export default function TabUploadBeat({addPackage, uncreatedPackages, activeTab,
         renderCondition={(isUploadingStep === 1 && !file)}
         label={"pick a beat"}
         title={"select a beat"}
-        type={"file"}
-        accepts={"audio/mpeg"}
+        type={"text"}
+        placeholder={'do not include such: [FREE]'}
         style={{ marginTop: 50, paddingInline: 20 }}
         handler={handleFileChange}
       />

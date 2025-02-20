@@ -33,7 +33,7 @@ export default function BeatPackageEdit({
   );
 
   useEffect(() => {
-    console.log(newPackage);
+    console.log('new package', newPackage);
 
     if (Object.values(newPackage).every((value) => value !== undefined))
       adminDispatch({ type: "SET_PACKAGES_FILLED", payload: true });

@@ -7,9 +7,17 @@ export default function Input({renderCondition, setter, setKey, setInnerKey, lab
     if(handler) {
       handler(newValue);
     } else {
-      setInnerKey ?
-      setter((prev) => ({...prev, [setKey]: {...prev[setKey], [setInnerKey]: newValue}})) : 
-      setter((prev) => ({...prev, [setKey]: newValue}))
+      console.log('instance of says: ', typeof newValue, newValue instanceof File);
+      
+      if(newValue instanceof File) {
+        setInnerKey ? 
+        setter((prev) => ({...prev, [setKey]: {...prev[setKey], [setInnerKey]: {file: newValue, name: newValue.name, type: newValue.type}}})) :
+        setter((prev) => ({...prev, [setKey]: {file: newValue, name: newValue.name, type: newValue.type}}))
+      } else {
+        setInnerKey ?
+        setter((prev) => ({...prev, [setKey]: {...prev[setKey], [setInnerKey]: newValue}})) : 
+        setter((prev) => ({...prev, [setKey]: newValue}))        
+      }
     }
   }
 
