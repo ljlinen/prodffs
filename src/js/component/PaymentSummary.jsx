@@ -17,7 +17,7 @@ export default function PaymentSummary({ condition, data, price }) {
                 {
                     price === '0' ? 
                     'free' :
-                    data?.purchase_units[0]?.payments?.captures[0]?.amount?.currency_code +': ' + data?.purchase_units[0]?.payments?.captures[0]?.amount.value
+                    data?.purchase_units?.[0]?.payments?.captures?.[0]?.amount?.currency_code +': ' + data?.purchase_units?.[0]?.payments?.captures?.[0]?.amount.value
                 }
             </p>
          </div>
