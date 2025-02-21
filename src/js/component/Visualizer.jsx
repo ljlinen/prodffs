@@ -1,9 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useRef, useState } from "react";
-<<<<<<< HEAD
-=======
 import useBeatsContext from "../hooks/useContext/useBeatsContext";
->>>>>>> client
 
 const Visualizer = () => {
 
