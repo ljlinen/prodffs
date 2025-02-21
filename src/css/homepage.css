@@ -193,12 +193,6 @@ h6 {
 }
 
 .beatlist-main {
-<<<<<<< HEAD
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    width: 100%;
-=======
     display: grid;
     grid-template-columns: 1fr min(100%, 400px) 1fr;
     position: relative;
@@ -208,7 +202,6 @@ h6 {
 
 .beatlist-main > * {
     grid-column: 2;
->>>>>>> client
 }
 
 .hide {
@@ -368,11 +361,8 @@ h6 {
     display: flex;
     flex-direction: column;
     width: 100%;
-<<<<<<< HEAD
-=======
     min-height: 248px;
     transition: min-height 1.4s cubic-bezier(0.52, -0.03, 0.48, 1.05);
->>>>>>> client
 }
 
 .beatlist-hide {
