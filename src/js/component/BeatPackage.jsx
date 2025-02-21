@@ -41,7 +41,7 @@ export default function BeatPackage({ condition, removeHanlder, packageObj, inde
                   {
                     typeof value === 'object' ?
                     Object.entries(value).map(([innerKey, value], i) => {
-                      
+                      if(['file', 'name', 'type'].includes(key)) return null
                       return <div className='value-key-value' key={i}>
                         <div className='bolean-string'>
                           <p>{innerKey}:</p>

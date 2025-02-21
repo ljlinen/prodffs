@@ -25,7 +25,7 @@ export default function Input({renderCondition, setter, setKey, setInnerKey, lab
     <div className={renderCondition ? "beat-input-div hide-up-anim" : "beat-input-div hide-up-hide"} style={style}>
     <label name="beat file">{label}</label>
     {
-        type === 'file' ?
+        renderCondition && type === 'file' ?
         <div className="beat-input">
         <input name="beat file" type={type} accept={accepts} required onChange={(e) => onChange(e.target.files[0])}/>
         <div className="clip">
@@ -34,9 +34,12 @@ export default function Input({renderCondition, setter, setKey, setInnerKey, lab
             </div>
         </div>
         </div> :
+        renderCondition ?
         <div className="beat-input" style={inputStyle}>
             <input placeholder={placeholder} className="text-input" type={type} accept={accepts} required  onChange={(e) => onChange(e.target.value)} />
         </div>
+        : 
+        null
     }
     </div>
   )

@@ -41,12 +41,15 @@ export default function BeatOption({ condition, handler, packageObj, index, styl
                   {
                     typeof value === 'object' ?
                     Object.entries(value).map(([key, value], i) => {
+                      if(['file', 'name', 'type'].includes(key)) return null
                       return <div className='value-key-value' key={i}>
                         <div className='bolean-string'>
                           <p>{key}:</p>
                           {
                             typeof value === 'boolean' ? <BooleanIcon boolean={value} />
                             :
+                            typeof value === 'object' ?
+                            null :
                             <p>{value}</p>
                           }
                         </div>
