@@ -2,8 +2,8 @@
 
 
 # client version only
-# /Admin
-# adminpage.js
+/admin
+adminpage.js
 
 # dependencies
 /node_modules
