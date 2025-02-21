@@ -13,7 +13,7 @@ import BeatPage from "./js/page/BeatPage";
 // export const baseUrl = 'https://prodlinenbackend.linendev.workers.dev'
 export const baseUrl = "http://localhost:8787";
 
-// end of global functions section
+// end of global functions section hopefullu work
 
 // Routes defining for the application
 const root = ReactDOM.createRoot(document.getElementById("root"));

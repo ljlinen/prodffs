@@ -3,16 +3,18 @@ import { baseUrl } from '../..';
 import { useLocation } from 'react-router-dom';
 import useBeatsContext from './useContext/useBeatsContext';
 
-export default function useBeatPages() {
+export default function useBeatPages(fetchPage) {
    const location = useLocation();
 
-   const [page, setPage] = useState(1);
-   const [cursor, setCursor] = useState();
+   const [fetchedPages, setFetchedPage] = useState([0]);
+
+   const [savedCursor, setCursor] = useState();
    const [isAtPageEnd, setIsAtPageEnd] = useState();
+   const [isAtDataEnd, setIsAtDataEnd] = useState();
    const [isLoading, setIsLoading] = useState();
 
    const { beatsDispatch } = useBeatsContext();
-
+   
 
    // Responsible for fetching page beats on the home page
   useEffect(() => {
@@ -24,19 +26,25 @@ export default function useBeatPages() {
      try {
        const response = await fetch(baseUrl, {
          method: 'POST',
-         body: JSON.stringify({cursor})
+         body: JSON.stringify({cursor: savedCursor})
        });
 
        if(response.ok) {
+      
          const responseJson = await response.json();
          const { cursor, beats, list_complete } = responseJson
+
          setCursor(cursor);
-         setIsAtPageEnd(list_complete);
+         setIsAtDataEnd(list_complete);
+         fetchedPages.sort()
+         setFetchedPage([...fetchedPages, fetchedPages[fetchedPages.length - 1] + 1]);
 
          if(beats && beats.length) {
             for(let beat of beats) {
-               beat = JSON.parse(beat)
-               beatsDispatch({type: 'ADD_BEAT', payload: beat});
+              beat = JSON.parse(beat)
+              if(beat) {
+                beatsDispatch({type: 'ADD_BEAT', payload: beat});
+              }
             }
          }
 
@@ -48,13 +56,17 @@ export default function useBeatPages() {
      }
    };
 
-   if(!isAtPageEnd){
+   if(!fetchedPages.includes(fetchPage) && !isAtDataEnd){
      home()      
    } 
 
  // eslint-disable-next-line 
- }, [location.pathname, page]);
+ }, [location.pathname, fetchPage]);
+
+ useEffect(() => {
+  setIsAtPageEnd(fetchedPages[fetchedPages.length - 1] === fetchPage ? true : false);
+ }, [fetchPage, fetchedPages, isAtDataEnd])
 
 
-   return {isLoading, page, setPage, isAtPageEnd}
+   return {isLoading, fetchedPages, isAtPageEnd, isAtDataEnd, setIsLoading}
 }

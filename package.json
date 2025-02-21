@@ -3,19 +3,36 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+<<<<<<< HEAD
+=======
+    "@paypal/react-paypal-js": "^8.7.0",
+>>>>>>> client
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@vitejs/plugin-react": "^4.3.4",
     "css-select": "^3.1.0",
     "micromatch": "^4.0.8",
     "postcss": "^8.4.31",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.26.0",
+<<<<<<< HEAD
     "web-vitals": "^2.1.4",
     "webpack": "^5.94.0",
     "@vitejs/plugin-react": "^4.3.4",
     "vite": "^6.0.7"
+=======
+    "vite": "^6.0.7",
+    "web-vitals": "^2.1.4",
+    "webpack": "^5.94.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+>>>>>>> client
   },
 "scripts": {
   "dev": "vite",

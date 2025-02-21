@@ -25,10 +25,7 @@ export default function BeatOption({ condition, handler, packageObj, index, styl
       style={{transform: !loaded && `translateY(${10 * (index + 1)}%)`}}>
       
       <div className="title-body">
-        <h4 style={{
-          boxShadow: `rgba(240, 248, 255, ${index ? (index + 1) / 10 : .2}) 0px 2px 20px 20px`}}
-          // backgroundColor: `rgba(240, 248, 255, ${index ? (index + 1) / 10 : .2})`}}
-          >
+        <h4>
         {packageObj['package']}
         </h4>
         <div className='body' onClick={handleOptionPick}>
@@ -48,14 +45,14 @@ export default function BeatOption({ condition, handler, packageObj, index, styl
                         <div className='bolean-string'>
                           <p>{key}:</p>
                           {
-                            typeof value === 'boolean' ? <BooleanIcon bolean={value} />
+                            typeof value === 'boolean' ? <BooleanIcon boolean={value} />
                             :
                             <p>{value}</p>
                           }
                         </div>
                       </div>
                     }) :
-                    (typeof value === 'boolean') ? <BooleanIcon bolean={value} /> : <p>value</p>
+                    (typeof value === 'boolean') ? <BooleanIcon boolean={value} /> : <p>value</p>
                   }
                 </div>
               </div>

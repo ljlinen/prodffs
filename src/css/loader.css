@@ -8,10 +8,9 @@
 
 .loader::after {
     content: '';  
-    width: 90%;
+    width: 100%;
     height: 1.5px;
-    background: ivory;
-    opacity: .5;
+    background: rgba(var(--clr-60));
     position: absolute;
     top: 0;
     left: 0;
