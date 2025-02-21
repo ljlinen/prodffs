@@ -7,22 +7,29 @@ import Button from "../../elemet/Button";
 import Input from "../../elemet/Input";
 import useAdminContext from "../../hooks/useContext/useAdminContext";
 
-export default function TabUploadBeat({addPackage, uncreatedPackages, activeTab, setPackages, packages, removePackage, handleEditingModeChange,
-  file, setFile, isUploadingStep, isEditing, setIsUploadingStep, uploadBeat
+export default function TabUploadBeat({addPackage, uncreatedPackages, activeTab, setActiveTab, resetPackages, setPackages, packages, removePackage, handleEditingModeChange,
+  file, setFile, isUploadingStep, isEditing, setIsUploadingStep, uploadBeat, setResetCurrentTab, setResult, setFullScreen
  }) {
   
   const { packagesFilled } = useAdminContext();
   const { handleFileChange, handleTagToggle, potentialTags, tagTitles } = useCreateBeatTags(setPackages, setFile, isUploadingStep);
 
-  // removePackage, packages, isEditing
-  useEffect(() => {
-    console.log('Tab change', isUploadingStep);
-    
-  }, [isUploadingStep])
 
   useEffect(() => {
-    console.log('packages', packages);
-  }, [packages]);
+    if(setResetCurrentTab && activeTab === 3) {
+      setResetCurrentTab(() => resetTabThree)
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeTab])
+
+  const resetTabThree = () => {
+    setResult(null)
+    setFile(null)
+    setIsUploadingStep(null)
+    setFullScreen(false)
+    setActiveTab(1)
+    resetPackages()
+  }
 
 
    const handleStep = () => {
@@ -51,7 +58,7 @@ export default function TabUploadBeat({addPackage, uncreatedPackages, activeTab,
       <p>Make sure your beat has a title</p>
 
       <Input 
-        renderCondition={(isUploadingStep === 1 && !file)}
+        renderCondition={(activeTab === 3 && isUploadingStep === 1 && !file)}
         label={"pick a beat"}
         title={"select a beat"}
         type={"text"}
@@ -61,7 +68,7 @@ export default function TabUploadBeat({addPackage, uncreatedPackages, activeTab,
       />
 
       <Input 
-        renderCondition={(isUploadingStep === 1 && file)}
+        renderCondition={(activeTab === 3 && isUploadingStep === 1 && file)}
         label={"BPM"}
         title={"what is the beat's beats per minute"}
         type={"number"}
@@ -70,7 +77,7 @@ export default function TabUploadBeat({addPackage, uncreatedPackages, activeTab,
       />
 
       <PotentialTagsSelecctor
-        condition={isUploadingStep === 1 && file}
+        condition={activeTab === 3 && isUploadingStep === 1 && file}
         handler={handleTagToggle}
         potentialTags={potentialTags}
         tagTitles={tagTitles}
@@ -92,7 +99,7 @@ export default function TabUploadBeat({addPackage, uncreatedPackages, activeTab,
             onchange={handleEditingModeChange}
           />
         </div>
-        <PackagesView isUploadingStep={isUploadingStep} setPackages={setPackages} packages={packages} removePackage={removePackage} addPackage={addPackage} uncreatedPackages={uncreatedPackages} isEditing={isEditing} />
+        <PackagesView isUploadingStep={isUploadingStep} setPackages={setPackages} packages={packages} removePackage={removePackage} addPackage={addPackage} uncreatedPackages={uncreatedPackages} isEditing={isEditing} activeTab={activeTab} />
       </div>
 
       <Button

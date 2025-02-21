@@ -3,7 +3,7 @@ import useBeatsContext from '../../hooks/useContext/useBeatsContext';
 import BeatAdmin from './BeatAdmin';
 import { baseUrl } from '../../..';
 
-export default function TabManageInventory({activeTab}) {
+export default function TabManageInventory({activeTab, setActiveTab, setResetCurrentTab, setFullScreen}) {
    const [beatsToRender, setBeatsToRender] = useState();
    const { beats, inventory, beatsDispatch } = useBeatsContext();
  
@@ -58,6 +58,19 @@ export default function TabManageInventory({activeTab}) {
  
    // eslint-disable-next-line
    }, [inventory]);
+
+
+   useEffect(() => {
+      if(setResetCurrentTab && activeTab === 2) {
+         setResetCurrentTab(() => resetTabTwo)
+      }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [activeTab])
+  
+    const resetTabTwo = () => {
+      setActiveTab(1)
+      setFullScreen(false)
+    }
 
    return (
       <div className={activeTab === 2 ? "t2 show-tab" : "hide-tab"}>

@@ -35,7 +35,6 @@ export default function HeaderHome({sorter, setSorter, resetChechoutInfoCheckout
    const resetChechoutInfoHeader = () => {
       if(resetChechoutInfoCheckout) resetChechoutInfoCheckout()
       if(!resetChechoutInfoCheckout) console.log('resetcheckout is falsy', resetChechoutInfoCheckout);
-      
       buyingDispatch({type: "CLEAR_BUYING"});
       // document.body.scrollIntoView({ scrollBehavior: 'smooth' })
    };

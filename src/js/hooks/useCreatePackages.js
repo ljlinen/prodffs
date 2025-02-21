@@ -43,9 +43,31 @@ export default function useCreatePackages() {
     "project-files": false,
   };
 
-  useEffect(() => {
-    console.log('main packages', packages);
-  }, [packages]);
+
+  const resetPackages = () => {
+    setPackages({
+      info: {
+        title: undefined,
+        bpm: undefined,
+        tags: [],
+      },
+  
+      packages: {
+        free: {
+          package: "free",
+          price: undefined,
+          untagged: false,
+          file: undefined,
+          mp3: {
+            mp3: false,
+            bitrate: undefined,
+          },
+          wav: false,
+          "project-files": false,
+        },
+      },
+    });
+  };
 
   const removePackage = (pkg) => {
     !uncreatedPackages.includes(pkg) &&
@@ -76,5 +98,6 @@ export default function useCreatePackages() {
     uncreatedPackages,
     packageTemplate,
     isEditing,
+    resetPackages
   };
 }

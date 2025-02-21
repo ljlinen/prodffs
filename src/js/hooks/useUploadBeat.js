@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { baseUrl } from "../..";
 
 
@@ -41,5 +41,5 @@ export default function useUploadBeat(packages) {
     }
   };
 
-  return { uploadBeat, setIsUploadingStep, isUploadingStep, setFile, file, result }
+  return { uploadBeat, setIsUploadingStep, isUploadingStep, setFile, setResult, file, result }
 }

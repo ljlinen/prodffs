@@ -85,8 +85,7 @@ export default function BeatPackageEdit({
                 <div className="value">
                   {typeof value === "object" ? (
                     Object.entries(value).map(([innerKey, value], i) => {
-                      console.log(typeof value);
-
+                      if(['file', 'name', 'type'].includes(key)) return null
                       return (
                         <div className="value-key-value" key={i}>
                           <div className="bolean-string">

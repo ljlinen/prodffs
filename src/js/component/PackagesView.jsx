@@ -3,7 +3,7 @@ import BeatPackageEdit from './Admin/BeatPackageEdit';
 import BeatPackage from './BeatPackage';
 import AddPackageSelect from '../elemet/AddPackageSelect';
 
-export default function PackagesView({addPackage, uncreatedPackages, removePackage, packages, setPackages, isEditing ,isUploadingStep}) {
+export default function PackagesView({addPackage, uncreatedPackages, removePackage, packages, setPackages, isEditing ,isUploadingStep, activeTab}) {
     
     useEffect(() => {
         console.log('unreflecting packages', packages);
@@ -13,7 +13,7 @@ export default function PackagesView({addPackage, uncreatedPackages, removePacka
     <div className='beat-options-scroll'>
 
     { 
-        (isUploadingStep && packages && packages['packages']) ?
+        (activeTab === 3 && isUploadingStep && packages && packages['packages']) ?
         Object.entries(packages['packages']).map((item, i) => {
             console.log('package to render: ', item, i);
             

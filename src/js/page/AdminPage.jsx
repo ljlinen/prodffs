@@ -18,11 +18,13 @@ export default function AdminPage() {
 
   // const { selectedBeat, buyingDispatch } = useBuyingContext();
   // const { beats, inventory, beatsDispatch } = useBeatsContext();
-  const { packages, setPackages, packageTemplate, handleEditingModeChange, removePackage, addPackage, uncreatedPackages, isEditing } = useCreatePackages();
-  const { setIsUploadingStep, isUploadingStep, result, file, setFile, uploadBeat } = useUploadBeat(packages);
 
   const [fullScreen, setFullScreen] = useState();
   const [activeTab, setActiveTab] = useState(1);
+  const [resetCurrentTab, setResetCurrentTab] = useState(null)
+
+  const { packages, setPackages, resetPackages, packageTemplate, handleEditingModeChange, removePackage, addPackage, uncreatedPackages, isEditing } = useCreatePackages();
+  const { setIsUploadingStep, isUploadingStep, result, file, setFile, setResult, uploadBeat } = useUploadBeat(packages);
   // eslint-disable-next-line no-unused-vars
   const [adminData, setAdminData] = useState();
   // const [stepComplete, setStepComplete] = useState(false);
@@ -53,25 +55,11 @@ export default function AdminPage() {
 
   return (
     <div>
-      <Header fullScreen={fullScreen} setActiveTab={setActiveTab} setFullScreen={setFullScreen} setIsUploadingStep={setIsUploadingStep} />
+      <Header resetCurrentTab={resetCurrentTab} fullScreen={fullScreen} activeTab={activeTab} setActiveTab={setActiveTab} setFullScreen={setFullScreen} setIsUploadingStep={setIsUploadingStep} />
 
       <div className="admin" style={{ minHeight: "92vh" }}>
         <div className="beatlist">
-          <AudioPlayer renderCondition={fullScreen} />
-          <div className="pages-indicator">
-            <IconButton
-              condition={!fullScreen}
-              handler={() => {
-                isUploadingStep && setIsUploadingStep(0);
-                setFullScreen(false);
-                setActiveTab(1);
-                setPackages(packageTemplate);
-              }}
-              src={iconBack}
-              value="Back"
-            />
-          </div>
-
+          {/* <AudioPlayer renderCondition={fullScreen} /> */}
           <div className="info-text">
             <h4 style={{ textTransform: "capitalize" }}>
               {
@@ -85,8 +73,8 @@ export default function AdminPage() {
 
           <div className="tabs">
             <div className={activeTab === 1 ? "t1 show-tab" : "hide-tab"}>Tab 1</div>
-            <TabManageInventory activeTab={activeTab} />
-            <TabUploadBeat activeTab={activeTab} isUploadingStep={isUploadingStep} setIsUploadingStep={setIsUploadingStep} file={file} setFile={setFile} handleEditingModeChange={handleEditingModeChange} setPackages={setPackages} uploadBeat={uploadBeat} packages={packages} removePackage={removePackage} addPackage={addPackage} uncreatedPackages={uncreatedPackages} isEditing={isEditing} />
+            <TabManageInventory activeTab={activeTab} setActiveTab={setActiveTab} setResetCurrentTab={setResetCurrentTab} setFullScreen={setFullScreen} />
+            <TabUploadBeat activeTab={activeTab} isUploadingStep={isUploadingStep} setIsUploadingStep={setIsUploadingStep} file={file} setFile={setFile} handleEditingModeChange={handleEditingModeChange} setPackages={setPackages} uploadBeat={uploadBeat} packages={packages} removePackage={removePackage} addPackage={addPackage} uncreatedPackages={uncreatedPackages} isEditing={isEditing} setResetCurrentTab={setResetCurrentTab} setActiveTab={setActiveTab} resetPackages={resetPackages} setResult={setResult} setFullScreen={setFullScreen} />
           </div>
 
           <PageIndicator activeTab={activeTab} isUploadingStep={isUploadingStep} />
