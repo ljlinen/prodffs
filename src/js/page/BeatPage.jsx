@@ -7,14 +7,21 @@ import { baseUrl } from "../..";
 import { useParams } from "react-router-dom";
 import Loader from "../elemet/Loader";
 import useBuyingContext from "../hooks/useContext/useBuyingContext";
+import AudioPlayer from "../component/AudioPlayer";
+import InfoText from "../component/InfoText";
+import ButtonDescriptive from "../elemet/ButtonDescriptive";
+import Footer from "../component/Footer";
+import useGoToHomePage from "../hooks/useGoToHomePage";
 
 export default function BeatPage() {
   const params = useParams();
 
   const { selectedBeat, buyingDispatch } = useBuyingContext();
+  const VisitHome = useGoToHomePage()
 
   const [beat, setBeat] = useState();
   const [isLoading, setIsLoading] = useState();
+  const [requestStatusText, setRequestStatusText] = useState()
   const [sorter, setSorter] = useState();
 
 
@@ -32,6 +39,7 @@ export default function BeatPage() {
         setIsLoading(false)
       } catch (error) {
         setIsLoading(false)
+        setRequestStatusText(error.message)
         console.log("error loading beatpage", error);
       }
     };
@@ -103,11 +111,11 @@ export default function BeatPage() {
                   p={'You may return to the homepage to checkout other beats'}
                   style={{marginBottom: 25}}
                 />
-                <ButtonDescriptive 
+                <ButtonDescriptive
                   condition={!beat && !isLoading}
                   h4={'Home Page'}
                   p={'Visit'}
-                  handler={() => console.log('home')}
+                  handler={VisitHome}
                 />
               </>
           }

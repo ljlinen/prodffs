@@ -9,6 +9,7 @@ import BeatsContextProvider from "./js/context/BeatsContext";
 import AdminPage from "./js/page/AdminPage";
 import AdminContextProvider from "./js/context/AdminContext";
 import BeatPage from "./js/page/BeatPage";
+import Error from "./js/page/Error";
 
 // export const baseUrl = 'https://prodlinenbackend.linendev.workers.dev'
 export const baseUrl = "http://localhost:8787";
@@ -21,18 +22,21 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <HomePage />,
+    errorElement: <Error page='home page' />
   },
   {
     path: "/admin",
     element: <AdminPage />,
+    errorElement: <Error page='admin page' />
   },
   {
     path: "beat/:beatid",
-    element: <BeatPage />,
+    element: <BeatPage />
   },
   {
     path: "/vd",
     element: <ViewDebugger />,
+    errorElement: <Error page='debugger page' />
   }
 ]);
 // end of routes defining sectin
