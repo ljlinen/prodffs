@@ -64,10 +64,9 @@
         transition: border-bottom .6s ease-in-out;
     }
 }
-
 .tabs {
     display: flex;
-    width: 100%;
+    width: fit-content;
     overflow-x: hidden;
 }
 
@@ -155,7 +154,7 @@
 }
 
 .show-tab {
-    width: 100%;
+    width: 100vw;
     opacity: 1;
     animation: show-tab .6s ease-in-out;
 }

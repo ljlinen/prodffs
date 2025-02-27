@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../../css/homepage.css";
-import "../../css/adminpage.css"
+import "../../css/adminpage.css";
 import iconBack from "../../asset/img/icon/chevron-left.svg";
 import IconButton from "../component/IconButton";
 import { baseUrl } from "../..";
