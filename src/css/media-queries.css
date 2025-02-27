@@ -51,6 +51,7 @@
          padding-inline: clamp(25px, 8vw, 60px) 15px;
 
          h2 {
+            font-size: clamp(20px, 5vw, 35px);
             max-height: 130px;
         }
 
