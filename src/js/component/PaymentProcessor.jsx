@@ -3,6 +3,7 @@ import useProcessPayement from "../hooks/useProcessPayement";
 import useBuyingContext from "../hooks/useContext/useBuyingContext";
 import { useEffect, useRef } from "react";
 import InfoText from "./InfoText";
+import { productionMode } from "../..";
 
 
 // Renders errors or successfull transactions on the screen.
@@ -13,7 +14,9 @@ function Message({ content }) {
 function PaymentProcessor({condition, setPaymentData, checkoutBtnRef, setIsLoading}) {
 
   const { createOrder, handleApproved, message, free } = useProcessPayement(setPaymentData, setIsLoading)
-  const PAYPAL_CLIENT_ID="AaC3RX_VLmSfiHqPhgpKtZD_tNWMMwI-nSXJnOOEQzvTsIu4_fkbXyGAQyrzx_YhDBrXUS0Bl-sEXRFZ"
+  const PAYPAL_CLIENT_ID = productionMode ?
+  "AaC3RX_VLmSfiHqPhgpKtZD_tNWMMwI-nSXJnOOEQzvTsIu4_fkbXyGAQyrzx_YhDBrXUS0Bl-sEXRFZ" :
+  "AcDv4ATahQE0hH8M4a4VxmCWnVNXHzLVsS9HZoc-VSxvC15k6ceH5TquvSDjOH2NWtp_Z3dQIPUqZaid"
 
   const initialOptions = {
     "client-id": PAYPAL_CLIENT_ID,

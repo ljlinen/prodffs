@@ -2,62 +2,20 @@ import React, { useEffect, useState } from 'react'
 import useBeatsContext from '../../hooks/useContext/useBeatsContext';
 import BeatAdmin from './BeatAdmin';
 import { baseUrl } from '../../..';
+import useBeatsSorter from '../../hooks/useBeatsSorter';
+import useBeatPages from '../../hooks/useBeatPages';
 
 export default function TabManageInventory({activeTab, setActiveTab, setResetCurrentTab, setFullScreen}) {
-   const [beatsToRender, setBeatsToRender] = useState();
-   const { beats, inventory, beatsDispatch } = useBeatsContext();
- 
- 
-   useEffect(() => {
- 
-     // Load Inventory
-      const home = async () => {
-         try {
-            const response = await fetch(baseUrl);
-            if (response.ok) {
-               const responseJson = await response.json();
-               beatsDispatch({ type: "SET_INVENTORY", payload: responseJson });
-            }
-         } catch (error) {
-            console.log("error loading homepage", error);
-         }
-      };
 
-      beatsDispatch({ type: "CLEAR_BEATS" });
-      home() 
- 
- 
-   // eslint-disable-next-line 
-   }, [location.pathname]);
- 
-   useEffect(() => {
-     const fetchBeat = async(beatid) => {
-       try {
-           const response = await fetch(baseUrl + '/beat/' + beatid);
-           if(response.ok) {
-               const beatObj = await response.json();
-               beatsDispatch({type: 'ADD_BEAT', payload: beatObj});
- 
-               return true;
-           } else {
-               throw response.statusText
-           }
-       } catch (error) {
-           console.log('error fetching beat', error); 
-       }
-   }
- 
-   if(inventory?.charts?.newest?.length) {
-     console.log('trying to fetch beats', inventory?.charts?.newest?.length);
-     for(let item of inventory.charts.newest) {
-       if(item) {
-         fetchBeat(item);
-       }
-     }
-   }
- 
-   // eslint-disable-next-line
-   }, [inventory]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [resetChechoutInfoCheckout, setResetChechoutInfo] = useState(null)
+   const [sorter, setSorter] = useState('newest');
+   const [toPlayQue, setToPlayQue] = useState()
+   const [queLoaded, setQueLoaded] = useState()
+
+  // eslint-disable-next-line no-unused-vars
+  const { setIsLoading, isLoading, isAtPageEnd, isAtDataEnd } = useBeatPages(currentPage);
+  const { beatsToRender } = useBeatsSorter(currentPage, setToPlayQue, setQueLoaded, sorter)
 
 
    useEffect(() => {

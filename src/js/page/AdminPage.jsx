@@ -12,6 +12,7 @@ import PageIndicator from "../component/PageIndicator";
 import Header from "../component/Header";
 import TabManageInventory from "../component/Admin/TabManageInventory";
 import TabUploadBeat from "../component/Admin/TabUploadBeat";
+import useBeatPages from "../hooks/useBeatPages";
 
 export default function AdminPage() {
   const location = useLocation();
@@ -22,12 +23,15 @@ export default function AdminPage() {
   const [fullScreen, setFullScreen] = useState();
   const [activeTab, setActiveTab] = useState(1);
   const [resetCurrentTab, setResetCurrentTab] = useState(null)
+  const [currentPage, setCurrentPage] = useState(1);
 
   const { packages, setPackages, resetPackages, packageTemplate, handleEditingModeChange, removePackage, addPackage, uncreatedPackages, isEditing } = useCreatePackages();
   const { setIsUploadingStep, isUploadingStep, result, file, setFile, setResult, uploadBeat } = useUploadBeat(packages);
+  const { fetchedPages } = useBeatPages(currentPage)
   // eslint-disable-next-line no-unused-vars
   const [adminData, setAdminData] = useState();
   // const [stepComplete, setStepComplete] = useState(false);
+
 
   useEffect(() => {
     const admin = async () => {

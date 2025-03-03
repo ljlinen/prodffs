@@ -18,19 +18,23 @@ export default function useUploadBeat(packages) {
 
       form.set('info', JSON.stringify(packages));
       for(let [key, value] of Object.entries(packages?.packages)) {
-        console.log('file for package: ', key, ' is: ', value?.file);
-        if(!value?.file) throw new Error('file for package: ', key, ' missing')
-        form.set(key, value?.file)
+        console.log('file for package: ', key, ' is: ', value?.file?.file);
+        if(!(value?.file?.file instanceof Blob)) throw new Error('file for package: ', key, ' missing')
+        form.set(key, value?.file?.file)
       }
 
+      // let fileF = form.get('free')
+      // console.log('fileF is ', fileF);
+      // fileF = JSON.parse(fileF)
+      // console.log(typeof fileF, fileF);
+      
       const response = await fetch(baseUrl + '/beat', {
         method: 'POST',
         body: form
       });
 
       if (response.ok) {
-        // setResult(response.statusText);
-        // setIsUploadingStep(4);
+        setResult(response.status === 201 ? 'beat uploaded successfully' : 'Success? status 201 expected but found ' + response.status);
       } else {
         console.log(response.statusText);
       }

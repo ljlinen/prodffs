@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import buy from "../../../asset/img/icon/download.svg";
 import play from "../../../asset/img/icon/circle-play.svg";
+import remove from "../../../asset/img/icon/delete.svg";
 import useBeatsContext from "../../hooks/useContext/useBeatsContext";
 import useBuyingContext from "../../hooks/useContext/useBuyingContext";
 
@@ -20,7 +21,12 @@ export default function BeatAdmin({ beatObj, id, i }) {
   useEffect(() => {
     setIsTransitionSafe(selectedBeat?.id ? true : false);
   }, [selectedBeat]);
-
+  
+  const handleDelete = () => {
+    if (selectedBeat?.id !== id) {
+      buyingDispatch({ type: "SET_BUYING", payload: beatObj });
+    }
+  }
   const handler = () => {
     if (selectedBeat?.id !== id) {
       buyingDispatch({ type: "SET_BUYING", payload: beatObj });
@@ -36,25 +42,27 @@ export default function BeatAdmin({ beatObj, id, i }) {
   return (
     <div className={`beat ${isSafe && selectedBeat?.id !== id && 'beat-hide'} ${!isSafeInitial && 'beathide'} `}
       style={{
-        marginTop: isSafe ? i > 0 && `-${50}px` : 12,
-        marginInline: selectedBeat && 40,
+        marginTop: isSafe ? i > 0 && `-${50}px` : 12
       }}
     >
+      <div className="price">
+        <div className="price-mask">
+          <h4>
+            {
+              Object.values(beatObj?.packages)[0].price === '0' ?
+              'free' :
+              '$' + Object.values(beatObj?.packages)[0].price
+            }
+          </h4>
+        </div>
+      </div>
+      
       <div className={i === playingSongIndex && isPlaying ? "bg  isplaying-anim" : "bg hide"}>
         <div className="one">
         </div>
         <div className="two">
         </div>
         <div className="three">
-        </div>
-      </div>
-      <div className="price"
-        style={{ background: `linear-gradient(to right, rgba(var(--clr-primary)) 10%, rgba(var(--clr-60)) ${
-            beatObj?.packages?.basic?.price * 3 || 60
-        }%)`}}
-      >
-        <div className="price-mask">
-          <h4>${Object.values(beatObj?.packages)[0].price}</h4>
         </div>
       </div>
       <div className="title-bpm">
@@ -66,7 +74,7 @@ export default function BeatAdmin({ beatObj, id, i }) {
         alt="background-image"
         onClick={handlePlay}
       />
-      <img className={isSafe ? "hide buy" : "hide-anim buy"} alt="buy" src={buy} onClick={handler} />
+      <img className={isSafe ? "hide buy" : "hide-anim buy"} alt="delete" src={remove} onClick={handleDelete} />
     </div>
   );
 }
