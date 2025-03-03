@@ -11,23 +11,21 @@ import AdminContextProvider from "./js/context/AdminContext";
 import BeatPage from "./js/page/BeatPage";
 import Error from "./js/page/Error";
 
-// export const baseUrl = 'https://prodlinenbackend.linendev.workers.dev'
-export const baseUrl = "http://localhost:8787";
+export const productionMode = true
+
+export const baseUrl = productionMode ?
+"https://prodlinenbackend.linendev.workers.dev" : 
+"http://localhost:8787";
 
 // end of global functions section hopefullu work
-
 // Routes defining for the application
 const root = ReactDOM.createRoot(document.getElementById("root"));
-const router = createBrowserRouter([
-  {
+const router = createBrowserRouter(
+  productionMode ?
+  [{
     path: "/",
     element: <HomePage />,
     errorElement: <Error page='home page' />
-  },
-  {
-    path: "/admin",
-    element: <AdminPage />,
-    errorElement: <Error page='admin page' />
   },
   {
     path: "beat/:beatid",
@@ -37,6 +35,25 @@ const router = createBrowserRouter([
     path: "/vd",
     element: <ViewDebugger />,
     errorElement: <Error page='debugger page' />
+  }] :
+  [{
+    path: "/",
+    element: <HomePage />,
+    errorElement: <Error page='home page' />
+  },
+  {
+    path: "beat/:beatid",
+    element: <BeatPage />
+  },
+  {
+    path: "/vd",
+    element: <ViewDebugger />,
+    errorElement: <Error page='debugger page' />
+  },
+  {
+    path: "/admin",
+    element: <AdminPage />,
+    errorElement: <Error page='admin page' />
   }
 ]);
 // end of routes defining sectin

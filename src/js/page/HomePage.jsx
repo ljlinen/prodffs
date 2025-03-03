@@ -4,98 +4,35 @@ import "../../css/homepage.css";
 import Beat from "../component/Beat";
 import iconForward from "../../asset/img/icon/chevron-right.svg";
 import iconBackwards from "../../asset/img/icon/chevron-left-black.svg";
-
 import IconButton from "../component/IconButton";
 import CheckoutPage from "./CheckoutPage";
 import AudioPlayer from "../component/AudioPlayer";
-import useBeatsContext from "../hooks/useContext/useBeatsContext";
 import useBuyingContext from "../hooks/useContext/useBuyingContext";
 import HeaderHome from "../component/HeaderHome";
 import useBeatPages from "../hooks/useBeatPages";
 import InfoText from "../component/InfoText";
 import Footer from "../component/Footer";
-import { baseUrl } from "../..";
+import useBeatsSorter from "../hooks/useBeatsSorter";
 
 export default function HomePage() {
 
   const [isBuying, setIsBuying] = useState();
-  const [genre, setGenre] = useState();
-  const [sorter, setSorter] = useState('newest');
-  const [beatsToRender, setBeatsToRender] = useState(false);
+
+
   const [currentPage, setCurrentPage] = useState(1);
   const [resetChechoutInfoCheckout, setResetChechoutInfo] = useState(null)
+  const [genre, setGenre] = useState();
+  const [sorter, setSorter] = useState('newest');
   const [toPlayQue, setToPlayQue] = useState()
   const [queLoaded, setQueLoaded] = useState()
 
   const { selectedBeat } = useBuyingContext();
-  const { beats } = useBeatsContext();
   // eslint-disable-next-line no-unused-vars
-  const { setIsLoading, isLoading, isAtPageEnd, isAtDataEnd, fetchedPages } = useBeatPages(currentPage);
+  const { setIsLoading, isLoading, isAtPageEnd, isAtDataEnd } = useBeatPages(currentPage);
+  const { beatsToRender } = useBeatsSorter(currentPage, setToPlayQue, setQueLoaded, sorter)
 
 
-  useEffect(() => {
-    if(beats?.length) {
-      const start = (currentPage - 1) * 4
-      // conditional assignment to ensure end is never greater than it should be
-      // to prevent slice() from using negative items
-      const end = (start + 4) < beats.length ? (start + 4) : beats.length
 
-      let updated = [...beats]
-      updated = updated.slice(start, end);
-      switch (sorter) {
-        case 'newest':
-          updated.sort((a, b) => new Date(b.info.released) - new Date(a.info.released));
-          break;
-        case 'plays':
-          updated.sort((a, b) => Number(b.info.plays) - Number(a.info.plays));
-          break;
-        case 'genre':
-          updated.sort((a, b) => {
-            if(a.info.genre === genre) return -1
-            if(b.info.genre === genre) return 1
-            return 0
-          });
-          break;
-        default:
-          updated.sort((a, b) => new Date(b.info.released) - new Date(a.info.released));
-          break;
-        }
-
-      const que = updated.map((beat, i) => {
-          return baseUrl + '/beatfile/' + beat.id
-      })
-      setToPlayQue(que)
-      setQueLoaded(true)
-      setBeatsToRender(updated)
-    }
-  // eslint-disable-next-line
-  }, [currentPage, beats])
-
-
-  useEffect(() => {
-    if(beats?.length) {
-      let updated = [...beatsToRender]
-      switch (sorter) {
-        case 'newest':
-          updated.sort((a, b) => new Date(b.info.released) - new Date(a.info.released));
-          break;
-        case 'plays':
-          updated.sort((a, b) => Number(b.info.plays) - Number(a.info.plays));
-          break;
-        case 'genre':
-          updated.sort((a, b) => {
-            if(a.info.genre === genre) return -1
-            if(b.info.genre === genre) return 1
-            return 0
-          });
-          break;
-        default:
-          break;
-      }
-      setBeatsToRender(updated);
-    }
-  // eslint-disable-next-line
-  }, [sorter]);
 
 
   useEffect(() => {
