@@ -182,7 +182,6 @@
     display: flex;
     height: fit-content;
     margin-block: 40px 20px;
-    margin-inline: 20px;
     padding: 2px;
     background: linear-gradient(to right, rgba(var(--clr-primary)) 33.3%, rgba(var(--clr-60)) 60%);
     border-radius: 5px;
