@@ -9,8 +9,8 @@ export default function PotentialTagsSelector({condition, potentialTags, tagTitl
         potentialTags?.length ?
         potentialTags.map((item, i) => {
           return <div className={tagTitles?.includes(item) ? "potential-tag selected" : "potential-tag unselected"} 
-            onClick={() => handler(item)}>
-            <p key={i}>{item}</p>
+            onClick={() => handler(item)} key={'potential-tag' + i}>
+            <p>{item}</p>
           </div>
         }) : null
       }

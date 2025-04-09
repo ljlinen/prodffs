@@ -53,17 +53,17 @@ export default function TabUploadBeat({addPackage, uncreatedPackages, activeTab,
   }
 
   return (
-    <form className={activeTab === 3 ? "t3 show-tab" : "hide-tab"}>
+    <div className={activeTab === 3 ? "t3 show-tab" : "hide-tab"}>
       <p>Tags will be generated using the beat title</p>
       <p>Make sure your beat has a title</p>
 
       <Input 
         renderCondition={(activeTab === 3 && isUploadingStep === 1 && !file)}
-        label={"pick a beat"}
-        title={"select a beat"}
+        label={"beat title"}
+        title={"beat title"}
         type={"text"}
-        placeholder={'do not include such: [FREE]'}
-        style={{ marginTop: 50, paddingInline: 20 }}
+        placeholder={''}
+        style={{ marginTop: 50}}
         handler={handleFileChange}
       />
 
@@ -72,7 +72,7 @@ export default function TabUploadBeat({addPackage, uncreatedPackages, activeTab,
         label={"BPM"}
         title={"what is the beat's beats per minute"}
         type={"number"}
-        style={{ marginTop: 50, paddingInline: 20 }}
+        style={{ marginTop: 50}}
         handler={handleBpmInput}
       />
 
@@ -105,10 +105,10 @@ export default function TabUploadBeat({addPackage, uncreatedPackages, activeTab,
       <Button
         condition={isUploadingStep > 2 ? false : true}
         type={"submit"}
-        style={{ marginInline: 20, marginTop: 20 }}
+        style={{marginTop: 20 }}
       >
         <p onClick={handleStep}>Upload</p>
       </Button>
-    </form>
+    </div>
   );
 }

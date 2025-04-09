@@ -5,9 +5,6 @@ import AddPackageSelect from '../elemet/AddPackageSelect';
 
 export default function PackagesView({addPackage, uncreatedPackages, removePackage, packages, setPackages, isEditing ,isUploadingStep, activeTab}) {
     
-    useEffect(() => {
-        console.log('unreflecting packages', packages);
-      }, [packages]);
 
   return (
     <div className='beat-options-scroll'>
@@ -15,11 +12,8 @@ export default function PackagesView({addPackage, uncreatedPackages, removePacka
     { 
         (activeTab === 3 && isUploadingStep && packages && packages['packages']) ?
         Object.entries(packages['packages']).map((item, i) => {
-            console.log('package to render: ', item, i);
-            
-
             return (
-            <>
+            <div key={'packageWrap' + i}>
                 {
                 isEditing ?
                 <BeatPackageEdit
@@ -27,7 +21,7 @@ export default function PackagesView({addPackage, uncreatedPackages, removePacka
                     handler={null} 
                     condition={(isUploadingStep === 2)} 
                     packageObj={item}
-                    key={'edit' + item['package']}
+                    formKey={'edit' + item['package']}
                     index={i}
                     setMainObj={setPackages}
                 /> :
@@ -36,12 +30,12 @@ export default function PackagesView({addPackage, uncreatedPackages, removePacka
                     handler={null} 
                     condition={(isUploadingStep === 2)} 
                     packageObj={item}
-                    key={item['package']}
+                    formKey={item['package']}
                     index={i}
                     removeHanlder={removePackage}
                 />
                 }
-            </>
+            </div>
             )
         })
         : null

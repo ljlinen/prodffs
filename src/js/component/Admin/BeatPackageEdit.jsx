@@ -10,6 +10,7 @@ export default function BeatPackageEdit({
   index,
   style,
   className,
+  formKey
 }) {
   packageObj = packageObj[1];
 
@@ -61,16 +62,10 @@ export default function BeatPackageEdit({
     <form
       className={loaded ? "beat-option" : className}
       style={{ transform: !loaded && `translateY(${10 * (index + 1)}%)` }}
+      key={formKey}
     >
       <div className="title-body">
-        <h4
-          style={{
-            boxShadow: `rgba(240, 248, 255, ${
-              index ? (index + 1) / 10 : 0.2
-            }) 0px 2px 20px 20px`,
-          }}
-          // backgroundColor: `rgba(240, 248, 255, ${index ? (index + 1) / 10 : .2})`}}
-        >
+        <h4>
           {packageObj["package"]}
         </h4>
         <div className="body">

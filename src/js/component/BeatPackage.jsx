@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import closeIcon from '../../asset/img/icon/close.svg';
 import BooleanIcon from '../elemet/BooleanIcon';
 
-export default function BeatPackage({ condition, removeHanlder, packageObj, index, style, className}) {
+export default function BeatPackage({ condition, removeHanlder, packageObj, index, style, className, formKey}) {
   packageObj = packageObj[1]; 
 
   const [loaded, setLoaded] = useState(false);
@@ -16,7 +16,7 @@ export default function BeatPackage({ condition, removeHanlder, packageObj, inde
 
   return (
     <form className={loaded ? 'beat-option' : className}
-      style={{transform: !loaded && `translateY(${10 * (index + 1)}%)`}}>
+      style={{transform: !loaded && `translateY(${10 * (index + 1)}%)`}} key={formKey}>
       
       <div className="title-body">
         <div className='title'>

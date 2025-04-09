@@ -34,7 +34,7 @@ export default function Beat({ beatObj, id, i }) {
   // style below depends on the component height: 50 and gap between sibling elements: 12
   // implement a way to dinamically get these or change them manually below
   return (
-<div className={`beat ${isSafe && selectedBeat?.id !== id && 'beat-hide'} ${!isSafeInitial && 'beathide'} `}
+<div className={`beat ${isSafe ? selectedBeat?.id !== id && 'beat-hide' : undefined} ${!isSafeInitial ? 'beathide' : undefined} `}
       style={{
         marginTop: isSafe ? i > 0 && `-${50}px` : 12,
         marginInline: selectedBeat && 25,

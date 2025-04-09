@@ -28,12 +28,15 @@ export default function Header({ resetCurrentTab, setActiveTab, activeTab, fullS
         />
       </nav>
 
-      <div className={(fullScreen && "beatlist-sorter beatlist-sorter-hide") || "beatlist-sorter"}>
+      <div className={fullScreen ? "beatlist-sorter beatlist-sorter-hide" : "beatlist-sorter"}>
         <div>
-          <h2>{(fullScreen && "BUY BEAT") || "WELCOME LINEN"}</h2>
-          <p className="by"><span>-</span>hope you good.</p>          
+          <h2>{fullScreen ? "" : "WELCOME LINEN"}</h2>
+          <p className="by">
+            <span>{fullScreen ? '' : '-'}</span>
+            {fullScreen ? '' : 'hope you good.'}
+          </p>          
         </div>
-        <div className={(fullScreen && " sorter-buttons hide") || "sorter-buttons hide-anim"}>
+        <div className={fullScreen ? " sorter-buttons hide" : "sorter-buttons hide-anim"}>
           <p onClick={() => pOnclick(1)}>statistics</p>
           <p onClick={() => pOnclick(2, true)}>manage inventory</p>
           <p onClick={() => pOnclick(3, true, 1)}>upload now</p>
