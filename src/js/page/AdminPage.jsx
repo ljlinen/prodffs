@@ -70,7 +70,7 @@ export default function AdminPage() {
                 (activeTab === 1 && 'This is how we doing so far') ||
                 (activeTab === 2 && 'Any Changes You Thinking of?') ||
                 (activeTab === 3 && !result && 'Lets upload a new beat') ||
-                ((activeTab === 3 && (isUploadingStep > 2 && result)) && result)
+                ((activeTab === 3 && (isUploadingStep > 2 && result)) && result?.message)
               }
             </h4>
           </div>
@@ -78,7 +78,7 @@ export default function AdminPage() {
           <div className="tabs">
             <div className={activeTab === 1 ? "t1 show-tab" : "hide-tab"}>Tab 1</div>
             <TabManageInventory activeTab={activeTab} setActiveTab={setActiveTab} setResetCurrentTab={setResetCurrentTab} setFullScreen={setFullScreen} />
-            <TabUploadBeat activeTab={activeTab} isUploadingStep={isUploadingStep} setIsUploadingStep={setIsUploadingStep} file={file} setFile={setFile} handleEditingModeChange={handleEditingModeChange} setPackages={setPackages} uploadBeat={uploadBeat} packages={packages} removePackage={removePackage} addPackage={addPackage} uncreatedPackages={uncreatedPackages} isEditing={isEditing} setResetCurrentTab={setResetCurrentTab} setActiveTab={setActiveTab} resetPackages={resetPackages} setResult={setResult} setFullScreen={setFullScreen} />
+            <TabUploadBeat activeTab={activeTab} isUploadingStep={isUploadingStep} setIsUploadingStep={setIsUploadingStep} file={file} setFile={setFile} handleEditingModeChange={handleEditingModeChange} setPackages={setPackages} uploadBeat={uploadBeat} packages={packages} removePackage={removePackage} addPackage={addPackage} uncreatedPackages={uncreatedPackages} isEditing={isEditing} setResetCurrentTab={setResetCurrentTab} setActiveTab={setActiveTab} resetPackages={resetPackages} result={result} setResult={setResult} setFullScreen={setFullScreen} />
           </div>
 
           <PageIndicator activeTab={activeTab} isUploadingStep={isUploadingStep} />

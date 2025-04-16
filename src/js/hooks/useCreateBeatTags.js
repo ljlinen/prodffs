@@ -5,21 +5,34 @@ export default function useCreateBeatTags(setPackages, setFile, isUploadingStep)
     const [tagTitles, setTagTitles] = useState([]);
     const [potentialTags, setPotentialTags] = useState();
     const [tags, setTags] = useState([])
+    const [generateTags, setGenerateTags] = useState(false)
 
     const year = new Date().getUTCFullYear()
-    const tagsKeyWords = [year, 'Free', 'TypeBeat']
+    const tagsKeyWords = ['TypeBeat', 'TypeBeat' + year, 'TypeBeatFree', 'Instrumental']
 
+
+    useEffect(() => {
+      if(isUploadingStep && isUploadingStep === 2) {
+          isUploadingStep === 2 && setGenerateTags(true)
+        } else if(!isUploadingStep) {
+          setGenerateTags(null)
+          setGenerateTags(null)
+          setTags([])
+          setTagTitles([])
+        }
+          
+    }, [isUploadingStep])
 
     useEffect(() => {  
-      potentialTags?.length &&
-      potentialTags.forEach((potentialTag) => {
+      tagTitles?.length && generateTags &&
+      tagTitles.forEach((potentialTag) => {
         tagsKeyWords.forEach((keyword) => {
-            setTags((prev) => (prev?.length ? [...prev, potentialTag + keyword] : [potentialTag + keyword]))
+            setTags((prev) => (prev?.length ? [...prev, ` ${potentialTag + keyword}`] : [potentialTag + keyword]))
         })
       })
 
     // eslint-disable-next-line
-    }, [potentialTags])
+    }, [tagTitles, generateTags])
 
     useEffect(() => {
       
@@ -28,17 +41,41 @@ export default function useCreateBeatTags(setPackages, setFile, isUploadingStep)
     }, [tags, isUploadingStep]);
 
     const handleFileChange = (value) => {
-
       const potentials = value?.split([' '], 20);
+      const filterSearchKeys = ['free', 'mp3']
+      const filterKeys = ['[FREE]', '[Free]', '-', 'x', 'Type', 'Beat', 'TypeBeat' + year, 'TypeBeatFree', 'Instrumental']
+      
+      const potentialsFiltered = potentials.filter((item) => {
+        for (let i = 0; i < filterSearchKeys.length; i++) {
+          const filterKey = filterSearchKeys[i]
+          if(item.includes(filterKey)) return false
+        }
+        if(filterKeys.includes(item)) {
+          return false
+        } else {
+          return true
+        }
+      })
+
       setPackages((prev) => ({...prev, info: {...prev.info, title: value}}))
-      setPotentialTags(potentials);
+      setPotentialTags(potentialsFiltered);
     }
     
-    const handleTagToggle = (item) => {
-      tagTitles.includes(item) ?
-      setTagTitles((prev) => (prev.length && prev.filter((prevItem) => prevItem !== item))) :
-      setTagTitles((prev) => (prev.length ? [...prev, item] : [item]))
+    const handleTagToggle = (item, removeTags) => {
+
+      if(removeTags) {
+        removeTags.forEach(removeTag => {
+          tagTitles.includes(removeTag) &&
+          setTagTitles((prev) => (prev.length && prev.filter((prevItem) => prevItem !== removeTag)))
+          setPotentialTags((prev) => (prev.filter(prevItem => prevItem !== removeTag)))
+        })
+        setPotentialTags((prev) => ([...prev, item]))
+      } else {
+        tagTitles.includes(item) ?
+        setTagTitles((prev) => (prev.length && prev.filter((prevItem) => prevItem !== item))) :
+        setTagTitles((prev) => (prev.length ? [...prev, item] : [item]))
+      }
     }
 
-  return { handleFileChange, handleTagToggle, potentialTags, tagTitles }
+  return { handleFileChange, handleTagToggle, potentialTags, tagTitles, tags }
 }

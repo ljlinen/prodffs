@@ -3,6 +3,7 @@
 
 # client version only
 /admin
+/dist
 adminpage.js
 
 # dependencies
