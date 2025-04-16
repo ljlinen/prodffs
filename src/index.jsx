@@ -11,7 +11,7 @@ import AdminContextProvider from "./js/context/AdminContext";
 import BeatPage from "./js/page/BeatPage";
 import Error from "./js/page/Error";
 
-export const productionMode = false
+export const productionMode = true
 
 export const baseUrl = productionMode ?
 "https://prodlinenbackend.linendev.workers.dev" : 
