@@ -6,20 +6,21 @@ import Radio from "../../elemet/Radio";
 import Button from "../../elemet/Button";
 import Input from "../../elemet/Input";
 import useAdminContext from "../../hooks/useContext/useAdminContext";
+import { productionMode } from "../../..";
 
-export default function TabUploadBeat({addPackage, uncreatedPackages, activeTab, setActiveTab, resetPackages, setPackages, packages, removePackage, handleEditingModeChange,
-  file, setFile, isUploadingStep, isEditing, setIsUploadingStep, uploadBeat, setResetCurrentTab, setResult, setFullScreen
- }) {
-  
+export default function TabUploadBeat({ addPackage, uncreatedPackages, activeTab, setActiveTab, resetPackages, setPackages, packages, removePackage, handleEditingModeChange,
+  file, result, setFile, isUploadingStep, isEditing, setIsUploadingStep, uploadBeat, setResetCurrentTab, setResult, setFullScreen
+}) {
+
   const { packagesFilled } = useAdminContext();
-  const { handleFileChange, handleTagToggle, potentialTags, tagTitles } = useCreateBeatTags(setPackages, setFile, isUploadingStep);
+  const { handleFileChange, handleTagToggle, potentialTags, tagTitles, tags } = useCreateBeatTags(setPackages, setFile, isUploadingStep);
 
 
   useEffect(() => {
-    if(setResetCurrentTab && activeTab === 3) {
+    if (setResetCurrentTab && activeTab === 3) {
       setResetCurrentTab(() => resetTabThree)
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeTab])
 
   const resetTabThree = () => {
@@ -32,10 +33,10 @@ export default function TabUploadBeat({addPackage, uncreatedPackages, activeTab,
   }
 
 
-   const handleStep = () => {
-      console.log(isUploadingStep, tagTitles);
+  const handleStep = () => {
+    console.log(isUploadingStep, tagTitles);
 
-      switch (isUploadingStep) {
+    switch (isUploadingStep) {
       case 1:
         file ? setIsUploadingStep(2) : setFile(true)
         break;
@@ -44,35 +45,54 @@ export default function TabUploadBeat({addPackage, uncreatedPackages, activeTab,
         break;
       default:
         break;
-      }
-   };
+    }
+  };
 
-   const handleBpmInput = (value) => {
-    setPackages((prev) => ({...prev, info: {...prev.info, bpm: value}}));
+  const handleBpmInput = (value) => {
+    setPackages((prev) => ({ ...prev, info: { ...prev.info, bpm: value } }));
     console.log(packages);
   }
 
   return (
     <div className={activeTab === 3 ? "t3 show-tab" : "hide-tab"}>
-      <p>Tags will be generated using the beat title</p>
-      <p>Make sure your beat has a title</p>
+      <h5 style={{ display: result ? 'unset' : 'none', marginBottom: 20}}>Title: {packages?.info?.title}</h5>
+      <p>
+        {
+          result ?
+            `
+            🔥 Download/Buy: ${result?.data ? `${productionMode ? 'https://prodffs.pages.dev/beat/' : 'http://localhost:4000/beat/'}${result?.data}` : 'link not found/'}
 
-      <Input 
+            —————————————————————————
+            ❤️ Like The Beat? Subscribe to our channel and hit the notification bell to never miss the next beat!
+            
+            🔥 If You Have An Artist In Mind That You Want Us To Create A Type For,  Comment Below
+            —————————————————————————
+            
+            Stay connected! 🔗
+            Beatsite: https://prodffs.pages.dev/
+            
+            Tags (Ignore)
+            ${tags}
+        ` : null
+        }
+      </p>
+
+      <Input
         renderCondition={(activeTab === 3 && isUploadingStep === 1 && !file)}
         label={"beat title"}
         title={"beat title"}
         type={"text"}
         placeholder={''}
-        style={{ marginTop: 50}}
+        style={{ marginTop: 50 }}
         handler={handleFileChange}
       />
 
-      <Input 
+      <Input
         renderCondition={(activeTab === 3 && isUploadingStep === 1 && file)}
         label={"BPM"}
         title={"what is the beat's beats per minute"}
         type={"number"}
-        style={{ marginTop: 50}}
+        style={{ marginTop: 50 }}
         handler={handleBpmInput}
       />
 
@@ -105,7 +125,7 @@ export default function TabUploadBeat({addPackage, uncreatedPackages, activeTab,
       <Button
         condition={isUploadingStep > 2 ? false : true}
         type={"submit"}
-        style={{marginTop: 20 }}
+        style={{ marginTop: 20 }}
       >
         <p onClick={handleStep}>Upload</p>
       </Button>

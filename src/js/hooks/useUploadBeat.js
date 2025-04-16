@@ -34,7 +34,10 @@ export default function useUploadBeat(packages) {
       });
 
       if (response.ok) {
-        setResult(response.status === 201 ? 'beat uploaded successfully' : 'Success? status 201 expected but found ' + response.status);
+        const uploadeBeatId = await response.text()
+        setResult(response.status === 201 ? 
+          { message: 'beat uploaded successfully', data: uploadeBeatId } :
+          { message: 'Success? status 201 expected but found ' + response.status });
       } else {
         console.log(response.statusText);
       }
