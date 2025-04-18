@@ -13,7 +13,7 @@ export default function TabUploadBeat({ addPackage, uncreatedPackages, activeTab
 }) {
 
   const { packagesFilled } = useAdminContext();
-  const { handleFileChange, handleTagToggle, potentialTags, tagTitles, tags } = useCreateBeatTags(setPackages, setFile, isUploadingStep);
+  const { handleFileChange, handleTagToggle, potentialTags, tagTitles, tags, copyToClipboard, copied } = useCreateBeatTags(setPackages, setFile, isUploadingStep);
 
 
   useEffect(() => {
@@ -56,24 +56,27 @@ export default function TabUploadBeat({ addPackage, uncreatedPackages, activeTab
   return (
     <div className={activeTab === 3 ? "t3 show-tab" : "hide-tab"}>
       <h5 style={{ display: result ? 'unset' : 'none', marginBottom: 20}}>Title: {packages?.info?.title}</h5>
-      <p>
-        {
+      <p style={{ display: result ? 'unset' : 'none', color: 'yellowgreen'}}>{copied ? 'text copied!' : null}</p>
+      <p style={{whiteSpace: 'pre-line', cursor: 'pointer'}} onClick={(e) => copyToClipboard(e.target.textContent)}>
+        {            
           result ?
             `
-            🔥 Download/Buy: ${result?.data ? `${productionMode ? 'https://prodffs.pages.dev/beat/' : 'http://localhost:4000/beat/'}${result?.data}` : 'link not found/'}
+            🔥 Download/Buy: ${result?.data ? `${productionMode ? 'https://prodffs.pages.dev/beat/' : 'http://localhost:4000/beat/'}${result?.data}` : 'Link not found'}
 
-            —————————————————————————
-            ❤️ Like The Beat? Subscribe to our channel and hit the notification bell to never miss the next beat!
-            
-            🔥 If You Have An Artist In Mind That You Want Us To Create A Type For,  Comment Below
-            —————————————————————————
-            
-            Stay connected! 🔗
-            Beatsite: https://prodffs.pages.dev/
-            
-            Tags (Ignore)
+            —
+
+            ❤️ Enjoyed the beat? Subscribe and turn on notifications so you never miss a new drop!
+
+            🎤 Want a type beat for a specific artist? Comment below!
+
+            —
+
+            Stay connected: https://prodffs.pages.dev/
+
+            Tags:  
             ${tags}
-        ` : null
+            `
+          : null
         }
       </p>
 

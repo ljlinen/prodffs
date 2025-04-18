@@ -15,7 +15,7 @@ export default function PotentialTagsSelector({condition, potentialTags, tagTitl
               </div>
               {
                 potentialTags[i + 1] ?
-                <p onClick={() => handler(item + ' ' + potentialTags[i + 1], [item, potentialTags[i + 1]])} key={'add' + i}>
+                <p onClick={() => handler(item + potentialTags[i + 1], [item, potentialTags[i + 1]], i)} key={'add' + i}>
                 +
                 </p> :
                 null
