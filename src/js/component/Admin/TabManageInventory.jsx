@@ -48,7 +48,7 @@ export default function TabManageInventory({activeTab, setActiveTab, setResetCur
                      <BeatAdmin
                      i={i}
                      id={beatObj.id}
-                     key={beatObj.id}
+                     key={beatObj.id + i}
                      beatObj={beatObj}
                      />
                   );

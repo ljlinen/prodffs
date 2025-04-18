@@ -12,16 +12,19 @@ import InfoText from "../component/InfoText";
 import ButtonDescriptive from "../elemet/ButtonDescriptive";
 import Footer from "../component/Footer";
 import useGoToHomePage from "../hooks/useGoToHomePage";
+import useBeatsContext from "../hooks/useContext/useBeatsContext";
 
 export default function BeatPage() {
   const params = useParams();
 
   const { selectedBeat, buyingDispatch } = useBuyingContext();
+  const { beatsDispatch, beats } =  useBeatsContext()
   const VisitHome = useGoToHomePage()
 
   const [beat, setBeat] = useState();
   const [isLoading, setIsLoading] = useState();
   const [requestStatusText, setRequestStatusText] = useState()
+  const [songLoaded, setSongLoaded] = useState()
   const [sorter, setSorter] = useState();
 
 
@@ -34,7 +37,11 @@ export default function BeatPage() {
         const response = await fetch(baseUrl + '/beat/' + params['beatid']);
         if (response.ok) {
           const responseJson = await response.json();
-          setBeat(responseJson);
+          console.log('responseJson looks like ', responseJson);
+          
+          beatsDispatch({ type: 'ADD_BEAT', payload: responseJson})
+          setBeat(baseUrl + '/beatfile/' + responseJson?.id);
+          setSongLoaded(true)
         }
         setIsLoading(false)
       } catch (error) {
@@ -87,32 +94,32 @@ export default function BeatPage() {
       </header>
 
       <div className="beatlist-main" style={{ minHeight: "92vh" }}>
-        <AudioPlayer renderCondition={beat && !isLoading} />
+        <AudioPlayer renderCondition={beat && !isLoading} toPlayQue={[beat]} queLoaded={songLoaded} />
         <div className="beatlist">
 
           <InfoText 
-            condition={beat && !isLoading}
+            condition={beats && !isLoading}
             h4={'download or purchase to this beat'}
             p={'take a listen to ensure you were sent to the right beat'}
           />
 
           { 
-            beat ?
+            beats ?
               <Beat
-                id={beat.id}
-                beatObj={beat}
-                key={beat.id}
+                id={beats[0]?.id}
+                beatObj={beats[0]}
+                key={beats[0]?.id}
                 i={0}
               /> :
               <>
                 <InfoText
-                  condition={!beat && !isLoading}
+                  condition={!beats && !isLoading}
                   h4={'That beat was not found or link is broken'}
                   p={'You may return to the homepage to checkout other beats'}
                   style={{marginBottom: 25}}
                 />
                 <ButtonDescriptive
-                  condition={!beat && !isLoading}
+                  condition={!beats && !isLoading}
                   h4={'Home Page'}
                   p={'Visit'}
                   handler={VisitHome}

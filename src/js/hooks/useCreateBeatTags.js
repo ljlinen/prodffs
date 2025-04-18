@@ -5,6 +5,7 @@ export default function useCreateBeatTags(setPackages, setFile, isUploadingStep)
     const [tagTitles, setTagTitles] = useState([]);
     const [potentialTags, setPotentialTags] = useState();
     const [tags, setTags] = useState([])
+    const [copied, setCopied] = useState(false);
     const [generateTags, setGenerateTags] = useState(false)
 
     const year = new Date().getUTCFullYear()
@@ -61,7 +62,7 @@ export default function useCreateBeatTags(setPackages, setFile, isUploadingStep)
       setPotentialTags(potentialsFiltered);
     }
     
-    const handleTagToggle = (item, removeTags) => {
+    const handleTagToggle = (item, removeTags, index) => {
 
       if(removeTags) {
         removeTags.forEach(removeTag => {
@@ -69,7 +70,11 @@ export default function useCreateBeatTags(setPackages, setFile, isUploadingStep)
           setTagTitles((prev) => (prev.length && prev.filter((prevItem) => prevItem !== removeTag)))
           setPotentialTags((prev) => (prev.filter(prevItem => prevItem !== removeTag)))
         })
-        setPotentialTags((prev) => ([...prev, item]))
+        setPotentialTags((prev) => {
+          // const prevV = [...prev.splice(index, 0, item)]
+          prev.splice(index, 0, item)
+          return prev
+        })
       } else {
         tagTitles.includes(item) ?
         setTagTitles((prev) => (prev.length && prev.filter((prevItem) => prevItem !== item))) :
@@ -77,5 +82,16 @@ export default function useCreateBeatTags(setPackages, setFile, isUploadingStep)
       }
     }
 
-  return { handleFileChange, handleTagToggle, potentialTags, tagTitles, tags }
+    const copyToClipboard = async (textToCopy) => {
+      try {
+        await navigator.clipboard.writeText(textToCopy);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
+      } catch (err) {
+        console.error('Failed to copy: ', err);
+      }
+    };
+    
+
+  return { handleFileChange, handleTagToggle, potentialTags, tagTitles, tags, copyToClipboard, copied }
 }
