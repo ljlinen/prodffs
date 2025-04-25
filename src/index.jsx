@@ -36,11 +36,11 @@ const router = createBrowserRouter(
     element: <ViewDebugger />,
     errorElement: <Error page='debugger page' />
   },
-  {
-    path: "/admin",
-    element: <AdminPage />,
-    errorElement: <Error page='admin page' />
-  }
+  // {
+  //   path: "/admin",
+  //   element: <AdminPage />,
+  //   errorElement: <Error page='admin page' />
+  // }
 ] :
   [{
     path: "/",

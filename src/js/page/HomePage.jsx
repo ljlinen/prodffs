@@ -29,7 +29,7 @@ export default function HomePage() {
   const { selectedBeat } = useBuyingContext();
   // eslint-disable-next-line no-unused-vars
   const { setIsLoading, isLoading, isAtPageEnd, isAtDataEnd } = useBeatPages(currentPage);
-  const { beatsToRender } = useBeatsSorter(currentPage, setToPlayQue, setQueLoaded, sorter)
+  const { beatsToRender } = useBeatsSorter(currentPage, setToPlayQue, setQueLoaded, sorter, genre)
 
 
 

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import useBeatsContext from "./useContext/useBeatsContext";
 import { baseUrl } from "../..";
 
-export default function useBeatsSorter(currentPage, setToPlayQue, setQueLoaded, sorter) {
+export default function useBeatsSorter(currentPage, setToPlayQue, setQueLoaded, sorter, genre) {
 
   const [beatsToRender, setBeatsToRender] = useState(false);
 
@@ -20,8 +20,8 @@ export default function useBeatsSorter(currentPage, setToPlayQue, setQueLoaded, 
           break;
         case 'genre':
           updated.sort((a, b) => {
-            if(a.info.genre === genre) return -1
-            if(b.info.genre === genre) return 1
+            if(a.info?.genre === genre) return -1
+            if(b.info?.genre === genre) return 1
             return 0
           });
           break;
