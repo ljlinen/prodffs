@@ -17,12 +17,12 @@ export default function useCreatePackages() {
     packages: {
       free: {
         package: "free",
-        price: undefined,
+        price: 0,
         untagged: false,
         file: undefined,
         mp3: {
           mp3: false,
-          bitrate: undefined,
+          bitrate: 192,
         },
         wav: false,
         "project-files": false,
@@ -33,11 +33,11 @@ export default function useCreatePackages() {
   const packageTemplate = {
     package: "free",
     price: undefined,
-    untagged: false,
+    untagged: true,
     file: undefined,
     mp3: {
-      mp3: false,
-      bitrate: undefined,
+      mp3: true,
+      bitrate: 320,
     },
     wav: false,
     "project-files": false,

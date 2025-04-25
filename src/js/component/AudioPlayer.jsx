@@ -14,8 +14,8 @@ export default function AudioPlayer({renderCondition, toPlayQue, queLoaded}) {
 
     const [currentSongSrc, setCurrentSongSrc] = useState()
     const [currentSongIndex, setCurrentSongIndex] = useState(0)
-    const [isPlayerVisible, setisPlayerVisible] = useState(true)
-
+    const [isPlayerVisible, setisPlayerVisible] = useState(false)
+    
 
     useEffect(() => {
         

@@ -99,7 +99,7 @@ export default function BeatPage() {
 
           <InfoText 
             condition={beats && !isLoading}
-            h4={'download or purchase to this beat'}
+            h4={'click download icon to download or purchase this beat.'}
             p={'take a listen to ensure you were sent to the right beat'}
           />
 
