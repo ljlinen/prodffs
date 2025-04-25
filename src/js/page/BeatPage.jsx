@@ -22,6 +22,7 @@ export default function BeatPage() {
   const VisitHome = useGoToHomePage()
 
   const [beat, setBeat] = useState();
+  const [beatObj, setBeatOBj] = useState();
   const [isLoading, setIsLoading] = useState();
   const [requestStatusText, setRequestStatusText] = useState()
   const [songLoaded, setSongLoaded] = useState()
@@ -40,6 +41,7 @@ export default function BeatPage() {
           console.log('responseJson looks like ', responseJson);
           
           beatsDispatch({ type: 'ADD_BEAT', payload: responseJson})
+          setBeatOBj(responseJson)
           setBeat(baseUrl + '/beatfile/' + responseJson?.id);
           setSongLoaded(true)
         }
@@ -63,8 +65,8 @@ export default function BeatPage() {
   // an event litener to the body inide this
   // useeffect
   useEffect(() => {
-    
-  }, [])
+    console.log(isLoading ? 'LOADING' : beat ?  beat?.info : 'requestStatusText')
+  }, [isLoading, beat, requestStatusText])
 
 
   const clearBuying = () => {
@@ -86,7 +88,7 @@ export default function BeatPage() {
 
         <div className="beatlist-sorter">
           <h2>
-            {isLoading ? 'LOADING' : beat ?  beat?.info?.title : requestStatusText}
+            {isLoading ? 'LOADING' : beatObj ?  beatObj?.info?.title : requestStatusText}
           </h2>
           {/* <Visualizer /> */}
         </div>
@@ -99,7 +101,7 @@ export default function BeatPage() {
 
           <InfoText 
             condition={beats && !isLoading}
-            h4={'click download icon to download or purchase this beat.'}
+            h4={'click download icon to download or buy this beat.'}
             p={'take a listen to ensure you were sent to the right beat'}
           />
 
